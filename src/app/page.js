@@ -1,95 +1,94 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import { useRef } from "react";
+import Popup from 'reactjs-popup';
 
-export default function Home() {
+export default function Login() {
+  const usernameRef = useRef();
+  const passwordRef = useRef();
+  const emailRef = useRef();
+
+  const blueButton = {
+    border:"solid",
+    borderRadius:"20px",
+    borderColor:"blue",
+    padding:"10px",
+    color:"white",
+    background:"blue",
+    display:"block",
+    marginRight:"auto",
+    marginLeft:"auto",
+    cursor:"pointer"
+  }
+
+  async function LoginUserWithDetails(){
+    try {
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        body: JSON.stringify(
+          {
+            Username:usernameRef.current.value,
+            Password:passwordRef.current.value
+          }),
+      });
+  
+      const result = await response.json();
+      console.log("Success:", result);
+      alert(result.message);
+    } catch (error) {
+      alert("Login attempt failed");
+      console.error("Error:", error);
+    }
+  }
+
+  function SendRecoveryEmail(){
+    alert(`Email: ${emailRef.current.value}`);
+  }
+
+  function LoginForms(){
+    return (
+      <>
+        <form style={{textAlign:"center"}}>
+          <label for="usernameBox">Username</label><br></br>
+          <input type="text" id="usernameBox" name="username" ref={usernameRef}></input><br></br>
+          <label for="passwordBox">Password</label><br></br>
+          <input type="password" id="usernameBox" name="username" ref={passwordRef}></input>
+        </form>
+        <br></br>
+      </>
+    );
+  }
+
+  function ForgotPasswordForm(){
+    return (
+      <>
+        <form style={{textAlign:"center",border:"solid",borderRadius:"20px",borderColor:"white",
+        padding:"20px",background:"white"}}>
+          <label for="emailBox">Enter the email for your account</label>
+          <br></br>
+          <input type="email" id="emailBox" name="email" ref={emailRef}></input><br></br>
+        </form>
+        <br></br>
+      </>
+    );
+
+  }
+
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <>
+      <p style={{textAlign:"center",fontSize:"50px"}}>Welcome to Easypark</p>
+      <p style={{textAlign:"center",fontSize:"30px"}}>Login</p>
+      <br></br>
+      <LoginForms/>
+      <Popup trigger={
+      <button style={{display:"block",marginRight:"auto",marginLeft:"auto",cursor:"pointer"}}>
+      Forgot password?
+      </button>}>
+        <ForgotPasswordForm/>
+        <button style={blueButton} onClick={SendRecoveryEmail}>Send recovery email</button>
+      </Popup>
+      <br></br>
+      <button style={blueButton} onClick={LoginUserWithDetails}>Login</button>
+    </>
   );
 }

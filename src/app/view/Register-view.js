@@ -49,8 +49,7 @@ export default function Register() {
       } else {
         let result = await CheckLoginDetails(username, password);
         const token = result.token;
-        alert(token)
-        if (token === "a131a9a0-8d09-4166-b6fc-f8a08ba549e9") {
+        if (username === "adminUsername") {
           Navigate("/adminHomepage");
         } else {
           Navigate("/driverHomepage");

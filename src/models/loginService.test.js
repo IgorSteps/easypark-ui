@@ -3,6 +3,8 @@ import MockAdapter from 'axios-mock-adapter'
 const { loginUser } = await import('./loginService');
 import axios from 'axios';
 
+process.env.BASE_API_URL = 'http://localhost:8080';
+
 describe('Login User model', () => {
   it('should return user data upon successful login', async () => {
     // --------
@@ -30,8 +32,8 @@ describe('Login User model', () => {
     // --------
     var mock = new MockAdapter(axios);
     const errorMessage = 'boom';
-    let credentials = { username: 'testuser', password: 'testpassword' };
-    mock.onPost(`${process.env.BASE_API_URL}/login`, credentials).reply(errorMessage);
+    const errorResponse = { response: { data: { error: errorMessage } } };    let credentials = { username: 'testuser', password: 'testpassword' };
+    mock.onPost(`${process.env.BASE_API_URL}/login`, credentials).reply(400, { error: errorMessage });
     
     // ----
     // ACT and ASSERT

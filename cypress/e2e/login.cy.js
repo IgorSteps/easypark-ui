@@ -21,7 +21,7 @@ describe('Login Form', () => {
     cy.url().should('include', '/home'); 
   });
 
-  it('fails logs in and shown error', () => {
+  it('fails the log in and shows the error', () => {
     // --------
     // ASSEMBLE
     // --------

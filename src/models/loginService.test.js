@@ -1,4 +1,3 @@
-import { jest } from '@jest/globals';
 import MockAdapter from 'axios-mock-adapter'
 const { loginUser } = await import('./loginService');
 import axios from 'axios';

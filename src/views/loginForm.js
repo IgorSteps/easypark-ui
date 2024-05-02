@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import {Form} from 'react-bootstrap';
 import { Button, Container } from 'react-bootstrap';
 import useLoginController from '../controllers/loginController.js';
+import { Alert } from 'react-bootstrap';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const handleLogin = useLoginController();
+  const { handleLogin, error } = useLoginController();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,6 +51,13 @@ export default function LoginForm() {
           >
             Log In
           </Button>
+
+          {/* Display error message if any */}
+          {error && (
+            <Alert data-test-id="login-alert" className='mt-4' variant="danger">
+              {error}
+            </Alert>
+          )}
           
         </Container>
     </Form>

@@ -6,7 +6,8 @@ export async function loginUser(credentials) {
     const response = await axios.post(process.env.BASE_API_URL+'/login', credentials);
     return response.data;
   } catch (error) {
-    console.error('Login failed:', error);
-    throw error;
+    // Not 2xx responses.
+    console.error('Failed to login', error.response);
+    throw new Error(error.response.data.error || 'An error occurred');
   }
 }

@@ -1,0 +1,28 @@
+.login-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+  }
+
+.login-form{
+    width: 620px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 8px;
+}
+
+.login-form-content {
+    padding-left: 12%;
+    padding-right: 12%;
+}
+
+.login-form-title{
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: 24px;
+    color: black;
+    font-weight: 800;
+}

@@ -5,8 +5,6 @@ import './index.css';
 import { createRoot } from 'react-dom/client';
 import App from './app.js';
 
-console.info("Running easypark-ui in", process.env.NODE_ENV)
-
 if (process.env.USING === 'mirage') {
   makeServer();
 }

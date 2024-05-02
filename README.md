@@ -25,33 +25,26 @@ To set up the project for development on your local machine, follow these steps:
    npm install
    ```
 
-3. **Setup Environment**
-
-   You can configure the project to either run with a mock server for development or connect to a real backend API. To set up the desired environment:
-
-   - **For development with Mirage Dev server:**
-     - No additional configuration is needed. The project is set up to use Mirage by default when running in development mode.
-
-   - **For connecting to a real backend:**
-     - In the `.env` file in the root directory of the project.
-     - Change the following line to specify the base URL of our backend API:
-
-       ```plaintext
-       BASE_API_URL=http://localhost:8080
-       ```
-
-### Running the Project
+### Running locally
 
 Once the installation and environment configuration are complete, you can run the project using the following commands:
 
 - **Start the development server**
 
-  This command serves your app at `localhost:9000` and uses hot reloading:
+  These commands serve your app at `localhost:9000` and uses hot reloading:
+
+  - Using Mirage to mock backend:
 
   ```bash
-  npx webpack serve
+  npx webpack serve --config-name=mirage
   ```
 
+  - Using real backend:
+
+  ```bash
+  npx webpack serve --config-name=backend
+  ```
+  
 - **Run unit tests**
 
   Execute the unit test:

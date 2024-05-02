@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../models/loginService.js';
 import { useState } from 'react';
 
-/** loginController is a React Hook that acts as a Controller that handles reading data from
- * the loginService Model and updating the login View based */
+/** loginController is a React Hook that handles reading data from
+ * the loginService and updating the login form */
 const useLoginController = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import {Form} from 'react-bootstrap';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Alert, Form } from 'react-bootstrap';
 import useLoginController from '../controllers/loginController.js';
-import { Alert } from 'react-bootstrap';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
@@ -18,7 +16,11 @@ export default function LoginForm() {
     <Container className='login-form-container'>
       <Form className='login-form' onSubmit={handleSubmit}>
         <Container className='login-form-content '>
-          
+
+          <h1 className='login-form-title'>
+            EasyPark Login
+          </h1>
+
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username:</Form.Label>
             <Form.Control 

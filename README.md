@@ -25,7 +25,7 @@ To set up the project for development on your local machine, follow these steps:
    npm install
    ```
 
-### Running locally
+## Running locally
 
 Once the installation and environment configuration are complete, you can run the project using the following commands:
 
@@ -60,3 +60,9 @@ Once the installation and environment configuration are complete, you can run th
   ```bash
   npx cypress open
   ```
+
+## Useful things
+
+### MirageJS Mocking
+
+To mock new API route using MirageJS, add it to [here](./mirageServer.js). Follow this [tutorial](https://miragejs.com/tutorial/intro/) on MirageJS website.

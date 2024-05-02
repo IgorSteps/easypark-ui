@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../models/loginService.js';
 
-/** useLoginController is a React hook that acts as a controller */
+/** loginController is a React Hook that acts as a Controller that handles reading data from
+ * the loginService Model and updating the login View based */
 const useLoginController = () => {
   const navigate = useNavigate();
 

@@ -1,33 +1,17 @@
 import React from 'react';
-import { Container, Navbar, Nav, Jumbotron, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 const Home = () => {
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-
-        <Container>
-          <h1>Welcome to Our Website</h1>
-          <p>
-            This is a simple hero unit, a simple jumbotron-style component for calling
-            extra attention to featured content or information.
-          </p>
-          <p>
-            <Button variant="primary">Learn more</Button>
-          </p>
-        </Container>
-
-      <Container fluid style={{ backgroundColor: 'lightgray', textAlign: 'center', padding: '10px' }}>
-        <p>Footer Content Here</p>
+      <Container>
+        <h1>Welcome to Our Website</h1>
+        <p>
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+        qui officia deserunt mollit anim id est laborum."
+        </p>
       </Container>
     </>
   );

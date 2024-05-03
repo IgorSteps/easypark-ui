@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Container, Alert, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import useLoginController from '../controllers/loginController.js';
 
 export default function LoginForm() {
@@ -44,6 +45,17 @@ export default function LoginForm() {
               data-test-id="login-password-input"
             />
           </Form.Group>
+
+          <Button 
+            className="mt-4"
+            variant="link"
+            as={Link}
+            to="/register"
+            data-test-id="register-link-button"
+          >
+            New to Easypark? Register here
+          </Button>
+          <br></br>
 
           <Button 
             className="mt-4"

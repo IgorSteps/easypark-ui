@@ -14,6 +14,9 @@ export async function loginUser(credentials) {
   } catch (error) {
     // Not 2xx responses.
     console.error('Failed to login', error.response);
+    if (error.response.status !== 500){
+      throw new Error(error.response.data.error || 'No account found');
+    }
     throw new Error(error.response.data.error || 'An error occurred');
   }
 }

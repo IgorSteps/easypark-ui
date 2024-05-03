@@ -9,6 +9,7 @@ export async function loginUser(credentials) {
     console.debug("Got login response data", response.data)
     // Store JWT in the session storage.
     sessionStorage.setItem('token', response.data.token);
+    sessionStorage.setItem('userId', response.data.userId);
 
     return response.data;
   } catch (error) {

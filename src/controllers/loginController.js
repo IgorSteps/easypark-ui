@@ -12,7 +12,7 @@ const useLoginController = () => {
     try {
       await loginUser(credentials);
       setError(null)
-      navigate('/home');
+      navigate('/driver-dashboard');
     } catch (error) {
       setError(error.message);
     }

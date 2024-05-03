@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Container, Alert, Form } from 'react-bootstrap';
-import useLoginController from '../controllers/loginController.js';
+import useLoginController from '../../controllers/loginController.js';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');

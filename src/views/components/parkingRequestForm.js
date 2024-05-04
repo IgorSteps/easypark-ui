@@ -28,7 +28,7 @@ function ParkingRequestForm() {
         
             <Form.Group controlId="formParkingLot">
                 <Form.Label>Select Parking Lot</Form.Label>
-                <Form.Control as="select" value={destination} onChange={e => setDestination(e.target.value)}>
+                <Form.Control as="select" value={destination} onChange={e => setDestination(e.target.value)} data-test-id="select-parking-lot">
                     <option value="">Choose...</option>
                     {parkLots.map((lot, index) => (
                         <option key={index} value={lot.ID}>{lot.Name}</option>                        
@@ -55,25 +55,25 @@ function ParkingRequestForm() {
                     timeFormat="HH:mm"
                 />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" data-test-id='park-req-submit'>
                 Submit
             </Button>
 
             {/* Display error message if any */}
             {error && (
-                <Alert data-test-id="create-park-request-alert" className='mt-4' variant="danger">
+                <Alert data-test-id="create-park-request-error-alert" className='mt-4' variant="danger">
                 {"Failed to create parking request:" + error}
                 </Alert>
             )}
             {parkLotError && (
-                <Alert data-test-id="create-park-request-alert" className='mt-4' variant="danger">
+                <Alert data-test-id="get-park-lots-error-alert" className='mt-4' variant="danger">
                 {"Failed to get parking lots:" + parkLotError}
                 </Alert>
             )}
 
             {/* Display success message if any */}
             {parkReq && (
-                <Alert data-test-id="create-park-request-alert" className='mt-4' variant="success">
+                <Alert data-test-id="create-park-request-success-alert" className='mt-4' variant="success">
                 {"Successfully created parking request"}
                 </Alert>
             )}

@@ -1,6 +1,4 @@
 describe('Login Form', () => {
-  beforeEach(() => {
-  });
 
   it('successfully logs in', () => {
     // --------

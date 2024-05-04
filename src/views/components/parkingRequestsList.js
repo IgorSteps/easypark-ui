@@ -58,12 +58,12 @@ function ParkingRequestList() {
                 {parkingRequests.map((parkingRequest, index) => (
                     <tr key={index}>
                         {/* TODO: Truncate based on cell width */}
-                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }}>{parkingRequest.ID}</span></td>
-                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }}>{parkingRequest.UserID}</span></td>
-                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }}>{parkingRequest.DestinationParkingLotID}</span></td>
-                         <td>{formatDateTime(parkingRequest.StartTime)}</td>
-                        <td>{formatDateTime(parkingRequest.EndTime)}</td>
-                        <td>{parkingRequest.Status}</td>
+                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }} data-test-id={`parking-request-id-${index}`}>{parkingRequest.ID}</span></td>
+                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }} data-test-id={`parking-request-user-id-${index}`}>{parkingRequest.UserID}</span></td>
+                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }} data-test-id={`parking-request-destination-lot-id-${index}`}>{parkingRequest.DestinationParkingLotID}</span></td>
+                        <td data-test-id={`parking-request-start-time-${index}`}>{formatDateTime(parkingRequest.StartTime)}</td>
+                        <td data-test-id={`parking-request-end-time-${index}`}>{formatDateTime(parkingRequest.EndTime)}</td>
+                        <td data-test-id={`parking-request-status-${index}`}>{parkingRequest.Status}</td>
                     </tr>
                 ))}
             </tbody>

@@ -15,7 +15,7 @@ function DriverDashboard() {
             <DriverNavbar />
             <Container>
 
-                <Button className="mt-4 mb-4" variant="primary" onClick={handleShowModal}>
+                <Button className="mt-4 mb-4" variant="primary" onClick={handleShowModal} data-test-id='create-park-req-btn'>
                     Create Parking Request
                 </Button>
                 <Modal show={showModal} onHide={handleCloseModal}>
@@ -26,7 +26,7 @@ function DriverDashboard() {
                         <ParkingRequestForm />
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleCloseModal}>
+                        <Button variant="secondary" onClick={handleCloseModal} data-test-id='close-btn'>
                             Close
                         </Button>
                     </Modal.Footer>

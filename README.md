@@ -31,16 +31,6 @@ Once the installation and environment configuration are complete, you can run th
 
 - **Start the development server**
 
-  These commands serve your app at `localhost:9000` and uses hot reloading:
-
-  - Using Mirage to mock backend:
-
-  ```bash
-  npx webpack serve --config-name=mirage
-  ```
-
-  - Using real backend:
-
   ```bash
   npx webpack serve --config-name=backend
   ```
@@ -63,6 +53,3 @@ Once the installation and environment configuration are complete, you can run th
 
 ## Useful things
 
-### MirageJS Mocking
-
-To mock new API route using MirageJS, add it to [here](./mirageServer.js). Follow this [tutorial](https://miragejs.com/tutorial/intro/) on MirageJS website.

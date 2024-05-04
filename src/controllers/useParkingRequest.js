@@ -6,12 +6,7 @@ function useParkingRequest() {
   const [parkReq, setParkReq] = useState(null);
 
   const createRequest = async (requestBody) => {
-    setError(null)
-
-    if (requestBody.destinationLotID === '' || requestBody.destinationLotID === undefined) {
-      setError("please choose destination");
-      return
-    }
+    setError(null) // reset error.
     try {
       const response = await createParkingRequest(requestBody);
       console.debug("create parking request response", response)

@@ -1,15 +1,18 @@
 import axios from 'axios';
 
 export async function createParkingRequest(requestBody) {
-  console.debug("create parking request request body", requestBody)
-    try {
+  try {
+      if (requestBody.destinationLotID === '' || requestBody.destinationLotID === undefined) {
+        console.warn("got empty ID or name for destination parking lot")
+        return new Error('Please choose destination')
+      }
       const response = await axios.post(process.env.BASE_API_URL+`/drivers/${sessionStorage.getItem('userId')}/parking-requests`, requestBody, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       });
-      console.log("response create parking req", response.data)
+
       return response.data;
     } catch (error) {
       console.error("Failed to create parking request", error.response)

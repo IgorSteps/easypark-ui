@@ -6,7 +6,11 @@ export async function loginUser(credentials) {
     console.debug("backend api endpoint is set to ", process.env.BASE_API_URL)
     const response = await axios.post(process.env.BASE_API_URL+'/login', credentials);
     
-    console.debug("Got login response data", response.data)
+    console.debug("got login response data", response.data)
+    if (response.data.token === '' || response.data.token === undefined) {
+      console.warn("got empty or undefined token from server")
+    }
+
     // Store JWT and User ID in the session storage.
     sessionStorage.setItem('token', response.data.token);
     sessionStorage.setItem('userId', response.data.user.ID);

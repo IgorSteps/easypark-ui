@@ -29,6 +29,10 @@ To set up the project for development on your local machine, follow these steps:
 
 Once the installation and environment configuration are complete, you can run the project using the following commands:
 
+- **Start your browser without CORS**
+
+  Check this [link](https://alfilatov.com/posts/run-chrome-without-cors/) out.
+
 - **Start the development server**
 
   ```bash

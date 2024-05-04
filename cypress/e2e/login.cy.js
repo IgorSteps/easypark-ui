@@ -16,7 +16,7 @@ describe('Login Form', () => {
     // ------
     // ASSERT
     // ------
-    cy.url().should('include', '/home'); 
+    cy.url().should('include', '/driver-dashboard'); 
   });
 
   it('fails the log in and shows the error', () => {

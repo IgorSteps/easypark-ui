@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { getAllParkingLots } from '../models/parkingLot.js'
 
-function useParkingLots() {
+/** useGetParkingLots is a React hook that fetches all parking lots */
+function useGetParkingLots() {
   const [error, setError] = useState(null);
   const [parkLots, setParkLots] = useState([]);
   
@@ -17,4 +18,4 @@ function useParkingLots() {
   return { parkLots, fetchParkLots, error};
 }
 
-export default useParkingLots;
+export default useGetParkingLots;

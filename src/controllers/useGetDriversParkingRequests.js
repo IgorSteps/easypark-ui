@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import {getAllParkingRequests} from '../models/parkingRequest.js'
 
-function useParkingRequests() {
+/** useGetParkingRequests is a React hook that fetches all parking requests for a driver */
+function useGetParkingRequests() {
   const [error, setError] = useState(null);
   const [parkingRequests, setParkingRequests] = useState([]);
   
-  // Function to fetch all parking requests for a driver
   const fetchParkingRequests = async (token) => {
+    setError(null) // reset error
     try {
       const response = await getAllParkingRequests(token);
       setParkingRequests(response);
@@ -18,4 +19,4 @@ function useParkingRequests() {
   return { parkingRequests, fetchParkingRequests, error};
 }
 
-export default useParkingRequests;
+export default useGetParkingRequests;

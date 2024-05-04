@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Table, Alert } from 'react-bootstrap';
-import useParkingRequests from '../../controllers/useDriversParkingRequests.js';
+import useGetParkingRequests from '../../controllers/useGetDriversParkingRequests.js';
 
 function ParkingRequestList() {
-    const {  parkingRequests, fetchParkingRequests, error } = useParkingRequests();
+    const {  parkingRequests, fetchParkingRequests, error } = useGetParkingRequests();
     
     useEffect(() => {
         const fetchData = async () => {
             await fetchParkingRequests();
         };
 
-        // Initially fetch data on component load.
+        // Get parking requests on first component load.
         fetchData();
 
         // Set up interval to poll every 10 seconds.
+        // TODO: make it configurable?
         const intervalId = setInterval(fetchData, 10000);
 
         // Clean up interval on component unload.
@@ -43,7 +44,6 @@ function ParkingRequestList() {
         return date.toLocaleString();
     };
 
-    console.debug("got all parking requests for driver", parkingRequests)
     return (
         <Table striped bordered hover>
             <thead>

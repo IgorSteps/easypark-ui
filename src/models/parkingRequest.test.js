@@ -15,13 +15,14 @@ describe('createParkingRequest', () => {
         };
     });
 
-    it('should create parking requests', async () => {
+    it('should create parking request', async () => {
         // --------
         // ASSEMBLE
         // --------
         var mock = new MockAdapter(axios);
         let request = {
-            destination: "ss"
+            destinationLotID: "test",
+            destinationLotName: "test"
         }
         let responseData = { 
             ID: 'f775a770-67ce-43ce-a640-89fac4055bb7',
@@ -52,7 +53,8 @@ describe('createParkingRequest', () => {
         // --------
         var mock = new MockAdapter(axios);
         let request = {
-            destination: "ss"
+            destinationLotID: "test",
+            destinationLotName: "test"
         }
         let error = "boom"
         mock.
@@ -94,9 +96,6 @@ describe('getAllParkingRequests', () => {
         // ASSEMBLE
         // --------
         var mock = new MockAdapter(axios);
-        let request = {
-            destination: "ss"
-        }
         let responseData = { 
             ID: 'f775a770-67ce-43ce-a640-89fac4055bb7',
             UserID: 'a4a05cb9-1e8d-42e5-894c-4fbdac7c3ffe',

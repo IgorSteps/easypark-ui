@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import useParkingRequest from '../../controllers/useParkingRequest.js';
-import useParkingLots from '../../controllers/useParkingLot.js';
+import useCreateParkingRequest from '../../controllers/useCreateParkingRequest.js';
+import useGetParkingLots from '../../controllers/useGetParkingLots.js';
 
 function ParkingRequestForm() {
     const [destinationLotID, setDestinationLotID] = useState('');
@@ -11,10 +11,10 @@ function ParkingRequestForm() {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
 
-    const { createRequest, parkReq, error } = useParkingRequest();
-    const { parkLots, fetchParkLots, parkLotError } = useParkingLots();
+    const { createParkingRequest, parkReq, error } = useCreateParkingRequest();
+    const { parkLots, fetchParkLots, parkLotError } = useGetParkingLots();
 
-    // Parse lot name and id.
+    // Parse lot name and id from the dropdown.
     const handleSelectLot = (e) => {
         const selectedValue = JSON.parse(e.target.value);
         console.debug("parsed destination lot ID and Name", selectedValue)
@@ -25,7 +25,7 @@ function ParkingRequestForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const requestBody = { destinationLotID, destinationLotName, startTime, endTime };
-        await createRequest(requestBody);
+        await createParkingRequest(requestBody);
     };
 
     useEffect(() => {

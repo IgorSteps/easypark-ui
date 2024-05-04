@@ -9,7 +9,7 @@ function useParkingRequests() {
   const fetchParkingRequests = async (token) => {
     try {
       const response = await getAllParkingRequests(token);
-      setParkingRequests(response.parkingRequests);
+      setParkingRequests(response);
     } catch (error) {
       setError(error.message);
     } 

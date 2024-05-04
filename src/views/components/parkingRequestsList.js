@@ -20,35 +20,36 @@ function ParkingRequestList() {
         return () => clearInterval(intervalId);
     }, []);
 
+    if (error) {
+        return (
+            <Alert data-test-id="get-parking-requests-error-alert" variant="danger">
+                {"Failed to get your parking requests: " + error}
+            </Alert>
+        )
+    }
+
     if (parkingRequests.length === 0) {
         return (
-            <Alert data-test-id="no-parking-request-alert" className='mt-4' variant="info">
+            <Alert data-test-id="no-parking-request-alert" variant="info">
                 {"No parking requests"}
             </Alert>
         )
     }
+   
 
-    if (error) {
-        return (
-            <Alert data-test-id="get-parking-requests-error-alert" className='mt-4' variant="danger">
-                {error}
-            </Alert>
-        )
-    }
-
-    // Function to format datetime strings to human-readable format
+    // Function to format date time objects to human-readable format.
     const formatDateTime = (datetimeString) => {
         const date = new Date(datetimeString);
         return date.toLocaleString();
     };
 
+    console.debug("got all parking requests for driver", parkingRequests)
     return (
         <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>User ID</th>
-                    <th>Destination Parking Lot ID</th>
+                    <th>Destination Parking Lot</th>
                     <th>Start Time</th>
                     <th>End Time</th>
                     <th>Status</th>
@@ -59,8 +60,7 @@ function ParkingRequestList() {
                     <tr key={index}>
                         {/* TODO: Truncate based on cell width */}
                         <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }} data-test-id={`parking-request-id-${index}`}>{parkingRequest.ID}</span></td>
-                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }} data-test-id={`parking-request-user-id-${index}`}>{parkingRequest.UserID}</span></td>
-                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }} data-test-id={`parking-request-destination-lot-id-${index}`}>{parkingRequest.DestinationParkingLotID}</span></td>
+                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }} data-test-id={`parking-request-destination-lot-name-${index}`}>{parkingRequest.DestinationParkingLotName}</span></td>
                         <td data-test-id={`parking-request-start-time-${index}`}>{formatDateTime(parkingRequest.StartTime)}</td>
                         <td data-test-id={`parking-request-end-time-${index}`}>{formatDateTime(parkingRequest.EndTime)}</td>
                         <td data-test-id={`parking-request-status-${index}`}>{parkingRequest.Status}</td>

@@ -86,7 +86,7 @@ export function makeServer({ environment = 'development' } = {}) {
             if (user) {
               return new Response(200, {}, { token: 'mock-token', userId: 'e45d6927-ecdc-42a3-ac0f-63edcb9d9921' });
             } else {
-              return new Response(401, {}, { error: 'Invalid credentials' } )
+              return new Response(401, {},  'Invalid credentials' )
             }
         });
 

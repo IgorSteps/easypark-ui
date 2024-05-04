@@ -8,7 +8,7 @@ function useParkingLots() {
   const fetchParkLots = async () => {
     try {
       const response = await getAllParkingLots();
-      setParkLots(response.parkingLots);
+      setParkLots(response);
     } catch (error) {
       setError(error.message);
     } 

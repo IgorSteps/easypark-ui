@@ -6,6 +6,7 @@ function useParkingLots() {
   const [parkLots, setParkLots] = useState([]);
   
   const fetchParkLots = async () => {
+    setError(null); // reset errors.
     try {
       const response = await getAllParkingLots();
       setParkLots(response);

@@ -9,9 +9,9 @@ const useLoginController = () => {
   const [error, setError] = useState(null);
 
   const handleLogin = async (credentials) => {
+    setError(null) // reset error
     try {
       await loginUser(credentials);
-      setError(null)
       navigate('/driver-dashboard');
     } catch (error) {
       setError(error.message);

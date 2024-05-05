@@ -9,7 +9,7 @@ function useParkingRequest() {
     setError(null) // reset error.
     try {
       const response = await createParkingRequest(requestBody);
-      console.debug("create parking request response", response)
+
       setParkReq(response)
       return response;
     } catch (error) {

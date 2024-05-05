@@ -7,6 +7,7 @@ function useParkingRequests() {
   
   // Function to fetch all parking requests for a driver
   const fetchParkingRequests = async (token) => {
+    setError(null); // reset errors.
     try {
       const response = await getAllParkingRequests(token);
       setParkingRequests(response);

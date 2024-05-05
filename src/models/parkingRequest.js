@@ -15,8 +15,17 @@ export async function createParkingRequest(requestBody) {
 
       return response.data;
     } catch (error) {
-      console.error("Failed to create parking request", error.response)
-      throw new Error(error.response.data || 'An error occurred');  }
+      if (error.response) {
+        console.error('Failed to create a parking request', error.response);
+        throw new Error(error.response.data || 'an error occurred')
+      } else if (error.request) {
+        console.error('Didnt receive response after making request create parking request', error.request);
+        throw new Error('an error occurred')
+      } else {
+        console.log('Failed to setup request to create a parking request', error.message);
+        throw new Error('an error occurred')
+      }
+    }
   }
 
 export async function getAllParkingRequests() {

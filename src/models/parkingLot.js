@@ -10,6 +10,15 @@ export async function getAllParkingLots() {
 
       return response.data;
     } catch (error) {
-      console.error("Failed to get all parking lots", error.response)
-      throw new Error(error.response.data || 'An error occurred');  }
+      if (error.response) {
+        console.error('Failed to get all parking lots', error.response);
+        throw new Error(error.response.data || 'an error occurred')
+      } else if (error.request) {
+        console.error('Didnt receive response after making request get all parking lots', error.request);
+        throw new Error('an error occurred')
+      } else {
+        console.log('Failed to setup request to get all parking lots', error.message);
+        throw new Error('an error occurred')
+      }
+    }
   }

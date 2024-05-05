@@ -17,8 +17,15 @@ export async function loginUser(credentials) {
 
     return response.data;
   } catch (error) {
-    // Not 2xx responses.
-    console.error('Failed to login', error.response);
-    throw new Error(error.response.data || 'An error occurred');
+    if (error.response) {
+      console.error('Failed to login user', error.response);
+      throw new Error(error.response.data || 'an error occurred')
+    } else if (error.request) {
+      console.error('Didnt receive response after making request to login user', error.request);
+      throw new Error('an error occurred')
+    } else {
+      console.log('Failed to setup request to login user', error.message);
+      throw new Error('an error occurred')
+    }
   }
 }

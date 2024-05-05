@@ -5,7 +5,10 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "clean-db": "./scripts/clearDB.sh",
+    "create-admin": "./scripts/createAdmin.sh",
+    "populate-db": "./scripts/populateWithDrivers.sh"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +25,7 @@
     "pug": "^3.0.2",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.2",
+    "react-datepicker": "^6.9.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.0"
   },

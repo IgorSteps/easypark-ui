@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Card, Button, Modal } from 'react-bootstrap';
 import NotificationForm from './notificationForm.js';
+import { FormatDateTime } from '../utils/time.js';
 
 function ParkingRequest({parkingRequest}) {
     const [showNotificationModal, setShowNotificationModal] = useState(false);
@@ -16,59 +17,52 @@ function ParkingRequest({parkingRequest}) {
         setActiveRequest(null);
     };
 
-     // Function to format date time objects to human-readable format.
-     const formatDateTime = (datetimeString) => {
-        const date = new Date(datetimeString);
-        return date.toLocaleString();
-    };
-
     return (
         <>
-        <Card className="mb-3"> 
-            <Card.Header as="h5">Parking Request</Card.Header>
-            <Card.Body>
-                <Card.Text>
-                    <strong>ID:</strong> {parkingRequest.ID}
-                </Card.Text>
-                <Card.Text>
-                    <strong>Parking Lot Name:</strong> {parkingRequest.DestinationParkingLotName}
-                </Card.Text>
-                <Card.Text>
-                    <strong>Assigned Parking Space ID:</strong> {parkingRequest.ParkingSpaceID}
-                </Card.Text>
-                <Card.Text>
-                    <strong>Start Time:</strong> {formatDateTime(parkingRequest.StartTime)}
-                </Card.Text>
-                <Card.Text>
-                    <strong>End Time:</strong> {formatDateTime(parkingRequest.EndTime)}
-                </Card.Text>
-                <Card.Text>
-                    <strong>Status:</strong> {parkingRequest.Status}
-                </Card.Text>
+            <Card className="mb-3" data-test-id="parking-request-card"> 
+                <Card.Header as="h5" data-test-id="parking-request-header">Parking Request</Card.Header>
+                <Card.Body>
+                    <Card.Text data-test-id="parking-request-id">
+                        <strong>ID:</strong> {parkingRequest.ID}
+                    </Card.Text>
+                    <Card.Text data-test-id="parking-request-lot-name">
+                        <strong>Parking Lot Name:</strong> {parkingRequest.DestinationParkingLotName}
+                    </Card.Text>
+                    <Card.Text data-test-id="parking-request-space-id">
+                        <strong>Assigned Parking Space ID:</strong> {parkingRequest.ParkingSpaceID}
+                    </Card.Text>
+                    <Card.Text data-test-id="parking-request-start-time">
+                        <strong>Start Time:</strong> {FormatDateTime(parkingRequest.StartTime)}
+                    </Card.Text>
+                    <Card.Text data-test-id="parking-request-end-time">
+                        <strong>End Time:</strong> {FormatDateTime(parkingRequest.EndTime)}
+                    </Card.Text>
+                    <Card.Text data-test-id="parking-request-status">
+                        <strong>Status:</strong> {parkingRequest.Status}
+                    </Card.Text>
 
-                {/* {Only render notify button when there is a parking space id} */}
-                {parkingRequest.ParkingSpaceID && 
-                    <Button variant="primary" onClick={() => handleShowNotificationModal(parkingRequest)}>
-                        Notify arrival or departure
+                    {/* Render Notify button conditionally based on ParkingSpaceID presence */}
+                    {parkingRequest.ParkingSpaceID && 
+                        <Button variant="primary" onClick={() => handleShowNotificationModal(parkingRequest)} data-test-id="notify-arrival-departure-btn">
+                            Notify arrival or departure
+                        </Button>
+                    }
+                </Card.Body>
+            </Card>
+
+            <Modal show={showNotificationModal} onHide={handleCloseNotificationModal} data-test-id="notification-modal">
+                <Modal.Header closeButton data-test-id="modal-header">
+                    <Modal.Title data-test-id="modal-title">Notify of arrival or departure</Modal.Title>
+                </Modal.Header>
+                <Modal.Body data-test-id="modal-body">
+                    {activeRequest && <NotificationForm parkingRequestID={activeRequest.ID} parkingSpaceID={activeRequest.ParkingSpaceID} />}
+                </Modal.Body>
+                <Modal.Footer data-test-id="modal-footer">
+                    <Button variant="secondary" onClick={handleCloseNotificationModal} data-test-id="close-modal-btn">
+                        Close
                     </Button>
-                }
-            </Card.Body>
-        </Card>
-
-        <Modal show={showNotificationModal} onHide={handleCloseNotificationModal}>
-            <Modal.Header closeButton>
-                <Modal.Title>Notify of arrival or departure</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                {activeRequest && <NotificationForm parkingRequestID={activeRequest.ID} parkingSpaceID={activeRequest.ParkingSpaceID} />}
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseNotificationModal}>
-                    Close
-                </Button>
-            </Modal.Footer>
-        </Modal>
-
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }

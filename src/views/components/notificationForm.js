@@ -27,29 +27,28 @@ function NotificationForm({parkingRequestID, parkingSpaceID}) {
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
-        
-            <Form.Group controlId="formNotificationType">
-                <Form.Label>Select Notification Type</Form.Label>
-                <Form.Control as="select" value={notificationType || ''} onChange={(e) => setNotificationType(e.target.value)}  data-test-id="select-notification-type" required>
-                    <option value="">Choose...</option>
-                    <option value="0">Arrival</option>
-                    <option value="1">Departure</option>
+        <Form onSubmit={handleSubmit} data-test-id="notification-form">
+            <Form.Group controlId="formNotificationType" data-test-id="notification-type-group">
+                <Form.Label data-test-id="notification-type-label">Select Notification Type</Form.Label>
+                <Form.Control as="select" value={notificationType || ''} onChange={(e) => setNotificationType(e.target.value)} data-test-id="select-notification-type" required>
+                    <option value="" disabled data-test-id="notification-type-option-placeholder">Choose...</option>
+                    <option value="0" data-test-id="notification-type-option-arrival">Arrival</option>
+                    <option value="1" data-test-id="notification-type-option-departure">Departure</option>
                 </Form.Control>
             </Form.Group>
-
-            <Form.Group controlId="formNotificationLocation">
-                <Form.Label>Enter your location</Form.Label>
-                <Form.Control type="text" placeholder="cmp-1" value={location} onChange={(e) => setLocation(e.target.value)}  required/>
+        
+            <Form.Group controlId="formNotificationLocation" data-test-id="notification-location-group">
+                <Form.Label data-test-id="notification-location-label">Enter your location</Form.Label>
+                <Form.Control type="text" placeholder="cmp-1" value={location} onChange={(e) => setLocation(e.target.value)} data-test-id="notification-location-input" required/>
             </Form.Group>
             
-            <Button variant="primary" type="submit" data-test-id='notification-submit'>
+            <Button variant="primary" type="submit" data-test-id="notification-submit-btn">
                 Submit
             </Button>
-
+        
             {error && (
                 <Alert data-test-id="notification-error-alert" className='mt-4' variant="danger">
-                {"Failed to create notification: " + error}
+                    {"Failed to create notification: " + error}
                 </Alert>
             )}
         </Form>

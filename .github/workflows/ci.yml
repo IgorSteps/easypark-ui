@@ -102,13 +102,12 @@ jobs:
           echo "Backend_PID=$!" >> $GITHUB_ENV
 
       - name: Wait 5 seconds for DB and Backend to start
-            run: |
-              sleep 5 
+        run: sleep 5 
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npx webpack serve --config-name=mirage
+          start: npx webpack serve
 
       - name: Cleanup Backend
         if: always()

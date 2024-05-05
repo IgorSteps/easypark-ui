@@ -50,15 +50,26 @@ Cypress.Commands.add('createParkingLot', (requestData) => {
         });
     });
 });
-
 Cypress.Commands.add('createAdmin', () => {
-    cy.exec('npm run create-admin')
+    cy.exec('npm run create-admin').then(result => {
+        console.log('stdout:', result.stdout);
+        console.log('stderr:', result.stderr);
+        expect(result.code).to.eq(0); // Assert that the script exits with code 0
+    });
 });
 
 Cypress.Commands.add('cleanDB', () => {
-    cy.exec('npm run clean-db')
+    cy.exec('npm run clean-db').then(result => {
+        console.log('stdout:', result.stdout);
+        console.log('stderr:', result.stderr);
+        expect(result.code).to.eq(0);
+    });
 });
 
 Cypress.Commands.add('populateWithDrivers', () => {
-    cy.exec('npm run populate-db')
+    cy.exec('npm run populate-db').then(result => {
+        console.log('stdout:', result.stdout);
+        console.log('stderr:', result.stderr);
+        expect(result.code).to.eq(0);
+    });
 });

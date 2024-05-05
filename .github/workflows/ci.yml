@@ -98,6 +98,13 @@ jobs:
           make run &
           echo "Backend_PID=$!" >> $GITHUB_ENV
 
+      - name: Make scripts executable
+        run: |
+          cd scripts
+          chmod +x clearDB.sh
+          chmod +x createAdmin.sh
+          chmod +x populateWithDrivers.sh
+
       - name: Wait 5 seconds for DB and Backend to start
         run: sleep 5 
 

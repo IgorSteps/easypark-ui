@@ -40,7 +40,7 @@ function ParkingRequestList() {
    
     return (
         parkingRequests.map((parkingRequest, index) => (
-                <ParkingRequest key={index} parkingRequest={parkingRequest} data-test-id='parking-request'/>
+                <ParkingRequest key={index} parkingRequest={parkingRequest} dataTestID={`parking-request-${index}`} data-test-id={`parking-request-${index}`}/>
         ))
     )
 }

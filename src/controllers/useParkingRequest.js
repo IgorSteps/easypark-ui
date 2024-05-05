@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { createParkingRequest } from '../models/parkingRequest.js';
 
-/** useCreateParkingRequest is a React hook that fetches all parking lots */
-function useCreateParkingRequest() {
+function useParkingRequest() {
   const [error, setError] = useState(null);
   const [parkReq, setParkReq] = useState(null);
 
-  const createParkingRequest = async (requestBody) => {
+  const createRequest = async (requestBody) => {
     setError(null) // reset error.
     try {
       const response = await createParkingRequest(requestBody);
@@ -18,7 +17,7 @@ function useCreateParkingRequest() {
     }
   };
 
-  return { createParkingRequest, parkReq, error};
+  return { createRequest, parkReq, error};
 }
 
-export default useCreateParkingRequest;
+export default useParkingRequest;

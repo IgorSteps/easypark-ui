@@ -10,7 +10,7 @@ describe('Login Form', () => {
     // ACT
     // ---
     cy.get('[data-test-id="login-username-input"]').type('user1');
-    cy.get('[data-test-id="login-password-input"]').type('password1');
+    cy.get('[data-test-id="login-password-input"]').type('securepassword');
     cy.get('[data-test-id="login-submit-button"]').click();
 
     // ------
@@ -35,6 +35,6 @@ describe('Login Form', () => {
     // ------
     // ASSERT
     // ------
-    cy.get('[data-test-id="login-alert"]').should('contain', 'Invalid credentials')
+    cy.get('[data-test-id="login-alert"]').should('contain', "Resource 'wrong' not found")
   });
 });

@@ -1,4 +1,12 @@
 describe('Login Form', () => {
+  beforeEach(() => {
+    cy.populateWithDrivers()
+    cy.visit('http://localhost:9000/driver-dashboard');
+  });
+
+  afterEach(() => {
+    cy.cleanDB()
+  });
 
   it('successfully logs in', () => {
     // --------

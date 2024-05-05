@@ -1,77 +1,57 @@
+
 describe("List Driver's Parking Requests", () => {
     beforeEach(() => {
-        cy.visit('http://localhost:9000/driver-dashboard'); // Assuming your form is rendered at the root URL '/'
+        cy.populateWithDrivers()
+        cy.createAdmin()
+        cy.login('adminUsername', 'securePassword');
+        cy.visit('http://localhost:9000/driver-dashboard');
     });
 
-    it('Submits parking request successfully', () => {
+    afterEach(() => {
+       cy.cleanDB()
+    });
+
+    it('should show all drivers parking requests', () => {
         // --------
         // ASSEMBLE
         // --------
-        // Create first parking request
-        cy.get('[data-test-id=create-park-req-btn]').click();
-        // Select start date and time
-        cy.get('.react-datepicker__input-container > input').eq(0).click();
-        cy.get('.react-datepicker__input-container > input').eq(0).type('2024-05-01 09:00');
-        cy.get('[data-test-id=select-parking-lot]').select('cmp-2'); // click to select park lot again to exit calendar view
-
-        // Select end date and time
-        cy.get('.react-datepicker__input-container > input').eq(1).click();
-        cy.get('.react-datepicker__input-container > input').eq(1).type('2024-05-01 17:00'); 
-        cy.get('[data-test-id=select-parking-lot]').select('cmp-2'); // click to select park lot again to exit calendar view
-                
-        cy.get('[data-test-id=park-req-submit]').click();
-
-        cy.get('[data-test-id=create-park-request-success-alert]').should('contain', 'Successfully created parking request');
-        cy.get('[data-test-id=close-btn]').click();
-
-        // Create second parking request
-        cy.get('[data-test-id=create-park-req-btn]').click();
-        // Select start date and time
-        cy.get('.react-datepicker__input-container > input').eq(0).click();
-        cy.get('.react-datepicker__input-container > input').eq(0).type('2024-05-01 09:00');
-        cy.get('[data-test-id=select-parking-lot]').select('cmp-2'); // click to select park lot again to exit calendar view
-
-        // Select end date and time
-        cy.get('.react-datepicker__input-container > input').eq(1).click();
-        cy.get('.react-datepicker__input-container > input').eq(1).type('2024-05-01 17:00'); 
-        cy.get('[data-test-id=select-parking-lot]').select('cmp-2'); // click to select park lot again to exit calendar view
-                
-        cy.get('[data-test-id=park-req-submit]').click();
-
-        cy.get('[data-test-id=create-park-request-success-alert]').should('contain', 'Successfully created parking request');
-        cy.get('[data-test-id=close-btn]').click();
-        
-        const mockParkingRequests = [
-            {
-                ID: '7052f755-a3d1-4a8a-94ab-48a53370a998',
-                UserID: 'null',
-                DestinationParkingLotID: 'bb8625ea-8c80-484c-8a75-3386649eef25',
-                StartTime: '2024-05-01 09:00',
-                EndTime: '2024-05-01 17:00',
-                Status: 'pending'
-            },
-            {
-                ID: '7052f755-a3d1-4a8a-94ab-48a53370a998',
-                UserID: 'null',
-                DestinationParkingLotID: 'bb8625ea-8c80-484c-8a75-3386649eef25',
-                StartTime: '2024-05-01 09:00',
-                EndTime: '2024-05-01 17:00',
-                Status: 'pending'
-            }
-        ];
-
-        // ----
-        // ACT
-        // ----
-        cy.wait(10000) // 10 seconds
-        // ------
-        // ASSERT
-        // ------
-        mockParkingRequests.forEach((request, index) => {
-            cy.get(`[data-test-id=parking-request-id-${index}]`).should('contain', request.ID);
-            cy.get(`[data-test-id=parking-request-user-id-${index}]`).should('contain', request.UserID);
-            cy.get(`[data-test-id=parking-request-destination-lot-id-${index}]`).should('contain', request.DestinationParkingLotID);
-            cy.get(`[data-test-id=parking-request-status-${index}]`).should('contain', request.Status);
+        const requestLotData = {
+            name: "cmp",
+            capacity: 10
+        }
+        let parkLotID;
+        cy.createParkingLot(requestLotData).then((lot) => {
+            console.debug(lot.ID);
+            parkLotID = lot.ID
         });
+
+        cy.login('user1', 'securepassword');
+
+        const requestData = {
+            destinationLotID: parkLotID,
+            destinationLotName: 'cmp',
+            startTime: '2025-11-01T09:00:00.000Z',
+            endTime: '2025-12-01T09:00:00.000Z'
+        };
+
+        const formatDateTime = (datetimeString) => {
+            const date = new Date(datetimeString);
+            return date.toLocaleString();
+        };
+        
+        // --------
+        // ACT
+        // --------
+        cy.createParkingRequest(requestData);
+
+        cy.wait(10000) // wait 10 seconds
+
+        // --------
+        // ASSERT
+        // --------
+        cy.get(`[data-test-id=parking-request-destination-lot-name-0]`).should('contain', requestData.destinationLotName);
+        cy.get(`[data-test-id=parking-request-start-time-0]`).should('contain', formatDateTime(requestData.startTime));
+        cy.get(`[data-test-id=parking-request-end-time-0]`).should('contain', formatDateTime(requestData.endTime));
+        cy.get(`[data-test-id=parking-request-status-0]`).should('contain', "pending");
     });
 });

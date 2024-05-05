@@ -67,7 +67,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-          
+
     steps:
       - name: Checkout frontend
         uses: actions/checkout@v4
@@ -75,7 +75,7 @@ jobs:
       - name: Checkout backend
         uses: actions/checkout@v4
         with:
-          repository: 'https://github.com/IgorSteps/easypark.git'
+          repository: 'IgorSteps/easypark'
           token: ${{ secrets.GITHUB_TOKEN }}
           path: 'backend'
 

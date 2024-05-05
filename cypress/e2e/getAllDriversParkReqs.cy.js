@@ -1,6 +1,7 @@
 
 describe("List Driver's Parking Requests", () => {
     beforeEach(() => {
+        cy.cleanDB()
         cy.populateWithDrivers()
         cy.createAdmin()
         cy.login('adminUsername', 'securePassword');

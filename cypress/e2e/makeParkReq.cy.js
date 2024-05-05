@@ -1,5 +1,6 @@
 describe('Parking Request Form', () => {
     beforeEach(() => {
+        cy.cleanDB()
         cy.populateWithDrivers()
         cy.createAdmin()
         cy.login('adminUsername', 'securePassword');

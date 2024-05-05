@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Alert, Form } from 'react-bootstrap';
-import useRegisterController from '../controllers/registerController.js';
+import useRegisterController from '../../controllers/registerController.js';
 
 export default function RegisterForm() {
   const [firstname, setFirstname] = useState('');

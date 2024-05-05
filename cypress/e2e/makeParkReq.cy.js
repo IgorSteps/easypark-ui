@@ -1,6 +1,7 @@
 describe('Parking Request Form', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:9000/driver-dashboard'); // Assuming your form is rendered at the root URL '/'
+        cy.login();
+        cy.visit('http://localhost:9000/driver-dashboard');
     });
 
     it('Submits parking request successfully', () => {
@@ -11,14 +12,14 @@ describe('Parking Request Form', () => {
         
         // Select start date and time
         cy.get('.react-datepicker__input-container > input').eq(0).click();
-        cy.get('.react-datepicker__input-container > input').eq(0).type('2024-05-01 09:00');
-        cy.get('[data-test-id=select-parking-lot]').select('cmp-2'); // click to select park lot again to exit calendar view
+        cy.get('.react-datepicker__day--023').click()
+        cy.get('[data-test-id=select-parking-lot]').select('cmp')
 
         // Select end date and time
         cy.get('.react-datepicker__input-container > input').eq(1).click();
-        cy.get('.react-datepicker__input-container > input').eq(1).type('2024-05-01 17:00'); 
-        cy.get('[data-test-id=select-parking-lot]').select('cmp-2'); // click to select park lot again to exit calendar view
-        
+        cy.get('.react-datepicker__day--024').click()
+        cy.get('[data-test-id=select-parking-lot]').select('cmp'); // click to select park lot again to exit calendar view
+       //<div class="react-datepicker__day react-datepicker__day--005 react-datepicker__day--selected react-datepicker__day--today react-datepicker__day--weekend" tabindex="0" aria-label="Choose Sunday, May 5th, 2024" role="option" title="" aria-disabled="false" aria-current="date" aria-selected="true">5</div>
         // -----
         // ACT
         // -----

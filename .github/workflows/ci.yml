@@ -89,17 +89,13 @@ jobs:
 
       - name: Build backend
         run: |
-          pwd
-          ls -la
           cd backend
           make build
 
       - name: Start Backend
         run: |
-          pwd
-          ls -la
           cd backend
-          make run
+          make run &
           echo "Backend_PID=$!" >> $GITHUB_ENV
 
       - name: Wait 5 seconds for DB and Backend to start

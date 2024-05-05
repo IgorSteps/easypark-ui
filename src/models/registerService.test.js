@@ -10,18 +10,15 @@ describe('Register User model', () => {
     // --------
     // ASSEMBLE
     // --------
-    global.sessionStorage = {
-      setItem: jest.fn(),
-    };
     var mock = new MockAdapter(axios);
     let responseData = { message: 'good'};
-    let credentials = { firstname:'test1', lastname: 'test2', username:'testuser2', password: 'testpassword' };
-    mock.onPost(`${process.env.BASE_API_URL}/register`, credentials).reply(200, responseData);
+    let userDetails = { firstname:'test1', lastname: 'test2', username:'testuser2', password: 'testpassword' };
+    mock.onPost(`${process.env.BASE_API_URL}/register`, userDetails).reply(200, responseData);
     
     // ----
     // ACT
     // ----
-    const userData = await registerUser(credentials);
+    const userData = await registerUser(userDetails);
 
     // ------
     // ASSERT
@@ -33,17 +30,15 @@ describe('Register User model', () => {
     // --------
     // ASSEMBLE
     // --------
-    global.sessionStorage = {
-      setItem: jest.fn(),
-    };
     var mock = new MockAdapter(axios);
     const errorMessage = 'boom';
-    const errorResponse = { response: { data: { error: errorMessage } } };    let credentials = { firstname:'test2', lastname: 'test3', username:'testuser', password: 'testpassword2' };
-    mock.onPost(`${process.env.BASE_API_URL}/register`, credentials).reply(400, { error: errorMessage });
+    const errorResponse = { response: { data: { error: errorMessage } } };
+    let userDetails = { firstname:'test2', lastname: 'test3', username:'testuser', password: 'testpassword2' };
+    mock.onPost(`${process.env.BASE_API_URL}/register`, userDetails).reply(400, { error: errorMessage });
     
     // ----
     // ACT and ASSERT
     // ----
-    await expect(registerUser(credentials)).rejects.toThrow(errorMessage);
+    await expect(registerUser(userDetails)).rejects.toThrow(errorMessage);
   });
 });

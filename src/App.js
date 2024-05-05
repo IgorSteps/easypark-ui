@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import LoginForm from './views/loginForm.js';
 import RegisterForm from './views/registerForm.js';
 import Home from './views/home.js';
+import DriverRequestForm from './views/driverRequestForm.js'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/driverRequest" element={<DriverRequestForm />}/>
         </Routes>
       </BrowserRouter>
   );

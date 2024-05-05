@@ -17,9 +17,9 @@ export default function RegisterForm() {
   };
 
   return (
-    <Container className='login-form-container'>
-      <Form className='login-form' onSubmit={handleSubmit}>
-        <Container className='login-form-content '>
+    <Container className='form-container'>
+      <Form className='form-border' onSubmit={handleSubmit}>
+        <Container className='form-content'>
             <Button 
                 className="mt-4"
                 variant="link"
@@ -30,7 +30,7 @@ export default function RegisterForm() {
                 Back to login
             </Button>
 
-          <h1 className='login-form-title'>
+          <h1 className='form-title'>
             EasyPark Register
           </h1>
 

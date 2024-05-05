@@ -10,10 +10,6 @@ export async function registerUser(credentials) {
     return response.data;
   } catch (error) {
     console.error('Failed to register user', error.response);
-    if (error.response.status !== 500){
-        throw new Error(error.response.data.error || 'Another user is already using these details');
-    } else{
-        throw new Error(error.response.data.error || 'An error occured');
-    }
+    throw new Error(error.response.data.error || 'An error occured');
   }
 }

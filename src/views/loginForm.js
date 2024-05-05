@@ -14,11 +14,11 @@ export default function LoginForm() {
   };
 
   return (
-    <Container className='login-form-container'>
-      <Form className='login-form' onSubmit={handleSubmit}>
-        <Container className='login-form-content '>
+    <Container className='form-container'>
+      <Form className='form-border' onSubmit={handleSubmit}>
+        <Container className='form-content'>
 
-          <h1 className='login-form-title'>
+          <h1 className='form-title'>
             EasyPark Login
           </h1>
 
@@ -55,7 +55,7 @@ export default function LoginForm() {
           >
             New to Easypark? Register here
           </Button>
-          <br></br>
+          <br/>
 
           <Button 
             className="mt-4"

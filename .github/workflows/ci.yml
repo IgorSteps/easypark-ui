@@ -52,7 +52,7 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     needs: build
-    needs: build
+
     services:
       database:
         image: postgres:latest
@@ -67,6 +67,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+          
     steps:
       - name: Checkout frontend
         uses: actions/checkout@v4

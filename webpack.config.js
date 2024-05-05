@@ -37,7 +37,7 @@ export default [
         template: './src/index.html'
       }),
       new DotenvWebpackPlugin({
-        path: `./.env.backend`,
+        path: `./.env`,
       }),
     ],
     devServer: {
@@ -46,46 +46,4 @@ export default [
       historyApiFallback: true,
     }
   },
-  {
-    name: 'mirage',
-    entry: './src/index.js',
-    mode: 'development',
-    output: {
-      path: path.resolve('dist'),
-      filename: 'bundle.js',
-      publicPath: '/'
-    },
-    module: {
-      rules: [
-        {
-          test: /\.jsx?$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader'
-          }
-        },
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader']
-        },
-        {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader']
-        }
-      ]
-    },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: './src/index.html'
-      }),
-      new DotenvWebpackPlugin({
-        path: `./.env.mirage`,
-      }),
-    ],
-    devServer: {
-      static: './dist',
-      port: 9000,
-      historyApiFallback: true,
-    }
-  }
 ];

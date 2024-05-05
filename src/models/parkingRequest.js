@@ -4,8 +4,9 @@ export async function createParkingRequest(requestBody) {
   try {
       if (requestBody.destinationLotID === '' || requestBody.destinationLotID === undefined) {
         console.warn("got empty ID or name for destination parking lot")
-        return new Error('Please choose destination')
+        throw new Error('Please choose destination')
       }
+
       const response = await axios.post(process.env.BASE_API_URL+`/drivers/${sessionStorage.getItem('userId')}/parking-requests`, requestBody, {
         headers: {
           'Content-Type': 'application/json',
@@ -22,8 +23,8 @@ export async function createParkingRequest(requestBody) {
         console.error('Didnt receive response after making request create parking request', error.request);
         throw new Error('an error occurred')
       } else {
-        console.log('Failed to setup request to create a parking request', error.message);
-        throw new Error('an error occurred')
+        console.error('Failed to setup request to create a parking request', error.message);
+        throw error
       }
     }
   }

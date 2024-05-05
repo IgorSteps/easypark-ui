@@ -21,7 +21,7 @@ describe('createParkingRequest', () => {
         // --------
         var mock = new MockAdapter(axios);
         let request = {
-            destination: "ss"
+            destinationLotID: "ss"
         }
         let responseData = { 
             ID: 'f775a770-67ce-43ce-a640-89fac4055bb7',
@@ -46,13 +46,13 @@ describe('createParkingRequest', () => {
         expect(parkrReq).toEqual(responseData);
     });
 
-    it('should return error', async () => {
+    it('should return error if request fails', async () => {
         // --------
         // ASSEMBLE
         // --------
         var mock = new MockAdapter(axios);
         let request = {
-            destination: "ss"
+            destinationLotID: "ss"
         }
         let error = "boom"
         mock.
@@ -63,6 +63,21 @@ describe('createParkingRequest', () => {
         // ACT and ASSERT
         // --------------
         await expect(createParkingRequest(request)).rejects.toThrow('boom');
+    });
+
+    it('should return error if no destination is provided', async () => {
+        // --------
+        // ASSEMBLE
+        // --------
+        let request = {
+            destinationD: '' // empty
+        }
+        let error = "Please choose destination"
+        
+        // --------------
+        // ACT and ASSERT
+        // --------------
+        await expect(createParkingRequest(request)).rejects.toThrow(error);
     });
 });
 

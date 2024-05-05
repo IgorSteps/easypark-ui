@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import useParkingRequest from '../../controllers/useParkingRequest.js';
-import useParkingLots from '../../controllers/useParkingLot.js';
+import useCreateParkingRequest from '../../controllers/useCreateParkingRequest.js';
+import useGetParkingLots from '../../controllers/useGetParkingLot.js';
 
 function ParkingRequestForm() {
     const [destinationLotID, setDestinationLotID] = useState('');
@@ -11,8 +11,8 @@ function ParkingRequestForm() {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
 
-    const { createRequest, parkReq, error } = useParkingRequest();
-    const { parkLots, fetchParkLots, parkLotError } = useParkingLots();
+    const { createRequest, parkReq, error } = useCreateParkingRequest();
+    const { parkLots, fetchParkLots, parkLotError } = useGetParkingLots();
 
     // Parse lot name and id.
     const handleSelectLot = (e) => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {getAllParkingRequests} from '../models/parkingRequest.js'
 
-function useParkingRequests() {
+function useGetParkingRequests() {
   const [error, setError] = useState(null);
   const [parkingRequests, setParkingRequests] = useState([]);
   
@@ -19,4 +19,4 @@ function useParkingRequests() {
   return { parkingRequests, fetchParkingRequests, error};
 }
 
-export default useParkingRequests;
+export default useGetParkingRequests;

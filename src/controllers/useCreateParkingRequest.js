@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createParkingRequest } from '../models/parkingRequest.js';
 
-function useParkingRequest() {
+function useCreateParkingRequest() {
   const [error, setError] = useState(null);
   const [parkReq, setParkReq] = useState(null);
 
@@ -20,4 +20,4 @@ function useParkingRequest() {
   return { createRequest, parkReq, error};
 }
 
-export default useParkingRequest;
+export default useCreateParkingRequest;

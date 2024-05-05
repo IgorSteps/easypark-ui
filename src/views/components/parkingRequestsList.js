@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Alert } from 'react-bootstrap';
-import useParkingRequests from '../../controllers/useDriversParkingRequests.js';
+import useGetParkingRequests from '../../controllers/useGetDriversParkingRequests.js';
 
 function ParkingRequestList() {
-    const {  parkingRequests, fetchParkingRequests, error } = useParkingRequests();
+    const {  parkingRequests, fetchParkingRequests, error } = useGetParkingRequests();
     
     useEffect(() => {
         const fetchData = async () => {

@@ -17,7 +17,6 @@ function ParkingRequestForm() {
     // Parse lot name and id.
     const handleSelectLot = (e) => {
         const selectedValue = JSON.parse(e.target.value);
-        console.debug("parsed destination lot ID and Name", selectedValue)
         setDestinationLotID(selectedValue.id);
         setDestinationLotName(selectedValue.name);
     };

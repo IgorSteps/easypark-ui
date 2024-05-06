@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Alert } from 'react-bootstrap';
+import { Table, Alert, Container, Card, Button, Modal } from 'react-bootstrap';
 import useGetParkingRequests from '../../controllers/useGetDriversParkingRequests.js';
+import NotificationForm from './notificationForm.js';
+import ParkingRequest from './parkingRequestCard.js';
 
 function ParkingRequestList() {
     const {  parkingRequests, fetchParkingRequests, error } = useGetParkingRequests();
-    
+
     useEffect(() => {
         const fetchData = async () => {
             await fetchParkingRequests();
@@ -36,39 +38,11 @@ function ParkingRequestList() {
         )
     }
    
-
-    // Function to format date time objects to human-readable format.
-    const formatDateTime = (datetimeString) => {
-        const date = new Date(datetimeString);
-        return date.toLocaleString();
-    };
-
-    console.debug("got all parking requests for driver", parkingRequests)
     return (
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Destination Parking Lot</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {parkingRequests.map((parkingRequest, index) => (
-                    <tr key={index}>
-                        {/* TODO: Truncate based on cell width */}
-                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }} data-test-id={`parking-request-id-${index}`}>{parkingRequest.ID}</span></td>
-                        <td><span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }} data-test-id={`parking-request-destination-lot-name-${index}`}>{parkingRequest.DestinationParkingLotName}</span></td>
-                        <td data-test-id={`parking-request-start-time-${index}`}>{formatDateTime(parkingRequest.StartTime)}</td>
-                        <td data-test-id={`parking-request-end-time-${index}`}>{formatDateTime(parkingRequest.EndTime)}</td>
-                        <td data-test-id={`parking-request-status-${index}`}>{parkingRequest.Status}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </Table>
-    );
+        parkingRequests.map((parkingRequest, index) => (
+                <ParkingRequest key={index} parkingRequest={parkingRequest} dataTestID={`parking-request-${index}`} data-test-id={`parking-request-${index}`}/>
+        ))
+    )
 }
 
 export default ParkingRequestList;

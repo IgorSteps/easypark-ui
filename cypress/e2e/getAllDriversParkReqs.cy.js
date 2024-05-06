@@ -1,3 +1,4 @@
+import { FormatDateTime } from '../../src/views/utils/time';
 
 describe("List Driver's Parking Requests", () => {
     beforeEach(() => {
@@ -28,31 +29,36 @@ describe("List Driver's Parking Requests", () => {
 
         cy.login('user1', 'securepassword');
 
-        const requestData = {
+        const requests = [
+            {
             destinationLotID: parkLotID,
             destinationLotName: 'cmp',
             startTime: '2025-11-01T09:00:00.000Z',
             endTime: '2025-12-01T09:00:00.000Z'
-        };
+            },
+            {
+                destinationLotID: parkLotID,
+                destinationLotName: 'cmp',
+                startTime: '2025-11-01T09:00:00.000Z',
+                endTime: '2025-12-01T09:00:00.000Z'
+            }
+        ];
 
-        const formatDateTime = (datetimeString) => {
-            const date = new Date(datetimeString);
-            return date.toLocaleString();
-        };
         
         // --------
         // ACT
         // --------
-        cy.createParkingRequest(requestData);
-
+        requests.forEach((request) => cy.createParkingRequest(request));
         cy.wait(10000) // wait 10 seconds
 
         // --------
         // ASSERT
-        // --------
-        cy.get(`[data-test-id=parking-request-destination-lot-name-0]`).should('contain', requestData.destinationLotName);
-        cy.get(`[data-test-id=parking-request-start-time-0]`).should('contain', formatDateTime(requestData.startTime));
-        cy.get(`[data-test-id=parking-request-end-time-0]`).should('contain', formatDateTime(requestData.endTime));
-        cy.get(`[data-test-id=parking-request-status-0]`).should('contain', "pending");
+        // -------- 
+        requests.forEach((req, index) => {
+            cy.get(`[data-test-id=parking-request-${index}-lot-name]`).should('contain', req.destinationLotName);
+            cy.get(`[data-test-id=parking-request-${index}-start-time]`).should('contain', FormatDateTime(req.startTime));
+            cy.get(`[data-test-id=parking-request-${index}-end-time]`).should('contain', FormatDateTime(req.endTime));
+            cy.get(`[data-test-id=parking-request-${index}-status]`).should('contain', "pending");
+        })
     });
 });

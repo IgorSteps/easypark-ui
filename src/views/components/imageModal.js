@@ -8,7 +8,7 @@ function ImageModal({ show, image, onClose }) {
                 <Modal.Title>Map to parking space</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <img src={image} alt="Parking Lot Map" style={{ maxWidth: '100%', height: 'auto' }} />
+                <img data-test-id='image-map' src={image} alt="Parking Lot Map" style={{ maxWidth: '100%', height: 'auto' }} />
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={onClose}>Close</Button>

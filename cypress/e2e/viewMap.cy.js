@@ -60,23 +60,19 @@ describe('Notify Arrival Form', () => {
                 // Assert that Assigned Parking Space name shows up.
                 // This asserts a get single park space request works/
                 cy.get(`[data-test-id="parking-request-0-space-name"]`).should('contain', parkingSpaceName)
-
-                // Create notification
-                cy.get(`[data-test-id="parking-request-0-notify-btn"]`).click()
-                cy.get(`[data-test-id="select-notification-type"]`).select("Arrival")
-                cy.get(`[data-test-id="notification-location-input"]`).type(parkingSpaceName)
-
                 // ---
                 // ACT
                 // ---
-                cy.get(`[data-test-id="notification-submit-btn"]`).click()
+                cy.get(`[data-test-id="parking-request-0-map-btn"]`).click()
 
             
                 // ------
                 // ASSERT
                 // ------
-                cy.get(`[data-test-id="notification-success-alert"]`).should('contain', 'Successfully created notification'); 
+                cy.get(`[data-test-id="image-map"]`).should('be.visible').and(($img) => {
+                    expect($img[0].naturalWidth).to.be.greaterThan(0)
+                })
             });
-        })
+        });  
     });
 });

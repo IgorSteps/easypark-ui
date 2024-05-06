@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert, Card } from 'react-bootstrap';
 import useCreateNotification from '../../controllers/useCreateNotification.js';
+import Notification from '../components/notificationCard.js'
 
 function NotificationForm({parkingRequestID, parkingSpaceID}) {
     const [notificationType, setNotificationType] = useState(null)

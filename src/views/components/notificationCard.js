@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { FormatDateTime } from '../utils/time';
+import { FormatDateTime } from '../utils/time.js';
 function Notification({notification}) {
     const notificationTypes = {
         0: 'Arrival',

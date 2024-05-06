@@ -50,6 +50,25 @@ Cypress.Commands.add('createParkingLot', (requestData) => {
         });
     });
 });
+
+Cypress.Commands.add('assignParkingSpace', (parkReqID, requestData) => {
+    cy.window().then((win) => {
+        const token = win.sessionStorage.getItem('token');
+
+        cy.request({
+            method: 'PATCH',
+            url: `http://localhost:8080/parking-requests/${parkReqID}/space`,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: requestData
+        }).then((resp) => {
+            expect(resp.status).to.eq(200); // Assert 200 status.
+            return resp.body;
+        });
+    });
+});
+
 Cypress.Commands.add('createAdmin', () => {
     cy.exec('npm run create-admin').then(result => {
         console.log('stdout:', result.stdout);

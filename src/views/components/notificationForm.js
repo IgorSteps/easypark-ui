@@ -38,12 +38,12 @@ function NotificationForm({parkingRequestID, parkingSpaceID}) {
                 </Form.Control>
             </Form.Group>
         
-            <Form.Group controlId="formNotificationLocation" data-test-id="notification-location-group">
+            <Form.Group className='mt-2' controlId="formNotificationLocation" data-test-id="notification-location-group">
                 <Form.Label data-test-id="notification-location-label">Enter your location</Form.Label>
-                <Form.Control type="text" placeholder="cmp-1" value={location} onChange={(e) => setLocation(e.target.value)} data-test-id="notification-location-input" required/>
+                <Form.Control type="text" placeholder="For example: cmp-1" value={location} onChange={(e) => setLocation(e.target.value)} data-test-id="notification-location-input" required/>
             </Form.Group>
             
-            <Button variant="primary" type="submit" data-test-id="notification-submit-btn">
+            <Button className='mt-3' variant="primary" type="submit" data-test-id="notification-submit-btn">
                 Submit
             </Button>
         

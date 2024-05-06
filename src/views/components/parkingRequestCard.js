@@ -1,21 +1,44 @@
-import React, {useState} from 'react';
-import { Card, Button, Modal } from 'react-bootstrap';
-import NotificationForm from './notificationForm.js';
+import React, {useState, useEffect} from 'react';
+import { Card, Button, Modal, Row, Col, Alert } from 'react-bootstrap';
 import { FormatDateTime } from '../utils/time.js';
+import useGetParkingSpace from '../../controllers/useGetParkingSpace.js';
+import ParkingLotMapImage from '../../assets/ParkingLotImage.png'
+import ImageModal from './imageModal.js';
+import NotificationModal from './notificationModal.js';
 
 function ParkingRequest({parkingRequest, dataTestID}) {
-    const [showNotificationModal, setShowNotificationModal] = useState(false);
     const [activeRequest, setActiveRequest] = useState(null);
-
+    const [parkingSpaceDetails, setParkingSpaceDetails] = useState(null);
+    const [parkingSpaceFetched, setParkingSpaceFetched] = useState(false);
+   
+    const [showNotificationModal, setShowNotificationModal] = useState(false);
     const handleShowNotificationModal = (request) => {
         setActiveRequest(request);
         setShowNotificationModal(true);
     };
-
     const handleCloseNotificationModal = () => {
         setShowNotificationModal(false);
         setActiveRequest(null);
     };
+    
+    const [showMapModal, setShowMapModal] = useState(false);
+    const handleShowMapModal = () => setShowMapModal(true);
+    const handleCloseMapModal = () => setShowMapModal(false);
+
+    // Fetch assigned parking space data once it is assigned.
+    const { parkingSpace, fetchSingleParkingSpace, getSingleParkingSpaceError } = useGetParkingSpace();
+    useEffect(() => {
+        if (parkingRequest.ParkingSpaceID  && !parkingSpaceFetched) {
+            fetchSingleParkingSpace(parkingRequest.ParkingSpaceID);
+            setParkingSpaceFetched(true);
+        }
+    }, [parkingRequest.ParkingSpaceID, fetchSingleParkingSpace, parkingSpaceFetched]);
+    // Set its details once it is fetched.
+    useEffect(() => {
+        if (parkingSpace) {
+            setParkingSpaceDetails(parkingSpace);
+        }
+    }, [parkingSpace]);
 
     return (
         <>
@@ -28,9 +51,12 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                     <Card.Text data-test-id={`${dataTestID}-lot-name`}>
                         <strong>Parking Lot Name:</strong> {parkingRequest.DestinationParkingLotName}
                     </Card.Text>
-                    <Card.Text data-test-id={`${dataTestID}-space-id`}>
-                        <strong>Assigned Parking Space ID:</strong> {parkingRequest.ParkingSpaceID}
-                    </Card.Text>
+                    {/* Only show parking space details if it has been assigned and fetched. */}
+                    {parkingRequest.ParkingSpaceID && parkingSpaceDetails && 
+                        <Card.Text data-test-id={`${dataTestID}-space-name`}>
+                            <strong>Assigned Parking Space:</strong> {parkingSpaceDetails.Name}
+                        </Card.Text>
+                    }
                     <Card.Text data-test-id={`${dataTestID}-start-time`}>
                         <strong>Start Time:</strong> {FormatDateTime(parkingRequest.StartTime)}
                     </Card.Text>
@@ -41,30 +67,45 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                         <strong>Status:</strong> {parkingRequest.Status}
                     </Card.Text>
 
-                    {parkingRequest.ParkingSpaceID && 
-                        <Button 
-                            variant="primary" 
-                            onClick={() => handleShowNotificationModal(parkingRequest)} 
-                            data-test-id={`${dataTestID}-notify-btn`}>
-                            Notify arrival or departure
-                        </Button>
-                    }
+                    { getSingleParkingSpaceError && (
+                        <Alert variant='danger'>
+                            Failed to fetch assigned parking space details.
+                        </Alert>
+                    )}
+
+                    <Row>
+                        <Col md='auto'>
+                            {/* Only show map button if the parking request has been approved. */}
+                            {parkingRequest.Status === 'approved' && 
+                                <Button 
+                                variant="primary" 
+                                onClick={handleShowMapModal}
+                                data-test-id={`${dataTestID}-map-btn`}>
+                                View Map
+                                </Button>
+                            }
+                        </Col>
+                        
+                        <Col md='auto'>
+                            {/* Only show notify button if parking request has been approved or active for departure notifications. */}
+                            {(parkingRequest.Status === 'approved' || parkingRequest.Status === 'active')  && 
+                                <Button 
+                                    variant="secondary" 
+                                    onClick={() => handleShowNotificationModal(parkingRequest)} 
+                                    data-test-id={`${dataTestID}-notify-btn`}>
+                                    Notify arrival or departure
+                                </Button>
+                            }
+                        </Col>
+                    </Row>
                 </Card.Body>
             </Card>
 
-            <Modal show={showNotificationModal} onHide={handleCloseNotificationModal} data-test-id={`${dataTestID}-modal`}>
-                <Modal.Header closeButton data-test-id={`${dataTestID}-modal-header`}>
-                    <Modal.Title data-test-id={`${dataTestID}-modal-title`}>Notify of arrival or departure</Modal.Title>
-                </Modal.Header>
-                <Modal.Body data-test-id={`${dataTestID}-modal-body`}>
-                    {activeRequest && <NotificationForm parkingRequestID={activeRequest.ID} parkingSpaceID={activeRequest.ParkingSpaceID} />}
-                </Modal.Body>
-                <Modal.Footer data-test-id={`${dataTestID}-modal-footer`}>
-                    <Button variant="secondary" onClick={handleCloseNotificationModal} data-test-id={`${dataTestID}-close-btn`}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <ImageModal show={showMapModal} onClose={handleCloseMapModal} image={ParkingLotMapImage} />
+            
+            {activeRequest && (
+                <NotificationModal show={showNotificationModal} onClose={handleCloseNotificationModal} parkingRequest={activeRequest}/>
+            )}
         </>
     )
 }

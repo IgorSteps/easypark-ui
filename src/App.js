@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import LoginForm from './views/components/loginForm.js';
 import RegisterForm from './views/components/registerForm.js';
 import DriverDashboard from './views/driverDashboard.js';
-import DriverList from './views/components/driversList.js';
 
 function App() {
   return (

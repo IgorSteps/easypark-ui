@@ -4,7 +4,7 @@ import LoginForm from './views/components/loginForm.js';
 import RegisterForm from './views/components/registerForm.js';
 import DriverDashboard from './views/driverDashboard.js';
 import DriverList from './views/components/driversList.js';
-import WebSocketProvider from './context/websocketContext.js';
+
 function App() {
   return (
     <BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import Chat from './chat.js';
+import Chat from './chatForm.js';
 
 function ChatModal({ receiverID, show, handleClose }) {
   return (

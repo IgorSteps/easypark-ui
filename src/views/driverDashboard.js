@@ -32,7 +32,6 @@ function DriverDashboard() {
                     </Modal.Footer>
                 </Modal>
                 <ParkingRequestList /> 
-
             </Container>
         </>
     )

@@ -8,14 +8,12 @@ import WebSocketProvider from './context/websocketContext.js';
 function App() {
   return (
     <BrowserRouter>
-      <WebSocketProvider>
         <Routes>
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/driver-dashboard" element={<DriverDashboard />} />    
             <Route  path="/temp" element={<DriverList />} />
         </Routes>
-      </WebSocketProvider>
     </BrowserRouter>
   );
 }

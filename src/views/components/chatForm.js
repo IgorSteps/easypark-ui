@@ -9,6 +9,7 @@ function Chat({ receiverID }) {
     const [messages, setMessages] = useState([]);
     const [messageContent, setMessageContent] = useState('')
 
+    // Create websocket.
     const { sendMessage, lastMessage, readyState } = useWebSocket.default(url, {
         onOpen: () => console.log('Opened WebSocket connection on', url),
         onClose: () => console.log('Closed WebSocket connection on', url),
@@ -43,9 +44,7 @@ function Chat({ receiverID }) {
         <>
             <div className='chat-window'>
             {messages.map((message, index) => (
-                    <div className='mb-2'>
-                        <Message key={index} message={message} isCurrentUser={message.senderID === userID} />
-                    </div>
+                        <Message key={index} message={message} isCurrentUser={message.senderID === userID} dataTestId={`message-${index}`}/>
                 ))}
             </div>
 
@@ -56,10 +55,11 @@ function Chat({ receiverID }) {
                         placeholder="Type your message..."
                         value={messageContent}
                         onChange={(e) => setMessageContent(e.target.value)}
+                        data-test-id='message-input-box'
                     />
                 </Form.Group>
 
-                <Button className='mt-2' variant="primary" type="submit">
+                <Button className='mt-2' variant="primary" type="submit" data-test-id='send-message-btn'>
                 Send
                 </Button>
             </Form>

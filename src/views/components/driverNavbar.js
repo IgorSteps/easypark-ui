@@ -17,17 +17,18 @@ function DriverNavbar() {
     <>
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">Easypark</Navbar.Brand>
+          <Navbar.Brand href="/driver-dashboard">Easypark</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link onClick={handleOpenChatModal}>Message admin</Nav.Link>
-              <Nav.Link href="#link">FAQ</Nav.Link>
+              <Nav.Link onClick={handleOpenChatModal} data-test-id="message-admin-link">
+                Message admin
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <ChatModal receiverID={'a131a9a0-8d09-4166-b6fc-f8a08ba549e9'} show={showChatModal} handleClose={handleCloseChatModal} />
+      <ChatModal receiverID={process.env.ADMIN_ID} show={showChatModal} handleClose={handleCloseChatModal} data-test-id="chat-modal" />
     </>
   );
 }

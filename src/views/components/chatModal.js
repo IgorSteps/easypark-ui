@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Chat from './chatForm.js';
 
@@ -9,10 +9,10 @@ function ChatModal({ receiverID, show, handleClose }) {
         <Modal.Title>Chat</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Chat receiverID={receiverID} />
+        <Chat receiverID={receiverID} data-test-id="chat" />
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose} data-test-id="chat-modal-close-btn">
           Close
         </Button>
       </Modal.Footer>

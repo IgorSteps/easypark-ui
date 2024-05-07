@@ -7,18 +7,14 @@ import { Alert } from 'react-bootstrap';
 function DriverList(){
     const {  drivers, fetchDrivers, error } = useGetDrivers();
 
+    // Fetch drivers every 10 seconds.
     useEffect(() => {
         const fetchData = async () => {
             await fetchDrivers();
         };
 
-        // Initially fetch data on component load.
         fetchData();
-
-        // Set up interval to poll every 10 seconds.
         const intervalId = setInterval(fetchData, 10000);
-
-        // Clean up interval on component unload.
         return () => clearInterval(intervalId);
     }, []);
 
@@ -31,7 +27,7 @@ function DriverList(){
     }
     if (drivers.length === 0) {
         return (
-            <Alert data-test-id="no-parking-request-alert" variant="info">
+            <Alert data-test-id="no-drivers-alert" variant="info">
                 {"No drivers"}
             </Alert>
         )
@@ -40,7 +36,7 @@ function DriverList(){
     return (
         <div>
             {drivers.map((driver, index) => (
-                <Driver key={index} user={driver} />
+                <Driver data-test-id={`driver-${index}`} dataTestID={`driver-${index}`} key={index} user={driver} />
             ))}
         </div>
     );

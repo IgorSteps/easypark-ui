@@ -12,7 +12,6 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/driver-dashboard" element={<DriverDashboard />} />    
-            <Route  path="/temp" element={<DriverList />} />
         </Routes>
     </BrowserRouter>
   );

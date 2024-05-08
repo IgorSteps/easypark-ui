@@ -8,7 +8,7 @@ function ParkingRequest({parkingRequest, dataTestID}) {
     const [parkingSpaceDetails, setParkingSpaceDetails] = useState(null);
     const { automaticallyAssign, space, error } = useAutomaticallyAssignParkSpace();
 
-    // Local status to manage UI state independently
+    // Local states to manage UI state independently
     const [localStatus, setLocalStatus] = useState(parkingRequest.Status);
 
     const handleApprove = async (event) => {
@@ -42,7 +42,6 @@ function ParkingRequest({parkingRequest, dataTestID}) {
         setLocalStatus(parkingRequest.Status); 
     }, [parkingRequest.Status]);
 
-    
     return (
         <>
             <Card className="mb-3" data-test-id={`${dataTestID}-card`}> 
@@ -83,13 +82,13 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                     )}
 
                     {space && (
-                        <Alert variant='info' data-test-id={`${dataTestID}-approval-success-alert`}>
+                        <Alert variant='info' data-test-id={`${dataTestID}-approval-success-alert`} dismissible>
                             Successfully assigned a space.
                         </Alert>
                     )}
 
                     { responseMsg && (
-                        <Alert variant='info' data-test-id={`${dataTestID}-rejection-success-alert`}>
+                        <Alert variant='info' data-test-id={`${dataTestID}-rejection-success-alert`} dismissible>
                             Successfully changed parking request status.
                         </Alert>
                     )}

@@ -49,6 +49,7 @@ function ParkingLot({ parkingLotData, selectedTime }) {
           return { cols: 25, size: '40px' };
         }
     };
+    const layout = calculateLayout(parkingLotData.ParkingSpaces.length)
 
     // Render parking spaces
     return (

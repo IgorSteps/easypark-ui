@@ -97,6 +97,8 @@ jobs:
           cd backend
           make run &
           echo "Backend_PID=$!" >> $GITHUB_ENV
+          make ws &
+          echo "WS_PID=$!" >> $GITHUB_ENV
 
       - name: Make scripts executable
         run: |
@@ -115,4 +117,6 @@ jobs:
 
       - name: Cleanup Backend
         if: always()
-        run: kill ${{ env.Backend_PID }}
+        run: |
+          kill ${{ env.Backend_PID }}
+          kill ${{ env.WS_PID }}

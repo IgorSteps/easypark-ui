@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Button, Container, Alert, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import useLoginController from '../../controllers/loginController.js';
+import useAdminLoginController from '../../controllers/useAdminLogin.js';
 
-export default function LoginForm() {
+export default function AdminLoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { handleLogin, error } = useLoginController();
+  const { handleLogin, error } = useAdminLoginController();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,7 +20,7 @@ export default function LoginForm() {
         <Container className='form-content'>
 
           <h1 className='form-title'>
-            EasyPark Login
+            EasyPark Admin Login
           </h1>
 
           <Form.Group controlId="formBasicUsername">
@@ -46,17 +46,6 @@ export default function LoginForm() {
               data-test-id="login-password-input"
             />
           </Form.Group>
-
-          <Button 
-            className="mt-4"
-            variant="link"
-            as={Link}
-            to="/register"
-            data-test-id="register-link-button"
-          >
-            New to Easypark? Register here
-          </Button>
-          <br/>
 
           <Button 
             className="mt-4"

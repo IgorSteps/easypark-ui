@@ -13,13 +13,12 @@ function App() {
         <Routes>
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
-            <Route path="/driver-dashboard" element={<DriverDashboard />} />     
-
+            <Route path="/driver-dashboard" element={<DriverDashboard />} />    
             <Route path="/admin-login" element={<AdminLoginForm />} />   
             <Route path="/admin-dashboard" element={<AdminDashboard />} />   
             <Route path="/admin-parking-requests" element={<AdminParkingRequests />} />   
         </Routes>
-      </BrowserRouter>
+    </BrowserRouter>
   );
 }
 

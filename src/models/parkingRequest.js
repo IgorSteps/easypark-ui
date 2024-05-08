@@ -36,7 +36,7 @@ export async function getAllDriversParkingRequests() {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       });
-      console.log("response get drivers parking req", response.data)
+
       return response.data;
     } catch (error) {
       console.error('Failed to get all parking requests for driver', error);

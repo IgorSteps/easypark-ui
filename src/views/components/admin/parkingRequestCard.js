@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Card, Button, Modal, Alert } from 'react-bootstrap';
 import { FormatDateTime } from '../../utils/time.js';
 import useGetParkingSpace from '../../../controllers/useGetParkingSpace.js';
-import AssignParkingSpaceModal from './assignParkingSpaceModal.js';
+import ParkingLotModal from './parkingLotModal.js';
 
 function ParkingRequest({parkingRequest, dataTestID}) {
     const [parkingSpaceDetails, setParkingSpaceDetails] = useState(null);
@@ -67,7 +67,7 @@ function ParkingRequest({parkingRequest, dataTestID}) {
             </Card>
 
 
-            <AssignParkingSpaceModal 
+            <ParkingLotModal 
                 show={showModal}
                 onClose={handleModalClose} 
                 parkingLotID={parkingRequest.DestinationParkingLotID}

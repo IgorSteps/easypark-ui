@@ -35,11 +35,25 @@ function ParkingLot({ parkingLotData, selectedTime }) {
         available: 'success'
     };
 
+    // Determine the number of columns and card size based on the number of spaces
+    const calculateLayout = (count) => {
+        if (count <= 50) {
+          return { cols: 5, size: '100px'};
+        } else if (count <= 100) {
+          return { cols: 10, size: '80px' };
+        } else if (count <= 300) {
+          return { cols: 15, size: '60px' };
+        } else if (count <= 500) {
+          return { cols: 20, size: '50px' };
+        } else {
+          return { cols: 25, size: '40px' };
+        }
+    };
 
     // Render parking spaces
     return (
         <Container fluid>
-            <Row xs={2} md={4} lg={6} xl={8}>
+            <Row xs={layout.cols}>
                 {parkingLotData.ParkingSpaces.map(space => {
                 const status = getStatusForTimeRange(space, selectedTime);
                 return (
@@ -53,7 +67,7 @@ function ParkingLot({ parkingLotData, selectedTime }) {
                             </Tooltip>
                             }
                         >
-                            <Card bg={colorMap[status]} style={{ height: '50px', cursor: 'pointer' }}>
+                            <Card bg={colorMap[status]} style={{ height: '30px', width: '30px', cursor: 'pointer' }}>
                                 <Card.Body className="p-2" />
                             </Card>
                         </OverlayTrigger>

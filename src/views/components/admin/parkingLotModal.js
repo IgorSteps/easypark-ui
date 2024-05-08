@@ -3,7 +3,7 @@ import { Modal, Button, Alert } from 'react-bootstrap';
 import useGetSingleParkingLot from '../../../controllers/useGetSingleParkingLot.js'
 import ParkingLot from './parkingLot.js';
 
-function AssignParkingSpaceModal({ show, onClose, parkingLotID, startTime, endTime }) {
+function ParkingLotModal({ show, onClose, parkingLotID, startTime, endTime }) {
     const {parkingLot, fetchSingleParkingLot, error} = useGetSingleParkingLot()
     const [parkingLotFetched, setParkingLotFetched] = useState(false);
     useEffect(() => {
@@ -11,7 +11,6 @@ function AssignParkingSpaceModal({ show, onClose, parkingLotID, startTime, endTi
             fetchSingleParkingLot(parkingLotID);    
             setParkingLotFetched(true);
         }
-    
     }, [parkingLotFetched, parkingLotID, startTime, endTime, fetchSingleParkingLot]);
 
     if (error != null) {
@@ -23,7 +22,7 @@ function AssignParkingSpaceModal({ show, onClose, parkingLotID, startTime, endTi
     }
 
     return (
-        <Modal show={show} onHide={onClose} data-test-id='parking-lot-modal'>
+        <Modal size='lg' show={show} onHide={onClose} data-test-id='parking-lot-modal'>
             <Modal.Header closeButton data-test-id='parking-lot-modal-header'>
                 <Modal.Title data-test-id='parking-lot-modal-title'>Choose parking space</Modal.Title>
             </Modal.Header>
@@ -39,4 +38,4 @@ function AssignParkingSpaceModal({ show, onClose, parkingLotID, startTime, endTi
     );
 }
 
-export default AssignParkingSpaceModal
+export default ParkingLotModal

@@ -66,10 +66,23 @@ export async function getAllDriversParkingRequests() {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       });
-      console.info( response.data)
       return response.data;
     } catch (error) {
       console.error('Failed to automatically assign a space to parking request', error);
+      throw new Error(error.response.data || 'An error occurred')
+    }
+  }
+
+  export async function updateParkingRequestStatus(parkingReqID, request) {
+    try {
+      const response = await axios.patch(process.env.BASE_API_URL+`/parking-requests/`+parkingReqID+'/status', request, {
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to update parking request status', error);
       throw new Error(error.response.data || 'An error occurred')
     }
   }

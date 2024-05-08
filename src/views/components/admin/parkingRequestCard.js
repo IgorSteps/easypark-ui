@@ -1,28 +1,48 @@
 import React, {useState, useEffect} from 'react';
-import { Card, Button, Alert } from 'react-bootstrap';
+import { Card, Button, Alert, Row, Col } from 'react-bootstrap';
 import { FormatDateTime } from '../../utils/time.js';
 import useAutomaticallyAssignParkSpace from '../../../controllers/useAutomaticallyAssignParkSpace.js';
+import useUpdateParkingRequestStatus from '../../../controllers/useUpdateParkingRequestStatus.js';
 
 function ParkingRequest({parkingRequest, dataTestID}) {
     const [parkingSpaceDetails, setParkingSpaceDetails] = useState(null);
-   
-    const {automaticallyAssign, space, error} = useAutomaticallyAssignParkSpace()
+    const { automaticallyAssign, space, error } = useAutomaticallyAssignParkSpace();
+
+    // Local status to manage UI state independently
+    const [localStatus, setLocalStatus] = useState(parkingRequest.Status);
 
     const handleApprove = async (event) => {
         event.preventDefault();
         const req = {
             parkingRequestID: parkingRequest.ID
-        }
-        console.info(req)
+        };
         await automaticallyAssign(req);
+        setLocalStatus('approved');
     };
-    
+
+    const { updateStatus, responseMsg, updateStatusError } = useUpdateParkingRequestStatus();
+
+    const handleReject = async (event) => {
+        event.preventDefault();
+        const req = {
+            status: "rejected"
+        };
+        await updateStatus(parkingRequest.ID, req);
+        setLocalStatus('rejected');
+    };
+
     useEffect(() => {
         if (space) {
             setParkingSpaceDetails(space);
         }
     }, [space]);
 
+    // Sync local status with parkingRequest when it updates.
+    useEffect(() => {
+        setLocalStatus(parkingRequest.Status); 
+    }, [parkingRequest.Status]);
+
+    
     return (
         <>
             <Card className="mb-3" data-test-id={`${dataTestID}-card`}> 
@@ -56,9 +76,30 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                         </Alert>
                     )}
 
-                    {space && 
-                        <Button variant="primary" onClick={handleApprove}>Approve</Button>
-                    }  
+                    { updateStatusError && (
+                        <Alert variant='danger'>
+                            Failed to update parking request status.
+                        </Alert>
+                    )}
+
+                    
+                    <Row md='auto'>
+                        {localStatus !== 'approved' && localStatus !== 'rejected' &&
+                            <>
+                                <Col>
+                                    <Button variant="success" onClick={handleApprove}>
+                                        Approve
+                                    </Button>
+                                </Col>
+                                <Col>
+                                    <Button variant="danger" onClick={handleReject}>
+                                       Reject
+                                    </Button>
+                                </Col>
+                            </>
+                        }
+                    </Row>
+                    
                 
                 </Card.Body>
             </Card>

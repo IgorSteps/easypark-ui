@@ -1,31 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Alert, Container, Card, Button, Modal } from 'react-bootstrap';
-import useGetDriversParkingRequests from '../../controllers/useGetDriversParkingRequests.js';
-import NotificationForm from './notificationForm.js';
-import ParkingRequest from './parkingRequestCard.js';
+import React, { useEffect } from 'react';
+import { Alert } from 'react-bootstrap';
+import useGetAllParkingRequests from '../../../controllers/useGetAllParkingRequests.js';
+import ParkingRequest from '../admin/parkingRequestCard.js';
 
 function ParkingRequestList() {
-    const {  parkingRequests, fetchParkingRequests, error } = useGetDriversParkingRequests();
+    const {  parkingRequests, fetchParkingRequests, error } = useGetAllParkingRequests();
 
     useEffect(() => {
         const fetchData = async () => {
             await fetchParkingRequests();
         };
 
-        // Initially fetch data on component load.
         fetchData();
-
-        // Set up interval to poll every 10 seconds.
-        const intervalId = setInterval(fetchData, 10000);
-
-        // Clean up interval on component unload.
+        const intervalId = setInterval(fetchData, 10000); // 10 secs.
         return () => clearInterval(intervalId);
     }, []);
 
     if (error) {
         return (
             <Alert data-test-id="get-parking-requests-error-alert" variant="danger">
-                {"Failed to get your parking requests: " + error}
+                {"Failed to get parking requests: " + error}
             </Alert>
         )
     }

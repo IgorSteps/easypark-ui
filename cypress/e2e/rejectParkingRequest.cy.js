@@ -52,16 +52,15 @@ describe("Clicking Approve button on Parking Request", () => {
             // --------
             // ACT
             // --------
-            cy.get(`[data-test-id=parking-request-0-approve-btn]`).click()
+            cy.get(`[data-test-id=parking-request-0-reject-btn]`).click()
 
             // --------
             // ASSERT
             // --------
-            cy.get(`[data-test-id=parking-request-0-approval-success-alert]`).should('contain', 'Successfully assigned a space.')
+            cy.get(`[data-test-id=parking-request-0-rejection-success-alert]`).should('contain', 'Successfully changed parking request status.')
 
             cy.wait(11000) // wait 11 secs to refetch parking requests
 
-            cy.get(`[data-test-id=parking-request-0-status]`).should('contain', 'approved')
-            cy.get(`[data-test-id=parking-request-0-space-name]`).should('contain', 'cmp-1')
+            cy.get(`[data-test-id=parking-request-0-status]`).should('contain', 'rejected')
     });
 });

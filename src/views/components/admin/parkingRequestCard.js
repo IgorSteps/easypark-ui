@@ -72,13 +72,25 @@ function ParkingRequest({parkingRequest, dataTestID}) {
 
                     { error && (
                         <Alert variant='danger'>
-                            Failed to assign a parking space.
+                           { "Failed to assign a parking space: " + error}
                         </Alert>
                     )}
 
                     { updateStatusError && (
                         <Alert variant='danger'>
-                            Failed to update parking request status.
+                            {"Failed to update parking request status: " + updateStatusError}
+                        </Alert>
+                    )}
+
+                    {space && (
+                        <Alert variant='info' data-test-id={`${dataTestID}-approval-success-alert`}>
+                            Successfully assigned a space.
+                        </Alert>
+                    )}
+
+                    { responseMsg && (
+                        <Alert variant='info' data-test-id={`${dataTestID}-rejection-success-alert`}>
+                            Successfully changed parking request status.
                         </Alert>
                     )}
 
@@ -87,12 +99,12 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                         {localStatus !== 'approved' && localStatus !== 'rejected' &&
                             <>
                                 <Col>
-                                    <Button variant="success" onClick={handleApprove}>
+                                    <Button variant="success" onClick={handleApprove} data-test-id={`${dataTestID}-approve-btn`}>
                                         Approve
                                     </Button>
                                 </Col>
                                 <Col>
-                                    <Button variant="danger" onClick={handleReject}>
+                                    <Button variant="danger" onClick={handleReject} data-test-id={`${dataTestID}-reject-btn`}>
                                        Reject
                                     </Button>
                                 </Col>

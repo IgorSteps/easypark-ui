@@ -69,7 +69,7 @@ export default function LoginForm() {
           {/* Display error message if any */}
           {error && (
             <Alert data-test-id="login-alert" className='mt-4' variant="danger">
-              {error}
+              {"Failed to login: "+ error}
             </Alert>
           )}
           

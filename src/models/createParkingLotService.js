@@ -16,6 +16,6 @@ export async function createParkingLot(parkingLotDetails) {
     return response.data;
   } catch (error) {
     console.error('Failed to create parking lot', error.response);
-    throw new Error(error.response.data.error || 'An error occurred');
+    throw new Error(error.response.data || 'An error occurred');
   }
 }

@@ -1,32 +1,27 @@
 import React, {useState, useEffect} from 'react';
-import { Card, Button, Modal, Alert } from 'react-bootstrap';
+import { Card, Button, Alert } from 'react-bootstrap';
 import { FormatDateTime } from '../../utils/time.js';
-import useGetParkingSpace from '../../../controllers/useGetParkingSpace.js';
-import ParkingLotModal from './parkingLotModal.js';
+import useAutomaticallyAssignParkSpace from '../../../controllers/useAutomaticallyAssignParkSpace.js';
 
 function ParkingRequest({parkingRequest, dataTestID}) {
     const [parkingSpaceDetails, setParkingSpaceDetails] = useState(null);
-    const [parkingSpaceFetched, setParkingSpaceFetched] = useState(false);
    
-    // Fetch assigned parking space data once it is assigned.
-    const { parkingSpace, fetchSingleParkingSpace, getSingleParkingSpaceError } = useGetParkingSpace();
-    useEffect(() => {
-        if (parkingRequest.ParkingSpaceID  && !parkingSpaceFetched) {
-            fetchSingleParkingSpace(parkingRequest.ParkingSpaceID);
-            setParkingSpaceFetched(true);
-        }
-    }, [parkingRequest.ParkingSpaceID, fetchSingleParkingSpace, parkingSpaceFetched]);
-    // Set its details once it is fetched.
-    useEffect(() => {
-        if (parkingSpace) {
-            setParkingSpaceDetails(parkingSpace);
-        }
-    }, [parkingSpace]);
+    const {automaticallyAssign, space, error} = useAutomaticallyAssignParkSpace()
 
-    // Modal to assign park space
-    const [showModal, setShowModal] = useState(false);
-    const handleModalClose = () => setShowModal(false);
-    const handleModalShow = () => setShowModal(true);
+    const handleApprove = async (event) => {
+        event.preventDefault();
+        const req = {
+            parkingRequestID: parkingRequest.ID
+        }
+        console.info(req)
+        await automaticallyAssign(req);
+    };
+    
+    useEffect(() => {
+        if (space) {
+            setParkingSpaceDetails(space);
+        }
+    }, [space]);
 
     return (
         <>
@@ -55,25 +50,18 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                         <strong>Status:</strong> {parkingRequest.Status}
                     </Card.Text>
 
-                    { getSingleParkingSpaceError && (
+                    { error && (
                         <Alert variant='danger'>
-                            Failed to fetch assigned parking space details.
+                            Failed to assign a parking space.
                         </Alert>
                     )}
 
-                    <Button variant="primary" onClick={handleModalShow}>Approve</Button>
+                    {space && 
+                        <Button variant="primary" onClick={handleApprove}>Approve</Button>
+                    }  
                 
                 </Card.Body>
             </Card>
-
-
-            <ParkingLotModal 
-                show={showModal}
-                onClose={handleModalClose} 
-                parkingLotID={parkingRequest.DestinationParkingLotID}
-                startTime={parkingRequest.startTime}
-                endTime={parkingRequest.endTime} />
-           
         </>
     )
 }

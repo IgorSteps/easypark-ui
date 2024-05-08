@@ -58,3 +58,18 @@ export async function getAllDriversParkingRequests() {
       throw new Error(error.response.data || 'An error occurred')
     }
   }
+
+  export async function automaticallyAssignParkingSpace(request) {
+    try {
+      const response = await axios.patch(process.env.BASE_API_URL+`/parking-requests/`+request.parkingRequestID+'/automatic/space', request, {
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        }
+      });
+      console.info( response.data)
+      return response.data;
+    } catch (error) {
+      console.error('Failed to automatically assign a space to parking request', error);
+      throw new Error(error.response.data || 'An error occurred')
+    }
+  }

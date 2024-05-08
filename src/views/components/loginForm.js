@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Container, Alert, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
 import useLoginController from '../../controllers/loginController.js';
 
 export default function LoginForm() {
@@ -70,7 +69,7 @@ export default function LoginForm() {
           {/* Display error message if any */}
           {error && (
             <Alert data-test-id="login-alert" className='mt-4' variant="danger">
-              {"Failed to login: "+ error}
+              {error}
             </Alert>
           )}
           

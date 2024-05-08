@@ -4,6 +4,7 @@ import LoginForm from './views/components/loginForm.js';
 import RegisterForm from './views/components/registerForm.js';
 import DriverDashboard from './views/driverDashboard.js';
 import AdminLoginForm from './views/components/adminLoginForm.js';
+import CreateParkingLotForm from './views/components/createParkingLotForm.js';
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/driver-dashboard" element={<DriverDashboard />} />     
-
-            <Route path="/admin-login" element={<AdminLoginForm />} />   
+            <Route path="/admin-login" element={<AdminLoginForm />} />
+            {/* temporary path so it can be seen and tested */}
+            <Route path="/create-parking-lot" element={<CreateParkingLotForm />} />   
         </Routes>
       </BrowserRouter>
   );

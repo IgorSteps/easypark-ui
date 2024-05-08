@@ -97,7 +97,7 @@ jobs:
           cd backend
           make run &
           echo "Backend_PID=$!" >> $GITHUB_ENV
-          make ws &
+          make run-ws &
           echo "WS_PID=$!" >> $GITHUB_ENV
 
       - name: Make scripts executable

@@ -2,11 +2,6 @@ import axios from 'axios';
 
 export async function createPaymentRequest(requestBody) {
   try {
-      if (requestBody.CardNumber === '' || requestBody.CardNumber === undefined) {
-        console.warn("got empty value for card number")
-        throw new Error('Please enter card number')
-      }
-
       const response = await axios.post(process.env.BASE_API_URL+`/drivers/${sessionStorage.getItem('userId')}/payments`, requestBody, {
         headers: {
           'Content-Type': 'application/json',

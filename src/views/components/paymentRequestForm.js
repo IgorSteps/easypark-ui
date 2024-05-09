@@ -18,7 +18,6 @@ function PaymentRequestForm() {
         const req = {
             name, billingAddress, CardNumber:parseInt(CardNumber), expiryDate, CVC:parseInt(CVC) 
         };
-        console.log(req)
         await createRequest(req);
     };
 
@@ -44,10 +43,8 @@ function PaymentRequestForm() {
                 <Form.Label>Card Expiry Date</Form.Label>
                 <DatePicker.default 
                     selected={expiryDate} 
-                    onChange={date => setExpiryDate(date)} 
-                    showTimeSelect 
-                    dateFormat="yyyy-MM-dd'T'HH:mm:ss"
-                    timeFormat="HH:mm"
+                    onChange={date => setExpiryDate(date)}  
+                    dateFormat="yyyy-MM-dd"
                 />
             </Form.Group>
 
@@ -69,7 +66,7 @@ function PaymentRequestForm() {
 
             {/* Display success message if any */}
             {payReq && (
-                <Alert data-test-id="create-pay-request-success-alert" className='mt-4' variant="success">
+                <Alert data-test-id="create-pay-request-success-alert" className='mt-4' variant="success" dismissible>
                 {"Payment sent successfully"}
                 </Alert>
             )}

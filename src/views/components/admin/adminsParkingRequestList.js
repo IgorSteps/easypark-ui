@@ -32,7 +32,7 @@ function ParkingRequestList() {
     }
    console.info("fetching parking requests for admin")
     return (
-        parkingRequests.map((parkingRequest, index) => (
+        parkingRequests.toReversed().map((parkingRequest, index) => (
                 <ParkingRequest 
                     key={index}
                     parkingRequest={parkingRequest}

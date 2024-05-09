@@ -3,6 +3,7 @@ import { Card, Button, Alert, Row, Col } from 'react-bootstrap';
 import { FormatDateTime } from '../../utils/time.js';
 import useAutomaticallyAssignParkSpace from '../../../controllers/useAutomaticallyAssignParkSpace.js';
 import useUpdateParkingRequestStatus from '../../../controllers/useUpdateParkingRequestStatus.js';
+import useDeassignParkingSpace from '../../../controllers/useDeassignParkingSpace.js';
 
 function ParkingRequest({parkingRequest, dataTestID}) {
     const [parkingSpaceDetails, setParkingSpaceDetails] = useState(null);
@@ -41,6 +42,12 @@ function ParkingRequest({parkingRequest, dataTestID}) {
     useEffect(() => {
         setLocalStatus(parkingRequest.Status); 
     }, [parkingRequest.Status]);
+
+    const {deassign, deassignError} = useDeassignParkingSpace()
+    const handleDeassign = async (event) => {
+        event.preventDefault;
+        await deassign(parkingRequest.ID)
+    }
 
     return (
         <>
@@ -81,6 +88,12 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                         </Alert>
                     )}
 
+                    { deassignError && (
+                        <Alert variant='danger'>
+                        {"Failed to de-assign parking space: " + deassignError}
+                        </Alert>
+                    )}
+
                     {space && (
                         <Alert variant='info' data-test-id={`${dataTestID}-approval-success-alert`} dismissible>
                             Successfully assigned a space.
@@ -108,6 +121,13 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                                     </Button>
                                 </Col>
                             </>
+                        }
+                        { localStatus == 'approved' &&
+                            <Col>
+                                <Button variant='danger' onClick={handleDeassign} data-test-id={`${dataTestID}-deassign-btn`}>
+                                    De-assign parking space
+                                </Button>
+                            </Col>
                         }
                     </Row>
                     

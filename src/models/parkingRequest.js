@@ -74,10 +74,10 @@ export async function getAllDriversParkingRequests() {
   }
 
   export async function deassignParkingSpace(parkingRequestID) {
+    const request = {
+      "parkingSpaceID": null
+    }
     try {
-      request = {
-        "parkingSpaceID": null
-      }
       const response = await axios.patch(process.env.BASE_API_URL+`/parking-requests/`+parkingRequestID+'/space', request, {
         headers: {
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`

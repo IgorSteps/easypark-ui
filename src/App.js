@@ -10,6 +10,7 @@ function App() {
   return (
     <BrowserRouter>
         <Routes>
+            <Route exact path="/" element={<LoginForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/driver-dashboard" element={<DriverDashboard />} />     

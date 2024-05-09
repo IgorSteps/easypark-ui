@@ -11,7 +11,7 @@ const useCreateParkingLotController = () => {
       console.debug(`Details are ${parkingLotDetails}`);
       await createParkingLot(parkingLotDetails);
       setError(null)
-    //   navigate back to admin home page
+      navigate('/admin-dashboard');
     } catch (error) {
       setError(error.message);
     }

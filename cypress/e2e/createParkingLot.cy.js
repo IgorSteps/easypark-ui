@@ -1,4 +1,4 @@
-describe('Login Form', () => {
+describe('Create Parking Lot Form', () => {
     beforeEach(() => {
         cy.cleanDB()
         cy.populateWithDrivers()
@@ -23,7 +23,7 @@ describe('Login Form', () => {
       // ASSERT
       // ------
 
-      //cy.get('[data-test-id=create-park-request-success-alert]').should('contain', 'Successfully created parking request');
+      cy.url().should('include', '/admin-dashboard'); 
     });
   
     it('fails to create a parking lot', () => {

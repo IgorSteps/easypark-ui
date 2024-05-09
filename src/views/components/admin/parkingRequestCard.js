@@ -5,7 +5,7 @@ import useAutomaticallyAssignParkSpace from '../../../controllers/useAutomatical
 import useUpdateParkingRequestStatus from '../../../controllers/useUpdateParkingRequestStatus.js';
 import useDeassignParkingSpace from '../../../controllers/useDeassignParkingSpace.js';
 
-function ParkingRequest({parkingRequest, dataTestID}) {
+function ParkingRequest({fetch, parkingRequest, dataTestID}) {
     const [parkingSpaceDetails, setParkingSpaceDetails] = useState(null);
     const { automaticallyAssign, space, error } = useAutomaticallyAssignParkSpace();
 
@@ -19,6 +19,7 @@ function ParkingRequest({parkingRequest, dataTestID}) {
         };
         await automaticallyAssign(req);
         setLocalStatus('approved');
+        fetch()
     };
 
     const { updateStatus, responseMsg, updateStatusError } = useUpdateParkingRequestStatus();
@@ -30,6 +31,7 @@ function ParkingRequest({parkingRequest, dataTestID}) {
         };
         await updateStatus(parkingRequest.ID, req);
         setLocalStatus('rejected');
+        fetch()
     };
 
     useEffect(() => {
@@ -43,6 +45,7 @@ function ParkingRequest({parkingRequest, dataTestID}) {
         event.preventDefault;
         await deassign(parkingRequest.ID)
         setLocalStatus('pending');
+        fetch()
     }
 
     // Sync local status with parkingRequest when it updates.

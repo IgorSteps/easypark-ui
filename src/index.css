@@ -26,3 +26,9 @@
     color: black;
     font-weight: 800;
 }
+
+.chat-window {
+    max-height: 300px;
+    overflow-y: auto;
+}
+  

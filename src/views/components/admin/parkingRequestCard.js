@@ -40,6 +40,7 @@ function ParkingRequest({fetch, parkingRequest, dataTestID}) {
                                 aria-controls="collapse-part"
                                 aria-expanded={open}
                                 variant="link"
+                                data-test-id={`${dataTestID}-detail-btn`} 
                             >
                                 {open ? 'Hide Details' : 'Show Details'}
                             </Button>
@@ -97,34 +98,34 @@ function ParkingRequest({fetch, parkingRequest, dataTestID}) {
                         }
                     
                     {assignError && (
-                        <Alert variant='danger' dismissible>
+                        <Alert variant='danger' data-test-id={`${dataTestID}-assign-error-alert`} dismissible>
                         {assignError}
                         </Alert>
                     )}
 
                     {updateStatusError && (
-                        <Alert variant='danger' dismissible>
+                        <Alert variant='danger' data-test-id={`${dataTestID}-updateStatus-error-alert`} dismissible>
                             {updateStatusError}
                         </Alert>
                     )}
 
                     {deassignError && (
-                        <Alert variant='danger' dismissible>
+                        <Alert variant='danger' data-test-id={`${dataTestID}-deassign-error-alert`} dismissible>
                             {deassignError}
                         </Alert>
                     )}
                     {space && (
-                        <Alert className='mt-2' variant='success' dismissible>
+                        <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-assign-success-alert`} dismissible>
                             {"Successfully approved request and assigned a space. "}
                         </Alert>
                     )}
                     {statusUpdateResponse && (
-                        <Alert className='mt-2' variant='success' dismissible>
+                        <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-updateStatus-success-alert`}  dismissible>
                             {"Successfully updated a parking space status"}
                         </Alert>
                     )}
                     {deassignMsg && (
-                        <Alert className='mt-2' variant='success' dismissible>
+                        <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-deassign-success-alert`}  dismissible>
                             {"Successfully de-assigned parking space"}
                         </Alert>
                     )}                

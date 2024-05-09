@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Container, Alert, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import useCreateParkingLotController from '../../controllers/createParkingLotController.js';
+import useCreateParkingLotController from '../../../controllers/createParkingLotController.js';
 
 export default function CreateParkingLotForm() {
   const [name, setName] = useState('');

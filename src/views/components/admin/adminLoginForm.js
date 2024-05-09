@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Container, Alert, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import useAdminLoginController from '../../controllers/useAdminLogin.js';
+import useAdminLoginController from '../../../controllers/useAdminLogin.js';
 
 export default function AdminLoginForm() {
   const [username, setUsername] = useState('');

@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter'
 import axios from 'axios';
 import {jest} from '@jest/globals'
-import { createParkingRequest, getAllParkingRequests } from './parkingRequest';
+import { createParkingRequest, getAllDriversParkingRequests } from './parkingRequest';
 
 describe('createParkingRequest', () => {
     // Reset sessionStorage mock for each test
@@ -125,7 +125,7 @@ describe('getAllParkingRequests', () => {
         // ----
         // ACT
         // ----
-        const parkReqs = await getAllParkingRequests();
+        const parkReqs = await getAllDriversParkingRequests();
 
         // ------
         // ASSERT
@@ -149,6 +149,6 @@ describe('getAllParkingRequests', () => {
         // --------------
         // ACT and ASSERT
         // --------------
-        await expect(getAllParkingRequests()).rejects.toThrow('boom');
+        await expect(getAllDriversParkingRequests()).rejects.toThrow('boom');
     });
 });

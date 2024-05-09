@@ -38,16 +38,17 @@ function ParkingRequest({parkingRequest, dataTestID}) {
         }
     }, [space]);
 
-    // Sync local status with parkingRequest when it updates.
-    useEffect(() => {
-        setLocalStatus(parkingRequest.Status); 
-    }, [parkingRequest.Status]);
-
     const {deassign, deassignError} = useDeassignParkingSpace()
     const handleDeassign = async (event) => {
         event.preventDefault;
         await deassign(parkingRequest.ID)
+        setLocalStatus('pending');
     }
+
+    // Sync local status with parkingRequest when it updates.
+    useEffect(() => {
+        setLocalStatus(parkingRequest.Status); 
+    }, [parkingRequest.Status]);
 
     return (
         <>
@@ -76,6 +77,30 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                         <strong>Status:</strong> {parkingRequest.Status}
                     </Card.Text>
 
+                    <Row md='auto' className='mb-2'>
+                        {localStatus !== 'approved' && localStatus !== 'rejected' &&
+                            <>
+                                <Col>
+                                    <Button variant="success" onClick={handleApprove} data-test-id={`${dataTestID}-approve-btn`}>
+                                        Approve
+                                    </Button>
+                                </Col>
+                                <Col>
+                                    <Button variant="danger" onClick={handleReject} data-test-id={`${dataTestID}-reject-btn`}>
+                                       Reject
+                                    </Button>
+                                </Col>
+                            </>
+                        }
+                        { localStatus == 'approved' && localStatus != 'pending' &&
+                            <Col>
+                                <Button variant='danger' onClick={handleDeassign} data-test-id={`${dataTestID}-deassign-btn`}>
+                                    De-assign parking space
+                                </Button>
+                            </Col>
+                        }
+                    </Row>
+                    
                     { error && (
                         <Alert variant='danger'>
                            { "Failed to assign a parking space: " + error}
@@ -94,43 +119,17 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                         </Alert>
                     )}
 
-                    {space && (
-                        <Alert variant='info' data-test-id={`${dataTestID}-approval-success-alert`} dismissible>
+                    { space && (
+                        <Alert variant='success' data-test-id={`${dataTestID}-approval-success-alert`} dismissible>
                             Successfully assigned a space.
                         </Alert>
                     )}
 
                     { responseMsg && (
-                        <Alert variant='info' data-test-id={`${dataTestID}-rejection-success-alert`} dismissible>
+                        <Alert variant='success' data-test-id={`${dataTestID}-rejection-success-alert`} dismissible>
                             Successfully changed parking request status.
                         </Alert>
                     )}
-
-                    
-                    <Row md='auto'>
-                        {localStatus !== 'approved' && localStatus !== 'rejected' &&
-                            <>
-                                <Col>
-                                    <Button variant="success" onClick={handleApprove} data-test-id={`${dataTestID}-approve-btn`}>
-                                        Approve
-                                    </Button>
-                                </Col>
-                                <Col>
-                                    <Button variant="danger" onClick={handleReject} data-test-id={`${dataTestID}-reject-btn`}>
-                                       Reject
-                                    </Button>
-                                </Col>
-                            </>
-                        }
-                        { localStatus == 'approved' &&
-                            <Col>
-                                <Button variant='danger' onClick={handleDeassign} data-test-id={`${dataTestID}-deassign-btn`}>
-                                    De-assign parking space
-                                </Button>
-                            </Col>
-                        }
-                    </Row>
-                    
                 
                 </Card.Body>
             </Card>

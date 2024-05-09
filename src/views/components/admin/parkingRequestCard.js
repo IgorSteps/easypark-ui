@@ -76,7 +76,7 @@ function ParkingRequest({fetch, parkingRequest, dataTestID}) {
                     </Collapse>
                    
                         {parkingRequest.Status !== 'approved' && parkingRequest.Status !== 'rejected' &&
-                            <Row md='auto'>
+                            <Row className='mt-2' md='auto'>
                             <>
                                 <Col>
                                     <Button variant="success" onClick={handleApprove} data-test-id={`${dataTestID}-approve-btn`}>
@@ -92,7 +92,7 @@ function ParkingRequest({fetch, parkingRequest, dataTestID}) {
                             </Row>
                         }
                         { parkingRequest.Status == 'approved' && parkingRequest.Status != 'pending' &&
-                            <Button variant='danger' onClick={handleDeassign} data-test-id={`${dataTestID}-deassign-btn`}>
+                            <Button className='mt-2' variant='danger' onClick={handleDeassign} data-test-id={`${dataTestID}-deassign-btn`}>
                                 De-assign parking space
                             </Button>
                         }
@@ -116,17 +116,17 @@ function ParkingRequest({fetch, parkingRequest, dataTestID}) {
                     )}
                     {space && (
                         <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-assign-success-alert`} dismissible>
-                            {"Successfully approved request and assigned a space. "}
+                            {"Successfully approved request and assigned a space."}
                         </Alert>
                     )}
                     {statusUpdateResponse && (
                         <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-updateStatus-success-alert`}  dismissible>
-                            {"Successfully updated a parking space status"}
+                            {"Successfully updated a parking space status."}
                         </Alert>
                     )}
                     {deassignMsg && (
                         <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-deassign-success-alert`}  dismissible>
-                            {"Successfully de-assigned parking space"}
+                            {"Successfully de-assigned parking space."}
                         </Alert>
                     )}                
                 </Card.Body>

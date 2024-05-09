@@ -1,6 +1,6 @@
 import { FormatDateTime } from '../../src/views/utils/time';
 
-describe("Clicking Approve button on Parking Request", () => {
+describe("Clicking Reject button on Parking Request", () => {
     beforeEach(() => {
         cy.cleanDB()
         cy.populateWithDrivers()
@@ -13,7 +13,7 @@ describe("Clicking Approve button on Parking Request", () => {
        cy.cleanDB()
     });
 
-    it('should approve it', () => {
+    it('should reject it', () => {
         // --------
         // ASSEMBLE
         // --------
@@ -57,7 +57,7 @@ describe("Clicking Approve button on Parking Request", () => {
             // --------
             // ASSERT
             // --------
-            cy.get(`[data-test-id=parking-request-0-rejection-success-alert]`).should('contain', 'Successfully changed parking request status.')
+            cy.get(`[data-test-id=parking-request-0-updateStatus-success-alert]`).should('contain', "Successfully updated a parking space status.")
 
             cy.wait(11000) // wait 11 secs to refetch parking requests
 

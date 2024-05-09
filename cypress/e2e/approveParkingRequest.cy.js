@@ -57,7 +57,7 @@ describe("Clicking Approve button on Parking Request", () => {
             // --------
             // ASSERT
             // --------
-            cy.get(`[data-test-id=parking-request-0-approval-success-alert]`).should('contain', 'Successfully assigned a space.')
+            cy.get(`[data-test-id=parking-request-0-assign-success-alert]`).should('contain', "Successfully approved request and assigned a space.")
 
             cy.wait(11000) // wait 11 secs to refetch parking requests
 

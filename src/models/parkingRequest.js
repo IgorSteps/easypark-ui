@@ -73,23 +73,6 @@ export async function getAllDriversParkingRequests() {
     }
   }
 
-  export async function deassignParkingSpace(parkingRequestID) {
-    try {
-      request = {
-        "parkingSpaceID": null
-      }
-      const response = await axios.patch(process.env.BASE_API_URL+`/parking-requests/`+parkingRequestID+'/space', request, {
-        headers: {
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-        }
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Failed to de-assign a parking space from parking request', error);
-      throw new Error(error.response.data || 'An error occurred')
-    }
-  }
-
   export async function updateParkingRequestStatus(parkingReqID, request) {
     try {
       const response = await axios.patch(process.env.BASE_API_URL+`/parking-requests/`+parkingReqID+'/status', request, {

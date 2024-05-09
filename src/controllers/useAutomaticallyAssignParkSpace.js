@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { automaticallyAssignParkingSpace } from '../models/parkingRequest.js';
 
 function useAutomaticallyAssignParkSpace() {
-  const [error, setError] = useState(null);
+  const [assignError, setError] = useState(null);
   const [space, setSpace] = useState(null);
   
   const automaticallyAssign = async (requestBody) => {
@@ -17,7 +17,7 @@ function useAutomaticallyAssignParkSpace() {
     }
   };
 
-  return { automaticallyAssign, space, error};
+  return { automaticallyAssign, space, assignError};
 }
 
 export default useAutomaticallyAssignParkSpace;

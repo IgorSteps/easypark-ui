@@ -5,7 +5,6 @@ import ParkingRequest from '../admin/parkingRequestCard.js';
 
 function ParkingRequestList() {
     const {  parkingRequests, fetchParkingRequests, error } = useGetAllParkingRequests();
-
     useEffect(() => {
         const fetchData = async () => {
             await fetchParkingRequests();
@@ -31,10 +30,16 @@ function ParkingRequestList() {
             </Alert>
         )
     }
-   
+   console.info("fetching parking requests for admin")
     return (
-        parkingRequests.map((parkingRequest, index) => (
-                <ParkingRequest key={index} parkingRequest={parkingRequest} dataTestID={`parking-request-${index}`} data-test-id={`parking-request-${index}`}/>
+        parkingRequests.toReversed().map((parkingRequest, index) => (
+                <ParkingRequest 
+                    key={index}
+                    parkingRequest={parkingRequest}
+                    dataTestID={`parking-request-${index}`}
+                    data-test-id={`parking-request-${index}`}
+                    fetch={fetchParkingRequests}
+                    />
         ))
     )
 }

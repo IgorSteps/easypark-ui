@@ -5,6 +5,8 @@ import useAutomaticallyAssignParkSpace from '../../../controllers/useAutomatical
 import useUpdateParkingRequestStatus from '../../../controllers/useUpdateParkingRequestStatus.js';
 import useDeassignParkingSpace from '../../../controllers/useDeassignParkingSpace.js';
 
+
+
 function ParkingRequest({fetch, parkingRequest, dataTestID}) {
     const [open, setOpen] = useState(false);
     const { automaticallyAssign, space, assignError } = useAutomaticallyAssignParkSpace();

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export async function deleteParkingLot(chosenLot) {
   try {
+    console.debug(`lotID = ${chosenLot.chosenLotID}`)
       if (chosenLot.chosenLotID === '' || chosenLot.chosenLotID === undefined) {
         console.warn("got empty ID or name for destination parking lot")
         throw new Error('Please choose destination')
@@ -18,6 +19,12 @@ export async function deleteParkingLot(chosenLot) {
       if (error.response) {
         console.error('Failed to delete parking lot', error.response);
         throw new Error(error.response.data || 'An error occurred')
+    } else if(error.request){
+        console.error("Didn't receive response after trying to delete parking lot", error.request);
+        throw new Error('No healthy upstream');
+    } else{
+        console.error("Failed to set up request to delete parking lot", error.message);
+        throw new Error("An error occured");
     }
   }
 }

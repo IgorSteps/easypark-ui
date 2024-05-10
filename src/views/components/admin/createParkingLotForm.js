@@ -6,7 +6,7 @@ import useCreateParkingLotController from '../../../controllers/createParkingLot
 export default function CreateParkingLotForm() {
   const [name, setName] = useState('');
   const [capacity, setCapacity] = useState('');
-  const { handleParkingLotCreation, error } = useCreateParkingLotController();
+  const { parkLot, handleParkingLotCreation, error } = useCreateParkingLotController();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -14,13 +14,7 @@ export default function CreateParkingLotForm() {
   };
 
   return (
-    <Container className='form-container'>
-      <Form className='form-border' onSubmit={handleSubmit}>
-        <Container className='form-content'>
-
-          <h1 className='form-title'>
-            Create Parking Lot
-          </h1>
+      <Form onSubmit={handleSubmit}>
 
           <Form.Group controlId="formBasicLotName">
             <Form.Label>Name: </Form.Label>
@@ -58,13 +52,16 @@ export default function CreateParkingLotForm() {
           </Button>
 
           {error && (
-            <Alert data-test-id="create-parking-lot-alert" className='mt-4' variant="danger">
+            <Alert data-test-id="create-park-lot-alert" className='mt-4' variant="danger">
               {error}
             </Alert>
           )}
-          
-        </Container>
+
+          {parkLot && (
+            <Alert data-test-id="create-park-lot-success-alert" className='mt-4' variant="success">
+              {"Successfully created parking lot"}
+            </Alert>
+          )}
     </Form>
-  </Container>
   );
 }

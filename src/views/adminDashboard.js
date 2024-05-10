@@ -3,6 +3,7 @@ import { Button, Container, Modal } from 'react-bootstrap';
 import AdminNavbar from './components/admin/adminNavbar.js';
 import DeleteParkingLotForm from './components/admin/deleteParkingLotForm.js';
 import CreateParkingLotForm from './components/admin/createParkingLotForm.js';
+import BanUserForm from './components/admin/banUserForm.js';
 
 function AdminDashboard() {
 
@@ -14,6 +15,9 @@ function AdminDashboard() {
     const handleCloseDeleteParkLotModal = () => setShowDeleteParkLotModal(false);
     const handleShowDeleteParkLotModal = () => setShowDeleteParkLotModal(true);
 
+    const [showBanUserModal, setShowBanUserModal] = useState(false);
+    const handleCloseBanUserModal = () => setShowBanUserModal(false);
+    const handleShowBanUserModal = () => setShowBanUserModal(true);
 
     return (
 <>
@@ -53,6 +57,22 @@ function AdminDashboard() {
                     </Modal.Footer>
                 </Modal>
                 {" "}
+                <Button className="mt-4 mb-4" variant="primary" onClick={handleShowBanUserModal} data-test-id='ban-user-btn'>
+                    Ban User
+                </Button>
+                <Modal show={showBanUserModal} onHide={handleCloseBanUserModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Ban User</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <BanUserForm />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseBanUserModal} data-test-id='ban-user-close-btn'>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Container>
         </>
     )

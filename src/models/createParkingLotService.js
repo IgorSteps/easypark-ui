@@ -15,7 +15,15 @@ export async function createParkingLot(parkingLotDetails) {
     console.debug("Got response data for creating a parking lot", response.data)
     return response.data;
   } catch (error) {
-    console.error('Failed to create parking lot', error.response);
-    throw new Error(error.response.data || 'An error occurred');
+    if (error.response) {
+      console.error('Failed to create parking lot', error.response);
+      throw new Error(error.response.data || 'An error occurred')
+  } else if(error.request){
+      console.error("Didn't receive response after trying to create parking lot", error.request);
+      throw new Error('No healthy upstream');
+  } else{
+      console.error("Failed to set up request to create parking lot", error.message);
+      throw new Error("An error occured");
   }
+}
 }

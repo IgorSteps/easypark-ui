@@ -6,7 +6,6 @@ import DriverDashboard from './views/driverDashboard.js';
 import AdminLoginForm from './views/components/admin/adminLoginForm.js';
 import AdminDashboard from './views/adminDashboard.js';
 import AdminParkingRequests from './views/adminParkingRequests.js';
-import CreateParkingLotForm from './views/components/createParkingLotForm.js';
 import {DriverFAQPage, AdminFAQPage} from './views/faqPage.js';
 
 function App() {
@@ -22,8 +21,6 @@ function App() {
             <Route path="/admin-parking-requests" element={<AdminParkingRequests />} />
             <Route path='/faq' element={<DriverFAQPage />} /> 
             <Route path='/admin-faq' element={<AdminFAQPage />} /> 
-            {/* temporary path so it can be seen and tested */}
-            <Route path="/create-parking-lot" element={<CreateParkingLotForm />} />   
         </Routes>
     </BrowserRouter>
   );

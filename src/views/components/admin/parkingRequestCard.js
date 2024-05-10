@@ -1,101 +1,84 @@
-import React, {useState, useEffect} from 'react';
-import { Card, Button, Alert, Row, Col } from 'react-bootstrap';
+import React, {useState, useCallback} from 'react';
+import { Card, Button, Alert, Row, Col, Collapse } from 'react-bootstrap';
 import { FormatDateTime } from '../../utils/time.js';
 import useAutomaticallyAssignParkSpace from '../../../controllers/useAutomaticallyAssignParkSpace.js';
 import useUpdateParkingRequestStatus from '../../../controllers/useUpdateParkingRequestStatus.js';
+import useDeassignParkingSpace from '../../../controllers/useDeassignParkingSpace.js';
 
-function ParkingRequest({parkingRequest, dataTestID}) {
-    const [parkingSpaceDetails, setParkingSpaceDetails] = useState(null);
-    const { automaticallyAssign, space, error } = useAutomaticallyAssignParkSpace();
 
-    // Local states to manage UI state independently
-    const [localStatus, setLocalStatus] = useState(parkingRequest.Status);
 
-    const handleApprove = async (event) => {
-        event.preventDefault();
-        const req = {
-            parkingRequestID: parkingRequest.ID
-        };
-        await automaticallyAssign(req);
-        setLocalStatus('approved');
-    };
+function ParkingRequest({fetch, parkingRequest, dataTestID}) {
+    const [open, setOpen] = useState(false);
+    const { automaticallyAssign, space, assignError } = useAutomaticallyAssignParkSpace();
+    const { updateStatus, responseMsg: statusUpdateResponse, updateStatusError } = useUpdateParkingRequestStatus();
+    const { deassign, deassignMsg, deassignError } = useDeassignParkingSpace()
 
-    const { updateStatus, responseMsg, updateStatusError } = useUpdateParkingRequestStatus();
+    const handleApprove = useCallback(async () => {
+        await automaticallyAssign({ parkingRequestID: parkingRequest.ID });
+        fetch();
+    }, [parkingRequest.ID, fetch]);
 
-    const handleReject = async (event) => {
-        event.preventDefault();
-        const req = {
-            status: "rejected"
-        };
-        await updateStatus(parkingRequest.ID, req);
-        setLocalStatus('rejected');
-    };
+    const handleReject = useCallback(async () => {
+        await updateStatus(parkingRequest.ID, { status: "rejected" });
+        fetch();
+    }, [parkingRequest.ID, fetch]);
 
-    useEffect(() => {
-        if (space) {
-            setParkingSpaceDetails(space);
-        }
-    }, [space]);
-
-    // Sync local status with parkingRequest when it updates.
-    useEffect(() => {
-        setLocalStatus(parkingRequest.Status); 
-    }, [parkingRequest.Status]);
+    const handleDeassign = useCallback(async () => {
+        await deassign(parkingRequest.ID);
+        fetch();
+    }, [parkingRequest.ID, fetch]);
 
     return (
         <>
             <Card className="mb-3" data-test-id={`${dataTestID}-card`}> 
-                <Card.Header as="h5" data-test-id={`${dataTestID}-header`}>Parking Request</Card.Header>
+                <Card.Header as="h5" data-test-id={`${dataTestID}-header`}>
+                    <Row className="align-items-center justify-content-between">
+                        <Col xs="auto">
+                            Parking Request
+                        </Col>
+                        <Col xs="auto">
+                            <Button
+                                onClick={() => setOpen(!open)}
+                                aria-controls="collapse-part"
+                                aria-expanded={open}
+                                variant="link"
+                                data-test-id={`${dataTestID}-detail-btn`} 
+                            >
+                                {open ? 'Hide Details' : 'Show Details'}
+                            </Button>
+                        </Col>
+                    </Row>
+
+                </Card.Header>
                 <Card.Body>
-                    <Card.Text data-test-id={`${dataTestID}-id`}>
-                        <strong>ID:</strong> {parkingRequest.ID}
-                    </Card.Text>
-                    <Card.Text data-test-id={`${dataTestID}-lot-name`}>
-                        <strong>Parking Lot Name:</strong> {parkingRequest.DestinationParkingLotName}
-                    </Card.Text>
-                    {/* Only show parking space details if it has been assigned and fetched. */}
-                    {parkingRequest.ParkingSpaceID && parkingSpaceDetails && 
-                        <Card.Text data-test-id={`${dataTestID}-space-name`}>
-                            <strong>Assigned Parking Space:</strong> {parkingSpaceDetails.Name}
-                        </Card.Text>
-                    }
-                    <Card.Text data-test-id={`${dataTestID}-start-time`}>
-                        <strong>Start Time:</strong> {FormatDateTime(parkingRequest.StartTime)}
-                    </Card.Text>
-                    <Card.Text data-test-id={`${dataTestID}-end-time`}>
-                        <strong>End Time:</strong> {FormatDateTime(parkingRequest.EndTime)}
-                    </Card.Text>
-                    <Card.Text data-test-id={`${dataTestID}-status`}>
+                    <Card.Text className='mb-0' data-test-id={`${dataTestID}-status`}>
                         <strong>Status:</strong> {parkingRequest.Status}
                     </Card.Text>
-
-                    { error && (
-                        <Alert variant='danger'>
-                           { "Failed to assign a parking space: " + error}
-                        </Alert>
-                    )}
-
-                    { updateStatusError && (
-                        <Alert variant='danger'>
-                            {"Failed to update parking request status: " + updateStatusError}
-                        </Alert>
-                    )}
-
-                    {space && (
-                        <Alert variant='info' data-test-id={`${dataTestID}-approval-success-alert`} dismissible>
-                            Successfully assigned a space.
-                        </Alert>
-                    )}
-
-                    { responseMsg && (
-                        <Alert variant='info' data-test-id={`${dataTestID}-rejection-success-alert`} dismissible>
-                            Successfully changed parking request status.
-                        </Alert>
-                    )}
-
-                    
-                    <Row md='auto'>
-                        {localStatus !== 'approved' && localStatus !== 'rejected' &&
+                    <Collapse in={open}>
+                        <div id="collapse-part">
+                            <Card.Text className='mt-3' data-test-id={`${dataTestID}-id`}>
+                                <strong>ID:</strong> {parkingRequest.ID}
+                            </Card.Text>
+                            <Card.Text data-test-id={`${dataTestID}-lot-name`}>
+                                <strong>Parking Lot Name:</strong> {parkingRequest.DestinationParkingLotName}
+                            </Card.Text>
+                            {/* Only show parking space details if it has been assigned and fetched. */}
+                            {parkingRequest.ParkingSpaceID && space && 
+                                <Card.Text data-test-id={`${dataTestID}-space-name`}>
+                                    <strong>Assigned Parking Space:</strong> {space.Name}
+                                </Card.Text>
+                            }
+                            <Card.Text data-test-id={`${dataTestID}-start-time`}>
+                                <strong>Start Time:</strong> {FormatDateTime(parkingRequest.StartTime)}
+                            </Card.Text>
+                            <Card.Text className='mb-2' data-test-id={`${dataTestID}-end-time`}>
+                                <strong>End Time:</strong> {FormatDateTime(parkingRequest.EndTime)}
+                            </Card.Text>
+                        </div>
+                    </Collapse>
+                   
+                        {parkingRequest.Status !== 'approved' && parkingRequest.Status !== 'rejected' &&
+                            <Row className='mt-2' md='auto'>
                             <>
                                 <Col>
                                     <Button variant="success" onClick={handleApprove} data-test-id={`${dataTestID}-approve-btn`}>
@@ -108,10 +91,46 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                                     </Button>
                                 </Col>
                             </>
+                            </Row>
                         }
-                    </Row>
+                        { parkingRequest.Status == 'approved' && parkingRequest.Status != 'pending' &&
+                            <Button className='mt-2' variant='danger' onClick={handleDeassign} data-test-id={`${dataTestID}-deassign-btn`}>
+                                De-assign parking space
+                            </Button>
+                        }
                     
-                
+                    {assignError && (
+                        <Alert variant='danger' data-test-id={`${dataTestID}-assign-error-alert`} dismissible>
+                        {assignError}
+                        </Alert>
+                    )}
+
+                    {updateStatusError && (
+                        <Alert variant='danger' data-test-id={`${dataTestID}-updateStatus-error-alert`} dismissible>
+                            {updateStatusError}
+                        </Alert>
+                    )}
+
+                    {deassignError && (
+                        <Alert variant='danger' data-test-id={`${dataTestID}-deassign-error-alert`} dismissible>
+                            {deassignError}
+                        </Alert>
+                    )}
+                    {space && (
+                        <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-assign-success-alert`} dismissible>
+                            {"Successfully approved request and assigned a space."}
+                        </Alert>
+                    )}
+                    {statusUpdateResponse && (
+                        <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-updateStatus-success-alert`}  dismissible>
+                            {"Successfully updated a parking space status."}
+                        </Alert>
+                    )}
+                    {deassignMsg && (
+                        <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-deassign-success-alert`}  dismissible>
+                            {"Successfully de-assigned parking space."}
+                        </Alert>
+                    )}                
                 </Card.Body>
             </Card>
         </>

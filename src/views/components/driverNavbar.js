@@ -24,6 +24,9 @@ function DriverNavbar() {
               <Nav.Link onClick={handleOpenChatModal} data-test-id="message-admin-link">
                 Message admin
               </Nav.Link>
+              <Nav.Link href='/faq' data-test-id="faq-link">
+                FAQ
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

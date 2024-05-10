@@ -1,4 +1,4 @@
-describe('Create Parking Lot Form', () => {
+describe('Delete Parking Lot Form', () => {
     beforeEach(() => {
         cy.cleanDB()
         cy.populateWithDrivers()

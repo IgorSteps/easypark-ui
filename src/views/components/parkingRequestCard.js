@@ -5,6 +5,7 @@ import useGetParkingSpace from '../../controllers/useGetParkingSpace.js';
 import ParkingLotMapImage from '../../assets/ParkingLotImage.png'
 import ImageModal from './imageModal.js';
 import NotificationModal from './notificationModal.js';
+import PaymentModal from './paymentModal.js';
 
 function ParkingRequest({parkingRequest, dataTestID}) {
     const [activeRequest, setActiveRequest] = useState(null);
@@ -24,6 +25,10 @@ function ParkingRequest({parkingRequest, dataTestID}) {
     const [showMapModal, setShowMapModal] = useState(false);
     const handleShowMapModal = () => setShowMapModal(true);
     const handleCloseMapModal = () => setShowMapModal(false);
+
+    const [showPaymentModal, setShowPaymentModal] = useState(false)
+    const handleShowPaymentModal = () => setShowPaymentModal(true);
+    const handleClosePaymentModal = () => setShowPaymentModal(false)
 
     // Fetch assigned parking space data once it is assigned.
     const { parkingSpace, fetchSingleParkingSpace, getSingleParkingSpaceError } = useGetParkingSpace();
@@ -66,6 +71,9 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                     <Card.Text data-test-id={`${dataTestID}-status`}>
                         <strong>Status:</strong> {parkingRequest.Status}
                     </Card.Text>
+                    <Card.Text data-test-id={`${dataTestID}-cost`}>
+                        <strong>Cost:</strong> {parkingRequest.Cost}
+                    </Card.Text>
 
                     { getSingleParkingSpaceError && (
                         <Alert variant='danger'>
@@ -74,6 +82,19 @@ function ParkingRequest({parkingRequest, dataTestID}) {
                     )}
 
                     <Row>
+
+                        <Col md='auto'>
+                            {/* Only show pay button if the parking request has been approved. */}
+                            {parkingRequest.Status === 'approved' && 
+                                <Button 
+                                variant="primary" 
+                                onClick={handleShowPaymentModal}
+                                data-test-id={`${dataTestID}-pay-btn`}>
+                                Pay
+                                </Button>
+                            }
+                        </Col>
+
                         <Col md='auto'>
                             {/* Only show map button if the parking request has been approved. */}
                             {parkingRequest.Status === 'approved' && 
@@ -103,6 +124,8 @@ function ParkingRequest({parkingRequest, dataTestID}) {
 
             <ImageModal show={showMapModal} onClose={handleCloseMapModal} image={ParkingLotMapImage} />
             
+            <PaymentModal show={showPaymentModal} onClose={handleClosePaymentModal} />
+
             {activeRequest && (
                 <NotificationModal show={showNotificationModal} onClose={handleCloseNotificationModal} parkingRequest={activeRequest}/>
             )}

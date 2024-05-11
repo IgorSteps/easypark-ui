@@ -17,10 +17,8 @@ describe('Ban User Form', () => {
       cy.get('[data-test-id="register-email-input"]').type('testEmail');
       cy.get('[data-test-id="register-submit-button"]').click();
 
-      cy.visit('http://localhost:9000/admin-login');
-      cy.get('[data-test-id="login-username-input"]').type('adminUsername');
-      cy.get('[data-test-id="login-password-input"]').type('securePassword');
-      cy.get('[data-test-id="login-submit-button"]').click();
+      cy.login('adminUsername', 'securePassword');
+      cy.visit('http://localhost:9000/admin-dashboard')
 
       cy.get('[data-test-id="ban-user-btn"]').click();
 
@@ -33,7 +31,7 @@ describe('Ban User Form', () => {
       // ASSERT
       // ------
 
-      cy.get('[data-test-id=ban-driver-success-alert]').should('contain', 'Successfully banned user');
+      cy.get('[data-test-id=ban-driver-success-alert]').should('contain', 'Successfully banned driver');
     });
   });
   

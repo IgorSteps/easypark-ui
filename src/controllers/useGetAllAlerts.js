@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getAlert } from '../models/alert.js';
+import { getAllAlerts } from '../models/alert.js';
 
 function useGetAllAlerts() {
   const [error, setError] = useState(null);
@@ -8,7 +8,7 @@ function useGetAllAlerts() {
   const fetchAlerts = async () => {
     setError(null); // reset error.
     try {
-      const response = await getAlert();
+      const response = await getAllAlerts();
       setAlerts(response);
     } catch (error) {
       setError(error.message);

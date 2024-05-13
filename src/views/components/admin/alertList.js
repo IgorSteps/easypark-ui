@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-bootstrap';
 import useGetAllAlerts from '../../../controllers/useGetAllAlerts.js';
-import Alerts from './alertCard.js';
+import OurAlert from './alertCard.js';
 
 function AlertList() {
     const {  alerts, fetchAlerts, error } = useGetAllAlerts();
@@ -9,7 +9,6 @@ function AlertList() {
         const fetchData = async () => {
             await fetchAlerts();
         };
-        console.info("called")
 
         fetchData();
         const intervalId = setInterval(fetchData, 10000); // 10 secs.
@@ -34,7 +33,7 @@ function AlertList() {
    
     return (
         alerts && alerts.map((alert, index) => (
-                <Alerts key={index} alert={alert} dataTestID={`alerts-${index}`} data-test-id={`alerts-${index}`}/>
+                <OurAlert key={index} alert={alert} dataTestID={`alerts-${index}`} data-test-id={`alerts-${index}`}/>
         ))
     )
 }

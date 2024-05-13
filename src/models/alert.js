@@ -1,17 +1,16 @@
 import axios from 'axios';
 
-export async function getAlert() {
+export async function getAllAlerts() {
     try {
         const response = await axios.get(process.env.BASE_API_URL+`/alerts`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             }
         });
-        console.log(response)
       return response.data;
     } catch (error) {
         if (error.response) {
-            console.error('Failed to get alert', error.response);
+            console.error('Failed to get alerts', error.response);
             throw new Error(error.response.data || 'an error occurred')
         } else if (error.request) {
             console.error('Didnt receive response after making request get alert', error.request);

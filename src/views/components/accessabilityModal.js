@@ -1,7 +1,6 @@
 import {Button, Modal, Form} from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
-import RangeSlider from 'react-bootstrap-range-slider';
 
 const defaultFontSize = 18;
 
@@ -40,13 +39,6 @@ function AccessabilityModal({show, handleClose}) {
             </Modal.Header>
 
             <Modal.Body>
-                {/* <p>Adjust font size here:</p> */}
-
-                {/* <RangeSlider
-                    value={fontSize}
-                    onChange={e => handleFontSizeChange(e.target.value)}
-                    data-test-id='font-slider'
-                /> */}
                 <Form.Label>Adjust font size here:</Form.Label>
                 <Form.Range 
                     value={fontSize}

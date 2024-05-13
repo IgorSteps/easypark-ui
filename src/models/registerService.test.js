@@ -32,13 +32,12 @@ describe('Register User model', () => {
     // --------
     var mock = new MockAdapter(axios);
     const errorMessage = 'boom';
-    const errorResponse = { response: { data: { error: errorMessage } } };
     let userDetails = { firstname:'test2', lastname: 'test3', username:'testuser', password: 'testpassword2' };
-    mock.onPost(`${process.env.BASE_API_URL}/register`, userDetails).reply(400, { error: errorMessage });
+    mock.onPost(`${process.env.BASE_API_URL}/register`, userDetails).reply(400, errorMessage);
     
     // ----
     // ACT and ASSERT
     // ----
-    await expect(registerUser(userDetails)).rejects.toThrow(errorMessage);
+    await expect(registerUser(userDetails)).rejects.toThrow('boom');
   });
 });

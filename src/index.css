@@ -1,3 +1,11 @@
+:root {
+    --dynamic-font-size: 18px; /* Default value. */
+}
+
+html {
+    font-size: var(--dynamic-font-size);
+}
+
 .form-container {
     display: flex;
     justify-content: center;

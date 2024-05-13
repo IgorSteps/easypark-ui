@@ -23,3 +23,25 @@ export async function createNotification(requestBody) {
         }
     }
 }
+
+export async function getAllNotifications() {
+    try {
+        const response = await axios.get(process.env.BASE_API_URL+`/notifications`, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        });
+      return response.data;
+    } catch (error) {
+        if (error.response) {
+            console.error('Failed to get notifications', error.response);
+            throw new Error(error.response.data || 'an error occurred')
+        } else if (error.request) {
+            console.error('Didnt receive response after making request get notifications', error.request);
+            throw new Error('an error occurred')
+        } else {
+            console.log('Failed to setup request to get notifications', error.message);
+            throw new Error('an error occurred')
+        }
+    }
+}

@@ -18,6 +18,7 @@ function AdminNavbar() {
             <Nav className="me-auto">
               <Nav.Link href="/admin-parking-requests">Parking Requests</Nav.Link>
               <Nav.Link href="/alerts">Alerts</Nav.Link>
+              <Nav.Link href="/notifications">Notifications</Nav.Link>
               <Nav.Link href="/admin-faq">FAQ</Nav.Link>
             </Nav>
             <Button className='mx-2' variant="primary" onClick={handleAccessibilityShow} data-test-id='accessibility-btn'>Accessability</Button>

@@ -33,7 +33,7 @@ function NotificationList() {
    
     return (
         notifications && notifications.map((notification, index) => (
-                <Notification key={index} notification={notification} dataTestID={`notifications-${index}`} data-test-id={`notifications-${index}`}/>
+                <Notification key={index} notification={notification} dataTestID={`notification-${index}`} data-test-id={`notification-${index}`}/>
         ))
     )
 }

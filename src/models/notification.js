@@ -37,8 +37,8 @@ export async function getAllNotifications() {
             console.error('Failed to get notifications', error.response);
             throw new Error(error.response.data || 'an error occurred')
         } else if (error.request) {
-            console.error('Didnt receive response after making request get notifications', error.request);
-            throw new Error('an error occurred')
+            console.error("Didn't receive response after making request get notifications", error.request);
+            throw new Error('no healthy upstream')
         } else {
             console.log('Failed to setup request to get notifications', error.message);
             throw new Error('an error occurred')

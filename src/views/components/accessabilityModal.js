@@ -6,12 +6,11 @@ import RangeSlider from 'react-bootstrap-range-slider';
 const defaultFontSize = 18;
 
 function AccessabilityModal({show, handleClose}) {
+    // Font.
     const [fontSize, setFontSize] = useState(defaultFontSize);
-
     const handleFontSizeChange = (newSize) => {
         setFontSize(newSize);
     };
-
     useEffect(() => {
         document.
             documentElement.
@@ -19,6 +18,20 @@ function AccessabilityModal({show, handleClose}) {
             setProperty('--dynamic-font-size', `${fontSize}px`);
     }, [fontSize]);
 
+    // Theme.
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+    const toggleLightTheme = () => {
+        setTheme('light');
+    };
+    const toggleDarkTheme = () => {
+        setTheme('dark');
+    };
+    useEffect(() => {
+        document.
+            documentElement.
+            setAttribute('data-bs-theme', theme);
+            localStorage.setItem('theme', theme);
+    }, [theme]);
 
     return (
         <Modal show={show} onHide={handleClose}>
@@ -33,6 +46,15 @@ function AccessabilityModal({show, handleClose}) {
                     value={fontSize}
                     onChange={e => handleFontSizeChange(e.target.value)}
                 />
+
+                <p>Choose colour scheme:</p>
+                    <Button className='mx-2' onClick={toggleLightTheme}>
+                        Light
+                    </Button>
+                    <Button className='mx-2' onClick={toggleDarkTheme}>
+                        Dark
+                    </Button>
+
             </Modal.Body>
 
             <Modal.Footer>

@@ -1,19 +1,18 @@
 import { FormatDateTime } from '../../src/views/utils/time';
 
-describe("Clicking Approve button on Parking Request", () => {
+describe("Clicking deassign button on Parking Request", () => {
     beforeEach(() => {
         cy.cleanDB()
         cy.populateWithDrivers()
         cy.createAdmin()
         cy.login('adminUsername', 'securePassword');
-        cy.visit('http://localhost:9000/driver-dashboard');
     });
 
     afterEach(() => {
        cy.cleanDB()
     });
 
-    it('should approve it', () => {
+    it('should deassign parking space and change status to pending', () => {
         // --------
         // ASSEMBLE
         // --------
@@ -49,19 +48,24 @@ describe("Clicking Approve button on Parking Request", () => {
             cy.get(`[data-test-id=parking-request-0-end-time]`).should('contain', FormatDateTime(request.endTime));
             cy.get(`[data-test-id=parking-request-0-status]`).should('contain', "pending");
             });
+
+            // Approve which should assign space.
+            cy.get(`[data-test-id=parking-request-0-approve-btn]`).click()
+            // Assert that it happened.
+            cy.get(`[data-test-id=parking-request-0-status]`).should('contain', 'approved')
+            cy.get(`[data-test-id=parking-request-0-space-name]`).should('contain', 'cmp-1')
+            cy.get(`[data-test-id=parking-request-0-assign-success-alert]`).should('contain', "Successfully approved request and assigned a space.")
+
             // --------
             // ACT
             // --------
-            cy.get(`[data-test-id=parking-request-0-approve-btn]`).click()
+            cy.get(`[data-test-id=parking-request-0-deassign-btn]`).click()
 
             // --------
             // ASSERT
             // --------
-            cy.get(`[data-test-id=parking-request-0-assign-success-alert]`).should('contain', "Successfully approved request and assigned a space.")
-
-            cy.wait(11000) // wait 11 secs to refetch parking requests
-
-            cy.get(`[data-test-id=parking-request-0-status]`).should('contain', 'approved')
-            cy.get(`[data-test-id=parking-request-0-space-name]`).should('contain', 'cmp-1')
+            cy.wait(3000) // wait 3 secs to refetch parking requests
+            cy.get(`[data-test-id=parking-request-0-status]`).should('contain', 'pending')
+            cy.get(`[data-test-id=parking-request-0-space-name]`).should('not.exist')            
     });
 });

@@ -8,6 +8,7 @@ import AdminDashboard from './views/adminDashboard.js';
 import AdminParkingRequests from './views/adminParkingRequests.js';
 import AdminAlerts from './views/adminAlerts.js';
 import CreateParkingLotForm from './views/components/createParkingLotForm.js';
+import {DriverFAQPage, AdminFAQPage} from './views/faqPage.js';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
             <Route path="/alerts" element={<AdminAlerts />} />
             {/* temporary path so it can be seen and tested */}
             <Route path="/create-parking-lot" element={<CreateParkingLotForm />} />   
+            <Route path='/faq' element={<DriverFAQPage />} /> 
+            <Route path='/admin-faq' element={<AdminFAQPage />} /> 
         </Routes>
     </BrowserRouter>
   );

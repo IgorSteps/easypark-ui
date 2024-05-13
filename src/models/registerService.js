@@ -9,7 +9,16 @@ export async function registerUser(credentials) {
 
     return response.data;
   } catch (error) {
-    console.error('Failed to register user', error.response);
-    throw new Error(error.response.data.error || 'An error occured');
+    
+    if (error.response) {
+      console.error('Failed to register user', error.response);
+      throw new Error(error.response.data || 'An error occurred')
+    } else if (error.request) {
+        console.error('Didn\'t receive response after making request to register user', error.request);
+        throw new Error('no healthy upstream')
+    } else {
+        console.error('Failed to setup request to register user', error.message);
+        throw new Error('An error occurred')
+    }
   }
 }

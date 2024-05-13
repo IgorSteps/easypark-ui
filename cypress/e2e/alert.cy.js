@@ -32,13 +32,9 @@ describe('Alerts', () => {
             // Login driver.
             cy.login('user1', 'securepassword');
             
-            // Create times.
             const currentDate = new Date();
-            // Convert the date to RFC 3339 / ISO 8601 format
-            // Add 30 seconds to the current date
-            currentDate.setSeconds(currentDate.getSeconds() + 30);
-
-            // Convert the updated date to RFC 3339 / ISO 8601 format
+            currentDate.setSeconds(currentDate.getSeconds() + 30); // Add 30 seconds to the current date ot make sure it is in the future.
+            // Convert the updated date to RFC 3339 format.
             const neededFormat = currentDate.toISOString();
             cy.log(`Date in correct format: ${neededFormat}`)
             // Create parking request.

@@ -56,7 +56,7 @@ function BanUserForm() {
                 </Form.Group>
                 <br></br>
                 <Button variant="primary" type="submit" data-test-id='select-ban-user-submit'>
-                    Delete
+                    Ban
                 </Button>
 
                 {/* Display error message if any */}

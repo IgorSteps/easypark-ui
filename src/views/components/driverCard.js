@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Button, Card } from 'react-bootstrap';
 import ChatModal from './chatModal.js';
+import useBanUser from '../../controllers/useBanUser.js';
 
 function Driver({ user, dataTestID }) {
     const [showChatModal, setShowChatModal] = useState(false);
@@ -9,6 +10,13 @@ function Driver({ user, dataTestID }) {
     };
     const handleCloseChatModal = () => {
         setShowChatModal(false);
+    };
+
+    const { banUserResult, handleBanUser, banUserError } = useBanUser();
+
+    const handleBanSubmit = async (event) => {
+        event.preventDefault();
+        await handleBanUser({id:user.ID, status:"ban"});
     };
 
     return (
@@ -21,6 +29,8 @@ function Driver({ user, dataTestID }) {
                     <Card.Text data-test-id={`${dataTestID}-username`}>Username: {user.Username}</Card.Text>
                     <Card.Text data-test-id={`${dataTestID}-status`}>Status: {user.Status}</Card.Text>
                     <Button data-test-id={`${dataTestID}-message-btn`} onClick={handleSendMessage}>Message</Button>
+                    {" "}
+                    <Button data-test-id={`${dataTestID}-ban-btn`} onClick={handleBanSubmit}>Ban</Button>
                 </Card.Body>
             </Card>
 

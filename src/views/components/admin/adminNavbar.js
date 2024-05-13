@@ -11,6 +11,7 @@ function AdminNavbar() {
           <Nav className="me-auto">
             <Nav.Link href="/admin-parking-requests">Parking Requests</Nav.Link>
             <Nav.Link href="/admin-faq">FAQ</Nav.Link>
+            <Nav.Link href="/manage-drivers">Manage Drivers</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

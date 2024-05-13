@@ -10,6 +10,7 @@ function AdminNavbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/admin-parking-requests">Parking Requests</Nav.Link>
+            <Nav.Link href="/alerts">Alerts</Nav.Link>
             <Nav.Link href="#link">FAQ</Nav.Link>
           </Nav>
         </Navbar.Collapse>

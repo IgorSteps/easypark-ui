@@ -3,7 +3,6 @@
 }
 
 html {
-    font-size: 18px;
     font-size: var(--dynamic-font-size);
 }
 

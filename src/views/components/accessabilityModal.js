@@ -1,4 +1,4 @@
-import {Button, Modal} from 'react-bootstrap';
+import {Button, Modal, Form} from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import RangeSlider from 'react-bootstrap-range-slider';
@@ -36,29 +36,36 @@ function AccessabilityModal({show, handleClose}) {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Accessbility</Modal.Title>
+                <Modal.Title>Accessability</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-                <p>Adjust font size here:</p>
+                {/* <p>Adjust font size here:</p> */}
 
-                <RangeSlider
+                {/* <RangeSlider
                     value={fontSize}
                     onChange={e => handleFontSizeChange(e.target.value)}
+                    data-test-id='font-slider'
+                /> */}
+                <Form.Label>Adjust font size here:</Form.Label>
+                <Form.Range 
+                    value={fontSize}
+                    onChange={e => handleFontSizeChange(e.target.value)}
+                    data-test-id='font-slider'
                 />
 
                 <p>Choose colour scheme:</p>
-                    <Button className='mx-2' onClick={toggleLightTheme}>
+                    <Button className='mx-2' onClick={toggleLightTheme} data-test-id='light-scheme-btn'>
                         Light
                     </Button>
-                    <Button className='mx-2' onClick={toggleDarkTheme}>
+                    <Button className='mx-2' onClick={toggleDarkTheme} data-test-id='dark-scheme-btn'>
                         Dark
                     </Button>
 
             </Modal.Body>
 
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>Close</Button>
+                <Button variant="secondary" onClick={handleClose} data-test-id='close-btn'>Close</Button>
                 <Button variant="primary" onClick={handleClose}>Save changes</Button>
             </Modal.Footer>
         </Modal>

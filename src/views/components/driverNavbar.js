@@ -33,7 +33,7 @@ function DriverNavbar() {
                 FAQ
               </Nav.Link>
             </Nav>
-            <Button className='mx-2' variant="primary" onClick={handleAccessibilityShow}>Accessability</Button>
+            <Button className='mx-2' variant="primary" onClick={handleAccessibilityShow} data-test-id='accessibility-btn'>Accessability</Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>

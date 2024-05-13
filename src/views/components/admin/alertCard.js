@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button, Alert, Row, Col } from 'react-bootstrap';
 
-function GetAlerts({alert, dataTestID}) {
+function OurAlert({alert, dataTestID}) {
 
     const alertTypes = {
         0: 'Location Mismatch',
@@ -37,4 +37,4 @@ function GetAlerts({alert, dataTestID}) {
     )
 }
 
-export default GetAlerts;
+export default OurAlert;

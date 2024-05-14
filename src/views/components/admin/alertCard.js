@@ -38,7 +38,7 @@ function OurAlert({alert, dataTestID}) {
                     <Card.Text data-test-id={`${dataTestID}-space-id`}>
                         <strong>Parking Space ID:</strong> {alert.ParkingSpaceID}
                     </Card.Text>
-                    <Button data-test-id={`${dataTestID}-message-btn`} onClick={handleSendMessage}>Message</Button>
+                    <Button data-test-id={`${dataTestID}-message-btn`} onClick={handleSendMessage}>Message Driver</Button>
                 </Card.Body>
             </Card>
 

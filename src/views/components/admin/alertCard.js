@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Card, Button, Alert, Row, Col } from 'react-bootstrap';
+import ChatModal from './../chatModal.js';
 
 function OurAlert({alert, dataTestID}) {
 
@@ -7,6 +8,14 @@ function OurAlert({alert, dataTestID}) {
         0: 'Location Mismatch',
         1: 'Late Arrival'
     }
+
+    const [showChatModal, setShowChatModal] = useState(false);
+    const handleSendMessage = () => {
+        setShowChatModal(true);
+    };
+    const handleCloseChatModal = () => {
+        setShowChatModal(false);
+    };
 
     return (
         
@@ -29,10 +38,16 @@ function OurAlert({alert, dataTestID}) {
                     <Card.Text data-test-id={`${dataTestID}-space-id`}>
                         <strong>Parking Space ID:</strong> {alert.ParkingSpaceID}
                     </Card.Text>
-
-                      
+                    <Button data-test-id={`${dataTestID}-message-btn`} onClick={handleSendMessage}>Message</Button>
                 </Card.Body>
             </Card>
+
+            <ChatModal
+                receiverID={alert.UserID}
+                show={showChatModal}
+                handleClose={handleCloseChatModal}
+                data-test-id="chat-modal"
+            />
         </>
     )
 }

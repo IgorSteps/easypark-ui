@@ -40,6 +40,5 @@ describe('Register User model', () => {
     // ACT and ASSERT
     // ----
     await expect(registerUser(userDetails)).rejects.toThrow('boom');
-
   });
 });

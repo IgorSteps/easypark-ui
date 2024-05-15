@@ -35,7 +35,7 @@ function Driver({ user, dataTestID }) {
                 </Card.Body>
                 {banUserError && (
                         <Alert className='mt-2' variant='danger' data-test-id={`${dataTestID}-ban-user-failure-alert`}  dismissible>
-                            {banUserError}
+                            {"Failed to ban user: " + banUserError}
                         </Alert>
                     )}        
                 {banUserResult && (

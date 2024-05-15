@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import ChatModal from './chatModal.js';
 import AccessabilityModal from './accessabilityModal.js';
+import LogoutDriverModal from './logoutDriverModal.js';
 
 function DriverNavbar() {
   const [showChatModal, setShowChatModal] = useState(false);
@@ -17,6 +18,10 @@ function DriverNavbar() {
   const [showAccessibilityModal, setShowAccessibilityModal] = useState(false);
   const handleAccessibilityClose = () => setShowAccessibilityModal(false);
   const handleAccessibilityShow = () => setShowAccessibilityModal(true);
+
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const handleLogoutClose = () => setShowLogoutModal(false);
+  const handleLogoutShow = () => setShowLogoutModal(true);
 
   return (
     <>
@@ -34,11 +39,13 @@ function DriverNavbar() {
               </Nav.Link>
             </Nav>
             <Button className='mx-2' variant="primary" onClick={handleAccessibilityShow} data-test-id='accessibility-btn'>Accessability</Button>
+            <Button className='mx-2' variant="primary" onClick={handleLogoutShow} data-test-id='logout-btn'>Logout</Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       <ChatModal receiverID={process.env.ADMIN_ID} show={showChatModal} handleClose={handleCloseChatModal} data-test-id="chat-modal" />
       <AccessabilityModal show={showAccessibilityModal} handleClose={handleAccessibilityClose} data-test-id='accessibility-modal'></AccessabilityModal>
+      <LogoutDriverModal show={showLogoutModal} handleClose={handleLogoutClose} data-test-id='logout-modal'></LogoutDriverModal>
     </>
   );
 }

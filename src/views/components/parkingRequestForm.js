@@ -57,7 +57,7 @@ function ParkingRequestForm() {
                     selected={startTime} 
                     onChange={date => setStartTime(date)}
                     showTimeSelect 
-                    dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                    dateFormat="yyyy-MM-dd' 'HH:mm:ss"
                     timeFormat="HH:mm"
                 />
             </Form.Group>

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Alert } from 'react-bootstrap';
-import useGetParkingLots from '../../../controllers/useGetParkingLot.js';
+import useAdminGetParkingLots from '../../../controllers/useAdminGetParkingLot.js';
 import ParkingLot from '../admin/parkingLotCard.js';
 
 function ParkingLotsList() {
-    const {  parkingLots, fetchParkLots, error } = useGetParkingLots();
+    const { parkLots, fetchParkLots, error} = useAdminGetParkingLots();
     useEffect(() => {
         const fetchData = async () => {
             await fetchParkLots();
@@ -23,7 +23,7 @@ function ParkingLotsList() {
         )
     }
 
-    if (parkingLots && parkingLots.length === 0) {
+    if ( parkLots.length === 0) {
         return (
             <Alert data-test-id="no-alerts-alert" variant="info">
                 {"No alerts"}
@@ -33,9 +33,11 @@ function ParkingLotsList() {
 
    console.info("fetching parking requests for admin")
     return (
-        parkingLots && parkingLots.map((parkingLots, index) => (
-                <ParkingLot key={index} parkinglot={parkinglot} dataTestID={`alerts-${index}`} data-test-id={`alerts-${index}`} fetch={fetchParkLots}/>
-        ))
+        <div>
+            {parkLots.map((parkinglot, index) => (
+                    <ParkingLot key={index} parkinglot={parkinglot} dataTestID={`parking-lot-${index}`} data-test-id={`parking-lot-${index}`} fetch={fetchParkLots}/>
+            ))}
+        </div>
     )
 }
 

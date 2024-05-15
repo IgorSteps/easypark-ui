@@ -2,7 +2,7 @@ import React, {useState, useCallback} from 'react';
 import { Card, Button, Alert, Row, Col, Collapse } from 'react-bootstrap';
 import { FormatDateTime } from '../../utils/time.js';
 
-function ParkingLot({fetch, parkingLot, dataTestID}) {
+function ParkingLot({parkingLot, dataTestID}) {
     const [open, setOpen] = useState(false);
 
     return (

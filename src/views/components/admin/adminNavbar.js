@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Container, Nav, Navbar, Button} from 'react-bootstrap'
 import AccessabilityModal from '../accessabilityModal.js';
-import LogoutModal from '../logoutModal.js';
+import LogoutAdminModal from './logoutAdminModal.js';
 
 function AdminNavbar() {
    // Accessability Modal state.
@@ -33,7 +33,7 @@ function AdminNavbar() {
       </Navbar>
 
       <AccessabilityModal show={showAccessibilityModal} handleClose={handleAccessibilityClose} data-test-id='accessibility-modal'></AccessabilityModal>
-      <LogoutModal show={showLogoutModal} handleClose={handleLogoutClose} data-test-id='logout-modal'></LogoutModal>
+      <LogoutAdminModal show={showLogoutModal} handleClose={handleLogoutClose} data-test-id='logout-modal'></LogoutAdminModal>
     </>
   );
 }

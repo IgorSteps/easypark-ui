@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import ChatModal from './chatModal.js';
 import AccessabilityModal from './accessabilityModal.js';
-import LogoutModal from './logoutModal.js';
+import LogoutDriverModal from './logoutDriverModal.js';
 
 function DriverNavbar() {
   const [showChatModal, setShowChatModal] = useState(false);
@@ -45,7 +45,7 @@ function DriverNavbar() {
       </Navbar>
       <ChatModal receiverID={process.env.ADMIN_ID} show={showChatModal} handleClose={handleCloseChatModal} data-test-id="chat-modal" />
       <AccessabilityModal show={showAccessibilityModal} handleClose={handleAccessibilityClose} data-test-id='accessibility-modal'></AccessabilityModal>
-      <LogoutModal show={showLogoutModal} handleClose={handleLogoutClose} data-test-id='logout-modal'></LogoutModal>
+      <LogoutDriverModal show={showLogoutModal} handleClose={handleLogoutClose} data-test-id='logout-modal'></LogoutDriverModal>
     </>
   );
 }

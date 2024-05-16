@@ -19,15 +19,12 @@ describe('Delete Parking Lot Form', () => {
       // ---
       // ACT
       // ---
-      cy.get('[data-test-id="delete-park-lot-btn"]').click();
-      cy.get('[data-test-id="select-delete-parking-lot"]').select('Test lot 1');
-      cy.get('[data-test-id="delete-parking-lot-submit"]').click();
-  
+      cy.get('[data-test-id="parking-lot-0-delete-btn"]').click();
+
       // ------
       // ASSERT
       // ------
-
-      cy.get('[data-test-id=delete-park-lot-success-alert]').should('contain', 'Successfully deleted parking lot');
+      cy.get('[data-test-id=no-parking-lots-alert]').should('contain', 'No parking lots');
     });
   });
   

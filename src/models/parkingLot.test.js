@@ -1,9 +1,9 @@
 import MockAdapter from 'axios-mock-adapter'
 import axios from 'axios';
 import {jest} from '@jest/globals'
-import { getAllParkingLots } from './parkingLot';
+import { getAllParkingLotsForDriver } from './parkingLot.js';
 
-describe('getAllParkingLots', () => {
+describe('getAllParkingLotsForDriver', () => {
   
     it('should return all parking lots', async () => {
         // --------
@@ -24,7 +24,7 @@ describe('getAllParkingLots', () => {
         // ----
         // ACT
         // ----
-        const parkingLots = await getAllParkingLots();
+        const parkingLots = await getAllParkingLotsForDriver();
 
         // ------
         // ASSERT
@@ -47,6 +47,6 @@ describe('getAllParkingLots', () => {
         // --------------
         // ACT and ASSERT
         // --------------
-        await expect(getAllParkingLots()).rejects.toThrow('boom');
+        await expect(getAllParkingLotsForDriver()).rejects.toThrow('boom');
     });
 });

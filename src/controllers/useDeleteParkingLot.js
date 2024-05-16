@@ -3,22 +3,19 @@ import { deleteParkingLot } from '../models/deleteParkingLot.js';
 
 function useDeleteParkingLot() {
   const [error, setError] = useState(null);
-  const [deleteParkLot, setDeleteParkLot] = useState(null);
+  const [deleteParkLotResponse, setDeleteParkLotResponse] = useState(null);
 
-  const handleParkingLotDeletion = async (chosenLot) => {
+  const handleParkingLotDeletion = async (id) => {
     setError(null);
     try {
-      if (chosenLot.chosenLotID === "Invalid" || chosenLot.chosenLotID === ""){
-        throw new Error("Please choose a valid parking lot");
-      }
-      const response = await deleteParkingLot(chosenLot);
-      setDeleteParkLot(response);
+      const response = await deleteParkingLot(id);
+      setDeleteParkLotResponse(response);
     } catch (error) {
       setError(error.message);
     }
   };
 
-  return { deleteParkLot,handleParkingLotDeletion, error};
+  return { deleteParkLotResponse, handleParkingLotDeletion, error};
 }
 
 export default useDeleteParkingLot;

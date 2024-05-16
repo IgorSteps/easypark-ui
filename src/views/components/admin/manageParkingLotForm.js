@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-import useAdminGetParkingLots from '../../../controllers/useAdminGetParkingLot.js';
+import useAdminGetParkingLot from '../../../controllers/useAdminGetParkingLot.js';
+import { updateParkingSpaceStatus } from '../../src/models/manageParkingLot.js'; 
 
 function ManageParkingLotForm() {
-    const [chosenLotID, setChosenLotID] = useState('');
-    const { parkLots, fetchParkLots, parkLotError } = useAdminGetParkingLots();
+    const [chosenLot, setChosenLot] = useState(null);
+    const [parkingSpaces, setParkingSpaces] = useState([]);
+    const [selectedSpace, setSelectedSpace] = useState(null);
+    const [selectedStatus, setSelectedStatus] = useState(null);
+    const [updateError, setUpdateError] = useState(null);
+
+    const { parkLots, fetchParkLots, parkLotError } = useAdminGetParkingLot();
 
     const handleSelectLot = (e) => {
         if (e.target.value !== "Choose..."){
@@ -17,9 +23,17 @@ function ManageParkingLotForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const chosenLot = {chosenLotID};
-        await handleParkingLotManage(chosenLot);
-        console.debug(parkLots);
+        if (chosenLot && selectedSpace && selectedStatus) {
+            try {
+                await updateParkingSpaceStatus(selectedSpace, selectedStatus);
+                alert('Parking space status updated successfully');
+                // Optionally, refresh the parking spaces or lots here if needed
+            } catch (err) {
+                setUpdateError(err.message);
+            }
+        } else {
+            alert('Please select a parking lot, space, and status');
+        }
     };
 
 
@@ -43,7 +57,7 @@ function ManageParkingLotForm() {
             <Alert data-test-id="no-park-lots-info-alert" className='mt-4' variant="info">
                 {"There are no parking lots found, come back later..."}
             </Alert>
-        )
+        );
     }
     console.info(parkLots[0].ParkingSpaces)
     console.info(parkLots)
@@ -63,9 +77,10 @@ function ManageParkingLotForm() {
                     <Form.Label>Select Status</Form.Label>
                     <Form.Control as="select" onChange={handleSelectLot} data-test-id="select-manage-parking-lot" required>
                         <option>Choose...</option>
-                        {parkLots.map((lot, index) => (
-                            <option key={index} value={JSON.stringify({ id: lot.ID, name: lot.Name })}>{lot.Name}</option>                        
-                        ))}
+                        <option value="available">Available</option>
+                        <option value="occupied">Occupied</option>
+                        <option value="blocked">Blocked</option>
+                        <option value="reserved">Reserved</option>
                     </Form.Control>
                 </Form.Group> */}
                 <Button variant="primary" type="submit" data-test-id='manage-parking-lot-submit'>
@@ -74,8 +89,8 @@ function ManageParkingLotForm() {
 
                 {/* Display error message if any */}
 
-                {parkLotError && (
-                    <Alert data-test-id="get-park-lots-error-alert" className='mt-4' variant="danger">
+            {parkLotError && (
+                <Alert data-test-id="get-park-lots-error-alert" className='mt-4' variant="danger">
                     {"Failed to get parking lots: " + parkLotError}
                     </Alert>
                 )}
@@ -84,3 +99,4 @@ function ManageParkingLotForm() {
 }
 
 export default ManageParkingLotForm;
+

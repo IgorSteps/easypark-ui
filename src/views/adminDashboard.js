@@ -4,7 +4,7 @@ import AdminNavbar from './components/admin/adminNavbar.js';
 import CreateParkingLotForm from './components/admin/createParkingLotForm.js';
 import ManageParkingLotForm from './components/admin/ManageParkingLotForm.js';
 import ParkingLotList from './components/admin/parkingLotList.js';
-import ManageParkingLotForm from './components/admin/manageParkingLotForm.js';
+import ManageParkingLotForm from './components/admin/ManageParkingLotForm.js';
 
 function AdminDashboard() {
 
@@ -45,23 +45,6 @@ function AdminDashboard() {
                 <ParkingLotList />
                 <Button className="mt-4 mb-4" variant="primary" onClick={handleShowManageParkLotModal} data-test-id='manage-park-lot-btn'>
                     Manage Parking Spaces
-                </Button>
-                <Modal show={showManageParkLotModal} onHide={handleCloseManageParkLotModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Manage Parking Lot</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <ManageParkingLotForm />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleCloseManageParkLotModal} data-test-id='manage-park-lot-close-btn'>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-                {" "}
-                <Button className="mt-4 mb-4" variant="primary" onClick={handleShowManageParkLotModal} data-test-id='manage-park-lot-btn'>
-                    Manage Parking Lot
                 </Button>
                 <Modal show={showManageParkLotModal} onHide={handleCloseManageParkLotModal}>
                     <Modal.Header closeButton>

@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import { Card, Button, Alert, Row, Col, Collapse } from 'react-bootstrap';
 import useDeleteParkingLot from '../../../controllers/useDeleteParkingLot.js';
-import GraphicalParkingLotModal from './parkingLotModal.js';
+import GraphicalParkingLotModal from './graphicalParkingLotModal.js';
 
 function ParkingLot({parkingLot, dataTestID}) {
 

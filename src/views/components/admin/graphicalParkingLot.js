@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { Row, Col, Container, Card, Tooltip, OverlayTrigger  } from 'react-bootstrap';
 
 function GraphicalParkingLot({ ParkingSpaces }) {
-
-    console.debug(ParkingSpaces)
-
-
     // TODO: Move to models
     const getStatus = (parkingSpace) => {
         const currentTime = new Date(); // Now

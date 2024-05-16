@@ -54,7 +54,7 @@ function ParkingLot({parkingLot, dataTestID}) {
                     )}
 
                     {deleteParkLotResponse && (
-                        <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-delete-error-alert`}  dismissible>
+                        <Alert className='mt-2' variant='success' data-test-id={`${dataTestID}-delete-success-alert`}  dismissible>
                         {"Successfully deleted parking lot"}
                         </Alert>
                     )}

@@ -4,8 +4,6 @@ import useAdminGetParkingLots from '../../../controllers/useAdminGetParkingLot.j
 
 function ManageParkingLotForm() {
     const [chosenLotID, setChosenLotID] = useState('');
-
-    const { ManageParkLot,handleParkingLotManage, error } = useManageParkingLot();
     const { parkLots, fetchParkLots, parkLotError } = useAdminGetParkingLots();
 
     const handleSelectLot = (e) => {
@@ -21,7 +19,7 @@ function ManageParkingLotForm() {
         event.preventDefault();
         const chosenLot = {chosenLotID};
         await handleParkingLotManage(chosenLot);
-        console.debug(ManageParkLot);
+        console.debug(parkLots);
     };
 
 
@@ -47,12 +45,13 @@ function ManageParkingLotForm() {
             </Alert>
         )
     }
-
+    console.info(parkLots[0].ParkingSpaces)
+    console.info(parkLots)
     return (
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formParkingLot">
                     <Form.Label>Select Parking Lot</Form.Label>
-                    <Form.Control as="select" onChange={handleSelectLot} data-test-id="select-manage-parking-lot" required>
+                    <Form.Control as="select" onChange={handleSelectLot} data-test-id="select-delete-parking-lot" required>
                         <option>Choose...</option>
                         {parkLots.map((lot, index) => (
                             <option key={index} value={JSON.stringify({ id: lot.ID, name: lot.Name })}>{lot.Name}</option>                        
@@ -60,17 +59,7 @@ function ManageParkingLotForm() {
                     </Form.Control>
                 </Form.Group>
                 <br></br>
-                <Form.Group controlId="formParkingSpace">
-                    <Form.Label>Select Parking Space</Form.Label>
-                    <Form.Control as="select" onChange={handleSelectLot} data-test-id="select-manage-parking-lot" required>
-                        <option>Choose...</option>
-                        {parkLots.map((lot, index) => (
-                            <option key={index} value={JSON.stringify({ id: lot.ID, name: lot.Name })}>{lot.Name}</option>                        
-                        ))}
-                    </Form.Control>
-                </Form.Group>
-                <br></br>
-                <Form.Group controlId="formParkingSpace">
+                {/* <Form.Group controlId="formParkingSpace">
                     <Form.Label>Select Status</Form.Label>
                     <Form.Control as="select" onChange={handleSelectLot} data-test-id="select-manage-parking-lot" required>
                         <option>Choose...</option>
@@ -78,7 +67,7 @@ function ManageParkingLotForm() {
                             <option key={index} value={JSON.stringify({ id: lot.ID, name: lot.Name })}>{lot.Name}</option>                        
                         ))}
                     </Form.Control>
-                </Form.Group>
+                </Form.Group> */}
                 <Button variant="primary" type="submit" data-test-id='manage-parking-lot-submit'>
                     Confirm
                 </Button>
@@ -94,4 +83,4 @@ function ManageParkingLotForm() {
     );
 }
 
-export default manageParkingLotForm;
+export default ManageParkingLotForm;

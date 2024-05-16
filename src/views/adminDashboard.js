@@ -3,6 +3,7 @@ import { Button, Container, Modal } from 'react-bootstrap';
 import AdminNavbar from './components/admin/adminNavbar.js';
 import DeleteParkingLotForm from './components/admin/deleteParkingLotForm.js';
 import CreateParkingLotForm from './components/admin/createParkingLotForm.js';
+import ManageParkingLotForm from './components/admin/manageParkingLotForm.js';
 
 function AdminDashboard() {
 
@@ -65,7 +66,7 @@ function AdminDashboard() {
                         <Modal.Title>Manage Parking Lot</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <manageParkingLotForm />
+                        <ManageParkingLotForm />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseManageParkLotModal} data-test-id='manage-park-lot-close-btn'>

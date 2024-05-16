@@ -3,7 +3,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import useCreateParkingRequest from '../../controllers/useCreateParkingRequest.js';
-import useGetParkingLots from '../../controllers/useGetParkingLot.js';
+import useGetParkingLotsForDriver from '../../controllers/useGetParkingLotsForDriver.js';
 
 function ParkingRequestForm() {
     const [destinationLotID, setDestinationLotID] = useState('');
@@ -12,7 +12,7 @@ function ParkingRequestForm() {
     const [endTime, setEndTime] = useState(new Date());
 
     const { createRequest, parkReq, error } = useCreateParkingRequest();
-    const { parkLots, fetchParkLots, parkLotError } = useGetParkingLots();
+    const { parkLots, fetchParkLotsForDriver, parkLotError } = useGetParkingLotsForDriver();
 
     // Parse lot name and id.
     const handleSelectLot = (e) => {
@@ -28,7 +28,7 @@ function ParkingRequestForm() {
     };
 
     useEffect(() => {
-        fetchParkLots();
+        fetchParkLotsForDriver();
     }, []);
 
     if (parkLots.length === 0) {
@@ -57,7 +57,7 @@ function ParkingRequestForm() {
                     selected={startTime} 
                     onChange={date => setStartTime(date)}
                     showTimeSelect 
-                    dateFormat="yyyy-MM-dd'T'HH:mm:ss"
+                    dateFormat="yyyy-MM-dd' 'HH:mm:ss"
                     timeFormat="HH:mm"
                 />
             </Form.Group>

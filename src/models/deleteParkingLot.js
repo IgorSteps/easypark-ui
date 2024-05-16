@@ -1,15 +1,9 @@
 import axios from 'axios';
 
-export async function deleteParkingLot(chosenLot) {
+export async function deleteParkingLot(id) {
   try {
-    console.debug(`lotID = ${chosenLot.chosenLotID}`)
-      if (chosenLot.chosenLotID === '' || chosenLot.chosenLotID === undefined) {
-        console.warn("got empty ID or name for destination parking lot")
-        throw new Error('Please choose destination')
-      }
-      const response = await axios.delete(process.env.BASE_API_URL+`/parking-lots/${chosenLot.chosenLotID}`,{
+      const response = await axios.delete(process.env.BASE_API_URL+`/parking-lots/${id}`,{
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       });
@@ -24,7 +18,7 @@ export async function deleteParkingLot(chosenLot) {
         throw new Error('No healthy upstream');
     } else{
         console.error("Failed to set up request to delete parking lot", error.message);
-        throw new Error("An error occured");
+        throw new Error("An error occurred");
     }
   }
 }

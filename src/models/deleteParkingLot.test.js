@@ -23,15 +23,14 @@ describe('Delete parking lot model', () => {
     // ASSEMBLE
     // --------
     var mock = new MockAdapter(axios);
-    const lotID = "1234";
-    const lotInfo = {chosenLotID:"1234"};
+    const lotID = "123"
     let responseData = {message:"Successfully deleted parking lot"};
-    mock.onDelete(`${process.env.BASE_API_URL}/parking-lots/${lotInfo.chosenLotID}`).reply(200, responseData);
+    mock.onDelete(`${process.env.BASE_API_URL}/parking-lots/${lotID}`).reply(200, responseData);
     
     // ----
     // ACT
     // ----
-    const deleteParkingLotResult = await deleteParkingLot(lotInfo);
+    const deleteParkingLotResult = await deleteParkingLot(lotID);
 
     // ------
     // ASSERT

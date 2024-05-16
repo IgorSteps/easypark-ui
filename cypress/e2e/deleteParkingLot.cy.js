@@ -24,7 +24,7 @@ describe('Delete Parking Lot Form', () => {
       // ------
       // ASSERT
       // ------
-      cy.get('[data-test-id=parking-lot-0-delete-success-alert]').should('contain', 'Successfully deleted parking lot');
+      cy.get('[data-test-id=no-parking-lots-alert]').should('contain', 'No parking lots');
     });
   });
   

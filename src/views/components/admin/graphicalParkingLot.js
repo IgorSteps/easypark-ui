@@ -34,46 +34,40 @@ function GraphicalParkingLot({ ParkingSpaces }) {
         available: 'success'
     };
 
-    // Determine the number of columns and card size based on the number of spaces
-    // TODO: Play with these settings
-    const calculateLayout = (count) => {
-        if (count <= 50) {
-          return { cols: 5, size: '100px'};
-        } else if (count <= 100) {
-          return { cols: 10, size: '80px' };
-        } else if (count <= 300) {
-          return { cols: 15, size: '60px' };
-        } else if (count <= 500) {
-          return { cols: 20, size: '50px' };
-        } else {
-          return { cols: 25, size: '40px' };
-        }
-    };
-    const layout = calculateLayout(ParkingSpaces.length)
-
+    // // Determine the number of columns and card size based on the number of spaces
+    // // TODO: Play with these settings
+    // const calculateLayout = (count) => {
+    //     if (count <= 50) {
+    //       return { cols: 5, size: '100px'};
+    //     } else if (count <= 100) {
+    //       return { cols: 10, size: '80px' };
+    //     } else if (count <= 300) {
+    //       return { cols: 15, size: '60px' };
+    //     } else if (count <= 500) {
+    //       return { cols: 20, size: '50px' };
+    //     } else {
+    //       return { cols: 25, size: '40px' };
+    //     }
+    // };
+    // const layout = calculateLayout(ParkingSpaces.length)
+    const showTooltip = (space, status) => (
+        <Tooltip id={`tooltip-${space.ID}`}>
+            <strong>{space.Name}</strong>
+            <br />
+            Status: {status}
+        </Tooltip>
+    )
+    
     return (
-        <Container fluid>
-            <Row xs={layout.cols}>
+        <Container >
+            <Row xs={10}>
 
                 {ParkingSpaces.map(space => {
-
                     const status = getStatus(space);
                     return (
-                        <Col key={space.ID} className="mb-3">
-
-                            <OverlayTrigger
-                                placement="top"
-                                overlay={
-                                    <Tooltip id={`tooltip-${space.ID}`}>
-                                        <strong>{space.Name}</strong><br />
-                                        Status: {status.charAt(0).toUpperCase() + status.slice(1)}
-                                    </Tooltip>
-                                    }
-                            >
-                                <Card bg={colorMap[status]} style={{ height: '30px', width: '30px', cursor: 'pointer' }}>
-                                    <Card.Body className="p-2" />
-                                </Card>
-
+                        <Col key={space.ID}>
+                            <OverlayTrigger placement="top" overlay= {showTooltip(space, status)} >
+                                <Card bg={colorMap[status]} style={{ height: '30px', width: '30px', cursor: 'pointer' }} />
                             </OverlayTrigger>
                         </Col>
                     );

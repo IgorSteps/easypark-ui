@@ -39,7 +39,7 @@ function ParkingLot({parkingLot, dataTestID}) {
                     </Card.Text>
                    
                 
-                    <Button variant="danger" onClick={handleDelete} data-test-id={`${dataTestID}-delete-btn`}>
+                    <Button className='me-2' variant="danger" onClick={handleDelete} data-test-id={`${dataTestID}-delete-btn`}>
                         Remove
                     </Button>
 

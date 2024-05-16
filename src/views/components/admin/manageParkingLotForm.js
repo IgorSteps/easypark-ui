@@ -3,15 +3,17 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import useAdminGetParkingLots from '../../../controllers/useAdminGetParkingLot.js';
 
 function ManageParkingLotForm() {
-    const [chosenLotID, setChosenLotID] = useState('');
+    const [chosenLot, setChosenLot] = useState(null);
+
     const { parkLots, fetchParkLots, parkLotError } = useAdminGetParkingLots();
 
     const handleSelectLot = (e) => {
         if (e.target.value !== "Choose..."){
-            const selectedValue = JSON.parse(e.target.value);
-            setChosenLotID(selectedValue.id);
+           // const selectedValue = JSON.parse(e.target.value);
+            console.info(e.target.value)
+            setChosenLot(e.target.value);
         } else{
-            setChosenLotID("Invalid");
+            setChosenLot("Invalid");
         }
     };
 
@@ -54,11 +56,12 @@ function ManageParkingLotForm() {
                     <Form.Control as="select" onChange={handleSelectLot} data-test-id="select-delete-parking-lot" required>
                         <option>Choose...</option>
                         {parkLots.map((lot, index) => (
-                            <option key={index} value={JSON.stringify({ id: lot.ID, name: lot.Name })}>{lot.Name}</option>                        
+                            <option key={index} value={lot}>{lot.Name}</option>                        
                         ))}
                     </Form.Control>
                 </Form.Group>
                 <br></br>
+
                 {/* <Form.Group controlId="formParkingSpace">
                     <Form.Label>Select Status</Form.Label>
                     <Form.Control as="select" onChange={handleSelectLot} data-test-id="select-manage-parking-lot" required>

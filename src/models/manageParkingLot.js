@@ -40,4 +40,4 @@ export async function updateParkingSpaceStatus(parkingSpaceID, status) {
             throw new Error("An error occurred");
         }
     }
-}
+}//No implementation yet

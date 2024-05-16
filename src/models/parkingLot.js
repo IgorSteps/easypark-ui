@@ -1,6 +1,29 @@
 import axios from 'axios';
 
-export async function getAllParkingLots() {
+export async function getAllParkingLotsForAdmin() {
+  try {
+    const response = await axios.get(process.env.BASE_API_URL+`/parking-lots`, {
+      headers: {
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      console.error('Failed to get all parking lots for admin', error.response);
+      throw new Error(error.response.data || 'an error occurred')
+    } else if (error.request) {
+      console.error('Didnt receive response after making request get all parking lots for admin', error.request);
+      throw new Error('an error occurred')
+    } else {
+      console.log('Failed to setup request to get all parking lots for admin', error.message);
+      throw new Error('an error occurred')
+    }
+  }
+}
+
+export async function getAllParkingLotsForDriver() {
   try {
     const response = await axios.get(process.env.BASE_API_URL+`/driver-parking-lots`, {
       headers: {
@@ -11,13 +34,13 @@ export async function getAllParkingLots() {
     return response.data;
   } catch (error) {
     if (error.response) {
-      console.error('Failed to get all parking lots', error.response);
+      console.error('Failed to get all parking lots for driver', error.response);
       throw new Error(error.response.data || 'an error occurred')
     } else if (error.request) {
-      console.error('Didnt receive response after making request get all parking lots', error.request);
+      console.error('Didnt receive response after making request get all parking lots for driver', error.request);
       throw new Error('an error occurred')
     } else {
-      console.log('Failed to setup request to get all parking lots', error.message);
+      console.log('Failed to setup request to get all parking lots for driver', error.message);
       throw new Error('an error occurred')
     }
   }

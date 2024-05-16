@@ -9,15 +9,25 @@ function ParkingLot({parkingLot, dataTestID}) {
         <>
             <Card className="mb-3" data-test-id={`${dataTestID}-card`}> 
                 <Card.Header as="h5" data-test-id={`${dataTestID}-header`}>{parkingLot.Name}</Card.Header>
+                
                 <Card.Body>
                     <Card.Text data-test-id={`${dataTestID}-lot-name`}>
                         <strong>Capacity:</strong> {parkingLot.Capacity}
                     </Card.Text>
-                    <Card.Text data-test-id={`${dataTestID}-start-time`}>
-                        <strong>Parking Spaces:</strong> {FormatDateTime(parkingLot.PakringSpaces)}
+                    <Card.Text data-test-id={`${dataTestID}-available`}>
+                        <strong>Available:</strong> {parkingLot.Available}
                     </Card.Text>
-                    <Row>
-                    </Row>
+                    <Card.Text data-test-id={`${dataTestID}-occupied`}>
+                        <strong>Occupied:</strong> {parkingLot.Occupied}
+                    </Card.Text>
+                    <Card.Text data-test-id={`${dataTestID}-occupied`}>
+                        <strong>Reserved:</strong> {parkingLot.Reserved}
+                    </Card.Text>
+                    <Card.Text data-test-id={`${dataTestID}-occupied`}>
+                        <strong>Blocked:</strong> {parkingLot.Blocked}
+                    </Card.Text>
+                   
+                   
                 </Card.Body>
             </Card>
         </>

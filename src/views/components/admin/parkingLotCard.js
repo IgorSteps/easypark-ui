@@ -44,7 +44,7 @@ function ParkingLot({parkingLot, fetch, dataTestID}) {
                         Remove
                     </Button>
 
-                    <Button variant='primary' onClick={handleShowGraphicModal}>
+                    <Button variant='primary' onClick={handleShowGraphicModal} data-test-id={`${dataTestID}-show-details-btn`}>
                         Show Parking Spaces
                     </Button>
 

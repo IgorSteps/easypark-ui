@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import useAdminGetParkingLot from '../../../controllers/useAdminGetParkingLot.js';
-import { updateParkingSpaceStatus } from '../../src/models/manageParkingLot.js'; 
+import { updateParkingSpaceStatus } from '../../../models/manageParkingLot.js'; 
 
 function ManageParkingLotForm() {
     const [chosenLot, setChosenLot] = useState(null);

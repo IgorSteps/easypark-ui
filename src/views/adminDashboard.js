@@ -10,16 +10,11 @@ function AdminDashboard() {
     const handleCloseCreateParkLotModal = () => setShowCreateParkLotModal(false);
     const handleShowCreateParkLotModal = () => setShowCreateParkLotModal(true);
 
-    const [showDeleteParkLotModal, setShowDeleteParkLotModal] = useState(false);
-    const handleCloseDeleteParkLotModal = () => setShowDeleteParkLotModal(false);
-    const handleShowDeleteParkLotModal = () => setShowDeleteParkLotModal(true);
-
-
     return (
         <>       
             <AdminNavbar />
             <Container className="mt-4">
-            <Button className="mt-4 mb-4" variant="primary" onClick={handleShowCreateParkLotModal} data-test-id='create-park-lot-btn'>
+            <Button className="mb-4" variant="primary" onClick={handleShowCreateParkLotModal} data-test-id='create-park-lot-btn'>
                     Create Parking Lot
                 </Button>
                 <Modal show={showCreateParkLotModal} onHide={handleCloseCreateParkLotModal}>

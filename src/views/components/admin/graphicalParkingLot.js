@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Container, Card, Tooltip, OverlayTrigger  } from 'react-bootstrap';
+import { Row, Col, Container, Card, Tooltip, OverlayTrigger , Button } from 'react-bootstrap';
 
 function GraphicalParkingLot({ ParkingSpaces }) {
     // TODO: Move to models
@@ -34,39 +34,44 @@ function GraphicalParkingLot({ ParkingSpaces }) {
         available: 'success'
     };
 
-    // // Determine the number of columns and card size based on the number of spaces
-    // // TODO: Play with these settings
-    // const calculateLayout = (count) => {
-    //     if (count <= 50) {
-    //       return { cols: 5, size: '100px'};
-    //     } else if (count <= 100) {
-    //       return { cols: 10, size: '80px' };
-    //     } else if (count <= 300) {
-    //       return { cols: 15, size: '60px' };
-    //     } else if (count <= 500) {
-    //       return { cols: 20, size: '50px' };
-    //     } else {
-    //       return { cols: 25, size: '40px' };
-    //     }
-    // };
-    // const layout = calculateLayout(ParkingSpaces.length)
-    const showTooltip = (space, status) => (
+    const showSpaceTooltip = (space, status) => (
         <Tooltip id={`tooltip-${space.ID}`}>
             <strong>{space.Name}</strong>
             <br />
             Status: {status}
         </Tooltip>
     )
+
+    const showColourMapTooltip = (props) => (
+        <Tooltip  {...props}>
+            {Object.keys(colorMap).map((status, index) => {
+                    return (
+                        <Card key={index} className='mb-2' bg={colorMap[status].toLowerCase()} >
+                            <Card.Text>{status}</Card.Text>
+                        </Card>
+                    )
+                })}
+        </Tooltip>
+    )
     
     return (
-        <Container >
-            <Row xs={10}>
+        <Container>
+            
+            <OverlayTrigger
+                placement="right"
+                overlay={showColourMapTooltip}
+            >
+                <Button variant="primary">Hover to see what colours mean</Button>
+            </OverlayTrigger>
+
+            
+            <Row xs={10} className='mt-2'>
 
                 {ParkingSpaces.map(space => {
                     const status = getStatus(space);
                     return (
                         <Col key={space.ID}>
-                            <OverlayTrigger placement="top" overlay= {showTooltip(space, status)} >
+                            <OverlayTrigger placement="top" overlay= {showSpaceTooltip(space, status)} >
                                 <Card bg={colorMap[status]} style={{ height: '30px', width: '30px', cursor: 'pointer' }} />
                             </OverlayTrigger>
                         </Col>

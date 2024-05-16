@@ -14,6 +14,10 @@ function AdminDashboard() {
     const handleCloseDeleteParkLotModal = () => setShowDeleteParkLotModal(false);
     const handleShowDeleteParkLotModal = () => setShowDeleteParkLotModal(true);
 
+    const [showManageParkLotModal, setShowManageParkLotModal] = useState(false);
+    const handleCloseManageParkLotModal = () => setShowManageParkLotModal(false);
+    const handleShowManageParkLotModal = () => setShowManageParkLotModal(true);
+
 
     return (
 <>
@@ -48,6 +52,23 @@ function AdminDashboard() {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseDeleteParkLotModal} data-test-id='delete-park-lot-close-btn'>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                {" "}
+                <Button className="mt-4 mb-4" variant="primary" onClick={handleShowManageParkLotModal} data-test-id='manage-park-lot-btn'>
+                    Manage Parking Lot
+                </Button>
+                <Modal show={showManageParkLotModal} onHide={handleCloseManageParkLotModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Manage Parking Lot</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <manageParkingLotForm />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseManageParkLotModal} data-test-id='manage-park-lot-close-btn'>
                             Close
                         </Button>
                     </Modal.Footer>

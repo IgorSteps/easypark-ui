@@ -34,7 +34,7 @@ function ParkingLotList() {
    
     return (
         parkLots.map((lot, index) => (
-                <ParkingLot key={index} parkingLot={lot} dataTestID={`parking-lot-${index}`} data-test-id={`parking-lot-${index}`}/>
+                <ParkingLot key={index} parkingLot={lot} dataTestID={`parking-lot-${index}`} data-test-id={`parking-lot-${index}`} fetch={fetchParkLotsForAdmin}/>
         ))
     )
 }

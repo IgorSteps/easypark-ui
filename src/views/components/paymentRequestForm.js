@@ -53,7 +53,7 @@ function PaymentRequestForm() {
                 <Form.Control type="text" placeholder="Enter card verification code" value={CVC} onChange={(e) => setCVC(e.target.value)} data-test-id="cvc-input" required/>
             </Form.Group>
             
-            <Button variant="primary" type="submit" data-test-id='pay-req-submit'>
+            <Button className='mt-2' variant="primary" type="submit" data-test-id='pay-req-submit'>
                 Submit
             </Button>
 

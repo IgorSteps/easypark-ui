@@ -3,12 +3,13 @@ import { Card, Button, Alert, Row, Col, Collapse } from 'react-bootstrap';
 import useDeleteParkingLot from '../../../controllers/useDeleteParkingLot.js';
 import GraphicalParkingLotModal from './graphicalParkingLotModal.js';
 
-function ParkingLot({parkingLot, dataTestID}) {
+function ParkingLot({parkingLot, fetch, dataTestID}) {
 
     const { deleteParkLotResponse, handleParkingLotDeletion, error } = useDeleteParkingLot();
     const handleDelete = async (event) => {
         event.preventDefault();
         await handleParkingLotDeletion(parkingLot.ID);
+        fetch();
     };
 
     const [showGraphic, setShowGraphic] = useState(false)

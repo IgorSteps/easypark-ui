@@ -32,6 +32,7 @@ describe('Register User model', () => {
     // --------
     var mock = new MockAdapter(axios);
     const errorMessage = 'boom';
+    const error = { response: { data: errorMessage } };
     let userDetails = { firstname:'test2', lastname: 'test3', username:'testuser', password: 'testpassword2' };
     mock.onPost(`${process.env.BASE_API_URL}/register`, userDetails).reply(400, errorMessage);
     

@@ -7,7 +7,9 @@ import AdminLoginForm from './views/components/admin/adminLoginForm.js';
 import AdminDashboard from './views/adminDashboard.js';
 import AdminParkingRequests from './views/adminParkingRequests.js';
 import AdminAlerts from './views/adminAlerts.js';
+import AdminNotifications from './views/adminNotifications.js';
 import {DriverFAQPage, AdminFAQPage} from './views/faqPage.js';
+import ManageDrivers from './views/ManageDrivers.js';
 
 function App() {
   return (
@@ -21,8 +23,10 @@ function App() {
             <Route path="/admin-dashboard" element={<AdminDashboard />} />   
             <Route path="/admin-parking-requests" element={<AdminParkingRequests />} />
             <Route path="/alerts" element={<AdminAlerts />} />
+            <Route path="/notifications" element={<AdminNotifications />} />
             <Route path='/faq' element={<DriverFAQPage />} /> 
             <Route path='/admin-faq' element={<AdminFAQPage />} /> 
+            <Route path='/manage-drivers' element={<ManageDrivers />} /> 
         </Routes>
     </BrowserRouter>
   );

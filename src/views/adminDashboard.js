@@ -14,7 +14,6 @@ function AdminDashboard() {
     const handleCloseDeleteParkLotModal = () => setShowDeleteParkLotModal(false);
     const handleShowDeleteParkLotModal = () => setShowDeleteParkLotModal(true);
 
-
     return (
 <>
             <AdminNavbar />

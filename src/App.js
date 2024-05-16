@@ -9,6 +9,7 @@ import AdminParkingRequests from './views/adminParkingRequests.js';
 import AdminAlerts from './views/adminAlerts.js';
 import AdminNotifications from './views/adminNotifications.js';
 import {DriverFAQPage, AdminFAQPage} from './views/faqPage.js';
+import ManageDrivers from './views/ManageDrivers.js';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/notifications" element={<AdminNotifications />} />
             <Route path='/faq' element={<DriverFAQPage />} /> 
             <Route path='/admin-faq' element={<AdminFAQPage />} /> 
+            <Route path='/manage-drivers' element={<ManageDrivers />} /> 
         </Routes>
     </BrowserRouter>
   );

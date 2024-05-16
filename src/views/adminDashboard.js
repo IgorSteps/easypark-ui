@@ -2,19 +2,14 @@ import React, { useState } from 'react';
 import { Button, Container, Modal } from 'react-bootstrap';
 import AdminNavbar from './components/admin/adminNavbar.js';
 import CreateParkingLotForm from './components/admin/createParkingLotForm.js';
-import ManageParkingLotForm from './components/admin/ManageParkingLotForm.js';
 import ParkingLotList from './components/admin/parkingLotList.js';
-import ManageParkingLotForm from './components/admin/ManageParkingLotForm.js';
+import ManageParkingLotForm from './components/admin/manageParkingLotForm.js';
 
 function AdminDashboard() {
 
     const [showCreateParkLotModal, setShowCreateParkLotModal] = useState(false);
     const handleCloseCreateParkLotModal = () => setShowCreateParkLotModal(false);
     const handleShowCreateParkLotModal = () => setShowCreateParkLotModal(true);
-
-    const [showDeleteParkLotModal, setShowDeleteParkLotModal] = useState(false);
-    const handleCloseDeleteParkLotModal = () => setShowDeleteParkLotModal(false);
-    const handleShowDeleteParkLotModal = () => setShowDeleteParkLotModal(true);
 
     const [showManageParkLotModal, setShowManageParkLotModal] = useState(false);
     const handleCloseManageParkLotModal = () => setShowManageParkLotModal(false);
@@ -43,23 +38,6 @@ function AdminDashboard() {
                 </Modal>
                 
                 <ParkingLotList />
-                <Button className="mt-4 mb-4" variant="primary" onClick={handleShowManageParkLotModal} data-test-id='manage-park-lot-btn'>
-                    Manage Parking Spaces
-                </Button>
-                <Modal show={showManageParkLotModal} onHide={handleCloseManageParkLotModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Manage Parking Lot</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <ManageParkingLotForm />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleCloseManageParkLotModal} data-test-id='manage-park-lot-close-btn'>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-                {" "}
             </Container>
         </>
     )

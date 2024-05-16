@@ -39,5 +39,7 @@ describe('Message Driver Form', () => {
             // ---------
             cy.get(`[data-test-id='message-${index}-sent-ctn']`).should('contain', msg)
         })
+        cy.get(`[data-test-id="chat-modal-close-btn"]`).click()
+
     });
 });

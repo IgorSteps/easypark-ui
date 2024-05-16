@@ -4,6 +4,7 @@ import AdminNavbar from './components/admin/adminNavbar.js';
 import CreateParkingLotForm from './components/admin/createParkingLotForm.js';
 import ManageParkingLotForm from './components/admin/ManageParkingLotForm.js';
 import ParkingLotList from './components/admin/parkingLotList.js';
+import ManageParkingLotForm from './components/admin/manageParkingLotForm.js';
 
 function AdminDashboard() {
 
@@ -67,7 +68,7 @@ function AdminDashboard() {
                         <Modal.Title>Manage Parking Lot</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <manageParkingLotForm />
+                        <ManageParkingLotForm />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseManageParkLotModal} data-test-id='manage-park-lot-close-btn'>

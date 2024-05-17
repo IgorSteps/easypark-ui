@@ -7,7 +7,7 @@ function GraphicalParkingLot({ ParkingSpaces }) {
         const currentTime = new Date(); // Now
 
         // Check if the space is reserved or blocked and should remain so regardless of time
-        if (parkingSpace.Status === 'blocked' || parkingSpace.Status === 'reserved' || parkingSpace.Status === 'occupied') {
+        if (parkingSpace.Status === 'blocked' || parkingSpace.Status === 'reserved') {
             return parkingSpace.Status;
         }
         if (parkingSpace.ParkingRequests === null ){

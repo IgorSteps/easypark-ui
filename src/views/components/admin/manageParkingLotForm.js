@@ -32,7 +32,7 @@ function ManageParkingLotForm({ parkingSpaces }) {
                 if (response.error) {
                     throw new Error(response.error);
                 }
-                setUpdateSuccess('Parking space status updated successfully');
+                setUpdateSuccess('Successfully updated parking space status');
             } catch (err) {
                 setUpdateError(err.message);
             }
@@ -57,7 +57,6 @@ function ManageParkingLotForm({ parkingSpaces }) {
                 <Form.Control as="select" onChange={handleSelectStatus} data-test-id="select-manage-parking-status" required>
                     <option>Choose...</option>
                     <option value="available">Available</option>
-                    <option value="occupied">Occupied</option>
                     <option value="blocked">Blocked</option>
                     <option value="reserved">Reserved</option>
                 </Form.Control>
@@ -68,7 +67,7 @@ function ManageParkingLotForm({ parkingSpaces }) {
             </Button>
             {updateError && (
                 <Alert data-test-id="update-error-alert" className='mt-4' variant="danger">
-                    {updateError}
+                    {"Failed to update parking space status: " + updateError}
                 </Alert>
             )}
             {updateSuccess && (

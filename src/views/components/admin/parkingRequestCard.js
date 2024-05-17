@@ -77,7 +77,7 @@ function ParkingRequest({fetch, parkingRequest, dataTestID}) {
                         </div>
                     </Collapse>
                    
-                        {parkingRequest.Status !== 'approved' && parkingRequest.Status !== 'rejected' &&
+                        {parkingRequest.Status !== 'approved' && parkingRequest.Status !== 'rejected' &&  parkingRequest.Status !== 'active' && parkingRequest.Status !== 'completed' &&
                             <Row className='mt-2' md='auto'>
                             <>
                                 <Col>

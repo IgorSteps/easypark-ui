@@ -35,8 +35,6 @@ export default function CreateParkingLotForm() {
               placeholder="Enter capacity" 
               value={capacity} 
               onChange={(e) => setCapacity(e.target.value)} 
-              min={30}
-              max={1000}
               required 
               data-test-id="lot-capacity-input"
             />

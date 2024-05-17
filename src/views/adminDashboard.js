@@ -3,18 +3,12 @@ import { Button, Container, Modal } from 'react-bootstrap';
 import AdminNavbar from './components/admin/adminNavbar.js';
 import CreateParkingLotForm from './components/admin/createParkingLotForm.js';
 import ParkingLotList from './components/admin/parkingLotList.js';
-import ManageParkingLotForm from './components/admin/manageParkingLotForm.js';
 
 function AdminDashboard() {
 
     const [showCreateParkLotModal, setShowCreateParkLotModal] = useState(false);
     const handleCloseCreateParkLotModal = () => setShowCreateParkLotModal(false);
     const handleShowCreateParkLotModal = () => setShowCreateParkLotModal(true);
-
-    const [showManageParkLotModal, setShowManageParkLotModal] = useState(false);
-    const handleCloseManageParkLotModal = () => setShowManageParkLotModal(false);
-    const handleShowManageParkLotModal = () => setShowManageParkLotModal(true);
-
 
     return (
         <>       

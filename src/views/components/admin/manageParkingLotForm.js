@@ -3,7 +3,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import useAdminGetParkingLot from '../../../controllers/useAdminGetParkingLot.js';
 import { updateParkingSpaceStatus } from '../../../models/manageParkingLot.js';
 
-function ManageParkingLotForm({ parkingLotName, parkingSpaces }) {
+function ManageParkingLotForm({ parkingSpaces }) {
     const [selectedSpace, setSelectedSpace] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState(null);
     const [updateError, setUpdateError] = useState(null);

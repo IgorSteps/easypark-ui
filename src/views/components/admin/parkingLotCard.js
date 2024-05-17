@@ -2,6 +2,7 @@ import React, {useState, useCallback} from 'react';
 import { Card, Button, Alert, Row, Col, Collapse } from 'react-bootstrap';
 import useDeleteParkingLot from '../../../controllers/useDeleteParkingLot.js';
 import GraphicalParkingLotModal from './graphicalParkingLotModal.js';
+import ManageParkingSpaceModal from './ManageParkingSpaceModal.js';
 
 function ParkingLot({parkingLot, fetch, dataTestID}) {
 
@@ -15,6 +16,10 @@ function ParkingLot({parkingLot, fetch, dataTestID}) {
     const [showGraphic, setShowGraphic] = useState(false)
     const handleShowGraphicModal = () => setShowGraphic(true);
     const handleCloseGraphicModal = () => setShowGraphic(false);
+
+    const [showManage, setShowManage] = useState(false)
+    const handleCloseManageModal = () => setShowManage(false);
+    const handleShowManageModal = () => setShowManage(true);
 
 
     return (
@@ -44,8 +49,12 @@ function ParkingLot({parkingLot, fetch, dataTestID}) {
                         Remove
                     </Button>
 
-                    <Button variant='primary' onClick={handleShowGraphicModal} data-test-id={`${dataTestID}-show-details-btn`}>
+                    <Button className='me-2' onClick={handleShowGraphicModal} data-test-id={`${dataTestID}-show-details-btn`}>
                         Show Parking Spaces
+                    </Button>
+
+                    <Button variant='primary' onClick={handleShowManageModal} data-test-id={`${dataTestID}-show-manage-btn`}>
+                        Manage Parking Spaces
                     </Button>
 
                     {error && (
@@ -64,6 +73,7 @@ function ParkingLot({parkingLot, fetch, dataTestID}) {
             </Card>
 
                     <GraphicalParkingLotModal show={showGraphic} onClose={handleCloseGraphicModal}  parkingSpaces={parkingLot.ParkingSpaces} />
+                    <ManageParkingSpaceModal show={showManage} onClose={handleCloseManageModal} parkingSpaces={parkingLot.ParkingSpaces} />
 
         </>
     )

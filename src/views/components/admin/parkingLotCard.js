@@ -53,7 +53,7 @@ function ParkingLot({parkingLot, fetch, dataTestID}) {
                         Show Parking Spaces
                     </Button>
 
-                    <Button variant='primary' onClick={handleShowManageModal} data-test-id={`${dataTestID}-show-details-btn`}>
+                    <Button variant='primary' onClick={handleShowManageModal} data-test-id={`${dataTestID}-show-manage-btn`}>
                         Manage Parking Spaces
                     </Button>
 

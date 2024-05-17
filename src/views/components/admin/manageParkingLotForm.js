@@ -3,22 +3,11 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import useAdminGetParkingLot from '../../../controllers/useAdminGetParkingLot.js';
 import { updateParkingSpaceStatus } from '../../../models/manageParkingLot.js';
 
-function ManageParkingLotForm({ parkingSpaces }) {
-    const [chosenLot, setChosenLot] = useState(null);
+function ManageParkingLotForm({ parkingLotName, parkingSpaces }) {
     const [selectedSpace, setSelectedSpace] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState(null);
     const [updateError, setUpdateError] = useState(null);
-
-    const { parkLots, fetchParkLots, parkLotError } = useAdminGetParkingLot();
-
-    const handleSelectLot = (e) => {
-        if (e.target.value !== "Choose...") {
-            const selectedValue = JSON.parse(e.target.value);
-            setChosenLot(selectedValue.id);
-        } else {
-            setChosenLot("Invalid");
-        }
-    };
+    const [updateSuccess, setUpdateSuccess] = useState(null);
 
     const handleSelectSpace = (e) => {
         if (e.target.value !== "Choose...") {
@@ -38,50 +27,26 @@ function ManageParkingLotForm({ parkingSpaces }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (chosenLot && selectedSpace && selectedStatus) {
+        setUpdateError(null);
+        setUpdateSuccess(null);
+
+        if (selectedSpace && selectedStatus) {
             try {
-                await updateParkingSpaceStatus(selectedSpace, selectedStatus);
-                alert('Parking space status updated successfully');
+                const response = await updateParkingSpaceStatus(selectedSpace, selectedStatus);
+                if (response.error) {
+                    throw new Error(response.error);
+                }
+                setUpdateSuccess('Parking space status updated successfully');
             } catch (err) {
                 setUpdateError(err.message);
             }
         } else {
-            alert('Please select a parking lot, space, and status');
+            setUpdateError('Please select a space and status');
         }
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await fetchParkLots();
-        };
-
-        fetchData();
-
-        const intervalId = setInterval(fetchData, 5000);
-
-        return () => clearInterval(intervalId);
-    }, []);
-
-    if (parkLots.length === 0) {
-        return (
-            <Alert data-test-id="no-park-lots-info-alert" className='mt-4' variant="info">
-                {"There are no parking lots found, come back later..."}
-            </Alert>
-        );
-    }
-
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formParkingLot">
-                <Form.Label>Select Parking Lot</Form.Label>
-                <Form.Control as="select" onChange={handleSelectLot} data-test-id="select-delete-parking-lot" required>
-                    <option>Choose...</option>
-                    {parkLots.map((lot, index) => (
-                        <option key={index} value={JSON.stringify({ id: lot.ID, name: lot.Name })}>{lot.Name}</option>
-                    ))}
-                </Form.Control>
-            </Form.Group>
-            <br />
             <Form.Group controlId="formParkingSpace">
                 <Form.Label>Select Parking Space</Form.Label>
                 <Form.Control as="select" onChange={handleSelectSpace} data-test-id="select-manage-parking-space" required>
@@ -112,9 +77,9 @@ function ManageParkingLotForm({ parkingSpaces }) {
                     {updateError}
                 </Alert>
             )}
-            {parkLotError && (
-                <Alert data-test-id="get-park-lots-error-alert" className='mt-4' variant="danger">
-                    {"Failed to get parking lots: " + parkLotError}
+            {updateSuccess && (
+                <Alert data-test-id="update-success-alert" className='mt-4' variant="success">
+                    {updateSuccess}
                 </Alert>
             )}
         </Form>

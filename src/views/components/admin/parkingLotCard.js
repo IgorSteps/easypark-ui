@@ -73,7 +73,7 @@ function ParkingLot({parkingLot, fetch, dataTestID}) {
             </Card>
 
                     <GraphicalParkingLotModal show={showGraphic} onClose={handleCloseGraphicModal}  parkingSpaces={parkingLot.ParkingSpaces} />
-                    <ManageParkingSpaceModal show={showManage} onClose={handleCloseManageModal}  parkingSpaces={parkingLot.ParkingSpaces} />
+                    <ManageParkingSpaceModal show={showManage} onClose={handleCloseManageModal} parkingLotName={parkingLot.Name} parkingSpaces={parkingLot.ParkingSpaces} />
 
         </>
     )
